@@ -1,0 +1,4 @@
+ToolSet: w64 6.0 (local)@C:\Users\Huawei\Documents\HSE\2_year\Технологии программирования\BattleCity\MinGW\mingw64
+Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=C:/Users/Huawei/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/213.6461.75/bin/ninja/win/ninja.exe

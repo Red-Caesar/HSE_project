@@ -1,0 +1,3 @@
+C:/Users/Huawei/Documents/HSE/2_year/Технологии программирования/BattleCity/HSE_project/cmake-build-debug/CMakeFiles/game.dir
+C:/Users/Huawei/Documents/HSE/2_year/Технологии программирования/BattleCity/HSE_project/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Huawei/Documents/HSE/2_year/Технологии программирования/BattleCity/HSE_project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
