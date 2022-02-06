@@ -2,7 +2,14 @@
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
-
+class Tank{
+public:
+    float speed;
+    float hp;
+private:
+    void fire();
+    void Collision();
+};
 int main()
 {
 	// Объект, который, собственно, является главным окном приложения
