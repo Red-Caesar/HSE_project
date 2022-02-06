@@ -21,7 +21,7 @@ int main()
 //    Texture main_tank_texture;
 //    main_tank_texture.loadFromFile("images/main_tank_forward.png");
     Texture General_Texture;
-    General_Texture.loadFromFile("images/sprite.bmp");
+    General_Texture.loadFromFile("..\\images/sprite.bmp");
 
     Sprite main_tank_sprite;
     main_tank_sprite.setTexture(General_Texture);
