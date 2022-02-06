@@ -1,3 +1,6 @@
 # ninja log v5
 4	625	6658478155460522	CMakeFiles/game.dir/main.cpp.obj	36779e37d6aedbe2
 625	804	6658478157230868	game.exe	563ef9aac0b1cf33
+1	1730	6658524695040106	build.ninja	a3c8d5b11fadf8ec
+5	581	6658524701115978	CMakeFiles/game.dir/main.cpp.obj	36779e37d6aedbe2
+584	732	6658524702587409	game.exe	563ef9aac0b1cf33
