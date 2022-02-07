@@ -17,7 +17,7 @@
 rule CXX_COMPILER__game_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = C:\Users\Huawei\DOCUME~1\HSE\2_year\A67B~1\BATTLE~1\MinGW\mingw64\bin\C__~1.EXE $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = C:\Users\NP\Documents\mingw64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -25,7 +25,7 @@ rule CXX_COMPILER__game_Debug
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__game_Debug
-  command = cmd.exe /C "$PRE_LINK && C:\Users\Huawei\DOCUME~1\HSE\2_year\A67B~1\BATTLE~1\MinGW\mingw64\bin\C__~1.EXE $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\Users\NP\Documents\mingw64\bin\c++.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 
@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\Huawei\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\cmake\win\bin\cmake.exe --regenerate-during-build -S"C:\Users\Huawei\Documents\HSE\2_year\Технологии программирования\BattleCity\HSE_project" -B"C:\Users\Huawei\Documents\HSE\2_year\Технологии программирования\BattleCity\HSE_project\cmake-build-debug"
+  command = C:\Users\NP\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\cmake\win\bin\cmake.exe --regenerate-during-build -SC:\Users\NP\Documents\HSE -BC:\Users\NP\Documents\HSE\cmake-build-debug
   description = Re-running CMake...
   generator = 1
 
@@ -51,7 +51,7 @@ rule RERUN_CMAKE
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = C:\Users\Huawei\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\ninja\win\ninja.exe $FILE_ARG -t clean $TARGETS
+  command = C:\Users\NP\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\ninja\win\ninja.exe $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -59,6 +59,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = C:\Users\Huawei\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\ninja\win\ninja.exe -t targets
+  command = C:\Users\NP\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6777.58\bin\ninja\win\ninja.exe -t targets
   description = All primary targets available:
 
