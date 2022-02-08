@@ -1,20 +1,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Map.h"
 
 using namespace sf;
-class Tank{
-public:
-    float speed;
-    float hp;
-private:
-    void fire();
-    void Collision();
-};
+
 int main()
 {
 	// Объект, который, собственно, является главным окном приложения
     //Можно в параметрах прописать потом Style::fullscreen
-	RenderWindow window(VideoMode(338, 364), "Tan4iki!");
+	RenderWindow window(VideoMode(448, 416), "Tan4iki!");
 //    Image main_tank_image;
 //    main_tank_image.loadFromFile("sprites/main_tank_forward.png");
 
@@ -28,6 +22,18 @@ int main()
     main_tank_sprite.setTextureRect(IntRect(3,5,26,26));
 //    Если поставить в rectHeight минус, то танк поедет назад
     main_tank_sprite.setPosition(13,14);
+
+    Image map_image;
+    map_image.loadFromFile("..\\images/Background.png");//загружаем файл для карты
+    Texture Map_Texture;//текстура карты
+    Map_Texture.loadFromImage(map_image);
+
+//    Texture Map_Texture;
+//    Map_Texture.loadFromFile("..\\images/Background.png");
+    Sprite map_sprite;//создаём спрайт для карты
+    map_sprite.setTexture(Map_Texture);//заливаем текстуру спрайтом
+
+
     // Главный цикл приложения. Выполняется, пока открыто окно
 	while (window.isOpen())
 	{
@@ -46,7 +52,25 @@ int main()
 
         }
         window.clear();
+        for (int i = 0; i < HEIGHT_MAP; i++)
+            for (int j = 0; j < WIDTH_MAP; j++)
+            {
+//                map_sprite.setTextureRect(IntRect(160,0,32,32))
+                if (TileMap[i][j] == 'F') continue;
+                if (TileMap[i][j] == '0')  map_sprite.setTextureRect(IntRect(0,64,32,32));
+                if (TileMap[i][j] == '1')  map_sprite.setTextureRect(IntRect(0,128,32,32));
+                if (TileMap[i][j] == '2')  map_sprite.setTextureRect(IntRect(0,32,32,32));
+                if (TileMap[i][j] == '3')  map_sprite.setTextureRect(IntRect(0,96,32,32));
+                if (TileMap[i][j] == '4')  map_sprite.setTextureRect(IntRect(0,0,32,32));
+                if (TileMap[i][j] == '8')  map_sprite.setTextureRect(IntRect(64,96,32,32));
+                if (TileMap[i][j] == '@') continue;
+                if (TileMap[i][j] == '?') continue;
+                map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
+
+                window.draw(map_sprite);//рисуем квадратики на экран
+            }
         window.draw(main_tank_sprite);
+
 	// Отрисовка окна
 	window.display();
 	}
