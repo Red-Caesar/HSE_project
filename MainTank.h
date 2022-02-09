@@ -4,13 +4,14 @@
 
 #ifndef GAME_MAINTANK_H
 #define GAME_MAINTANK_H
-
+#include <SFML/Graphics.hpp>
+using namespace sf;
 
 class MainTank {
 public:
     MainTank() : m_vx(0.0), m_vy(0.0), m_lifes(3) {}
     void Init(int x, int y);
-    void Draw();
+    static void Draw(Sprite object, int left, int top, int width, int height);
 private:
     double m_start_x;       //стартовая позиция
     double m_start_y;       //
@@ -26,6 +27,8 @@ private:
 
     int  m_tank_width; //высота и ширина в пикселях
     int m_tank_height;
+    Sprite main_tank_sprite;
+
 };
 
 

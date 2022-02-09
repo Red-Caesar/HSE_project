@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+#include "MainTank.h"
 using namespace sf;
 
 int main() {
@@ -14,12 +14,7 @@ int main() {
 //    main_tank_texture.loadFromFile("images/main_tank_forward.png");
     Texture General_Texture;
     General_Texture.loadFromFile("..\\images/sprite.bmp");
-
-    Sprite main_tank_sprite;
-    main_tank_sprite.setTexture(General_Texture);
-    main_tank_sprite.setTextureRect(IntRect(3, 5, 26, 26));
-//    Если поставить в rectHeight минус, то танк поедет назад
-    main_tank_sprite.setPosition(13, 14);
+    MainTank::Draw();
     // Главный цикл приложения. Выполняется, пока открыто окно
     while (window.isOpen()) {
         // Обрабатываем очередь событий в цикле

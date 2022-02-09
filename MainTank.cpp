@@ -3,6 +3,10 @@
 //
 
 #include "MainTank.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+using namespace sf;
+
 void MainTank::Init(int x, int y) {
     m_x = x; m_y = y;
     m_speed = 5.5;
@@ -17,4 +21,12 @@ void MainTank::Init(int x, int y) {
 }
 
 
-void MainTank::
+void MainTank::Draw(Sprite object, int left, int top, int width, int height){
+    Texture General_Texture;
+    General_Texture.loadFromFile("..\\images/sprite.bmp");
+
+    object.setTexture(General_Texture);
+    object.setTextureRect(IntRect(left, top, width, width));
+//    Если поставить в rectHeight минус, то танк поедет назад
+    object.setPosition(13, 14);
+}
