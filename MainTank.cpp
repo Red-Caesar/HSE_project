@@ -7,11 +7,10 @@
 #include <iostream>
 using namespace sf;
 
-void MainTank::Init(int x, int y) {
-    m_x = x; m_y = y;
+void MainTank::Init(Sprite &object ,int x, int y) {
+    object.setPosition(x,y);
     m_speed = 5.5;
-    m_tank_width = 26;
-    m_tank_height = 26;
+
     //m_can_shoot = true;
     //m_bullets_in_game = 0;
 
@@ -26,7 +25,7 @@ void MainTank::Draw(Sprite object, int left, int top, int width, int height){
     General_Texture.loadFromFile("..\\images/sprite.bmp");
 
     object.setTexture(General_Texture);
-    object.setTextureRect(IntRect(left, top, width, width));
+    object.setTextureRect(IntRect(left, top, width, height));
 //    Если поставить в rectHeight минус, то танк поедет назад
-    object.setPosition(13, 14);
+
 }
