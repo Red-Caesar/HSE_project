@@ -4,11 +4,11 @@
 
 #ifndef GAME_GAME_H
 #define GAME_GAME_H
-#include "MainTank.h"
+//#include "Player.h"
 
 class Game {
 
 };
 
 
-#endif //GAME_GAME_H
+#endif //GAME_GAME_H  */

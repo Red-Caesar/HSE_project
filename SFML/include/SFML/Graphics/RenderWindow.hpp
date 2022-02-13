@@ -226,7 +226,7 @@ protected:
 ///    window.clear();
 ///
 ///    // Draw some graphical entities
-///    window.draw(sprite);
+///    window.draw(m_sprite);
 ///    window.draw(circle);
 ///    window.draw(text);
 ///
@@ -243,8 +243,8 @@ protected:
 /// // Create the render window
 /// sf::RenderWindow window(sf::VideoMode(800, 600), "SFML OpenGL");
 ///
-/// // Create a sprite and a text to display
-/// sf::Sprite sprite;
+/// // Create a m_sprite and a text to display
+/// sf::Sprite m_sprite;
 /// sf::Text text;
 /// ...
 ///
@@ -258,9 +258,9 @@ protected:
 ///     // Process events
 ///     ...
 ///
-///     // Draw a background sprite
+///     // Draw a background m_sprite
 ///     window.pushGLStates();
-///     window.draw(sprite);
+///     window.draw(m_sprite);
 ///     window.popGLStates();
 ///
 ///     // Draw a 3D object using OpenGL
