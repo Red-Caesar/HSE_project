@@ -6,8 +6,8 @@ using namespace sf;
 class Player {
 private:
     int m_dir = 0;
-    float m_width;
-    float m_height;
+    float m_width = 32;
+    float m_height = 32;
     Image m_image;
     Sprite m_sprite;
     Texture m_texture;

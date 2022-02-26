@@ -52,7 +52,7 @@ int main() {
             } //вторая координата (У) положительна =>идём вниз (если не понятно почему именно вниз - смотрим предыдущие уроки)
 
         tank.update(time);
-       // map.InteractionWithMap(map.GetDiagramMap(),tank);
+        map.InteractionWithMap(map.GetDiagramMap(),tank);
         window.clear();
 
 

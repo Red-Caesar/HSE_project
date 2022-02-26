@@ -25,7 +25,7 @@ public:
     std::vector<String> GetDiagramMap();
     void CreateMap(std::vector<String> Diagram,int i,int j);
     Sprite GetMapSprite();
-    static void InteractionWithMap(std::vector<String> Diagram,Player tank);
+    static void InteractionWithMap(std::vector<String> Diagram,Player &tank);
 
 
 };
