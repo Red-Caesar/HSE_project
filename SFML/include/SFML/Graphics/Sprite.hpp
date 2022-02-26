@@ -51,13 +51,13 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
     ///
-    /// Creates an empty sprite with no source texture.
+    /// Creates an empty m_sprite with no source texture.
     ///
     ////////////////////////////////////////////////////////////
     Sprite();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct the sprite from a source texture
+    /// \brief Construct the m_sprite from a source texture
     ///
     /// \param texture Source texture
     ///
@@ -67,10 +67,10 @@ public:
     explicit Sprite(const Texture& texture);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct the sprite from a sub-rectangle of a source texture
+    /// \brief Construct the m_sprite from a sub-rectangle of a source texture
     ///
     /// \param texture   Source texture
-    /// \param rectangle Sub-rectangle of the texture to assign to the sprite
+    /// \param rectangle Sub-rectangle of the texture to assign to the m_sprite
     ///
     /// \see setTexture, setTextureRect
     ///
@@ -78,16 +78,16 @@ public:
     Sprite(const Texture& texture, const IntRect& rectangle);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Change the source texture of the sprite
+    /// \brief Change the source texture of the m_sprite
     ///
     /// The \a texture argument refers to a texture that must
-    /// exist as long as the sprite uses it. Indeed, the sprite
+    /// exist as long as the m_sprite uses it. Indeed, the m_sprite
     /// doesn't store its own copy of the texture, but rather keeps
     /// a pointer to the one that you passed to this function.
-    /// If the source texture is destroyed and the sprite tries to
+    /// If the source texture is destroyed and the m_sprite tries to
     /// use it, the behavior is undefined.
     /// If \a resetRect is true, the TextureRect property of
-    /// the sprite is automatically adjusted to the size of the new
+    /// the m_sprite is automatically adjusted to the size of the new
     /// texture. If it is false, the texture rect is left unchanged.
     ///
     /// \param texture   New texture
@@ -99,7 +99,7 @@ public:
     void setTexture(const Texture& texture, bool resetRect = false);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the sub-rectangle of the texture that the sprite will display
+    /// \brief Set the sub-rectangle of the texture that the m_sprite will display
     ///
     /// The texture rect is useful when you don't want to display
     /// the whole texture, but rather a part of it.
@@ -113,14 +113,14 @@ public:
     void setTextureRect(const IntRect& rectangle);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Set the global color of the sprite
+    /// \brief Set the global color of the m_sprite
     ///
-    /// This color is modulated (multiplied) with the sprite's
-    /// texture. It can be used to colorize the sprite, or change
+    /// This color is modulated (multiplied) with the m_sprite's
+    /// texture. It can be used to colorize the m_sprite, or change
     /// its global opacity.
-    /// By default, the sprite's color is opaque white.
+    /// By default, the m_sprite's color is opaque white.
     ///
-    /// \param color New color of the sprite
+    /// \param color New color of the m_sprite
     ///
     /// \see getColor
     ///
@@ -128,13 +128,13 @@ public:
     void setColor(const Color& color);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the source texture of the sprite
+    /// \brief Get the source texture of the m_sprite
     ///
-    /// If the sprite has no source texture, a NULL pointer is returned.
+    /// If the m_sprite has no source texture, a NULL pointer is returned.
     /// The returned pointer is const, which means that you can't
     /// modify the texture when you retrieve it with this function.
     ///
-    /// \return Pointer to the sprite's texture
+    /// \return Pointer to the m_sprite's texture
     ///
     /// \see setTexture
     ///
@@ -142,9 +142,9 @@ public:
     const Texture* getTexture() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the sub-rectangle of the texture displayed by the sprite
+    /// \brief Get the sub-rectangle of the texture displayed by the m_sprite
     ///
-    /// \return Texture rectangle of the sprite
+    /// \return Texture rectangle of the m_sprite
     ///
     /// \see setTextureRect
     ///
@@ -152,9 +152,9 @@ public:
     const IntRect& getTextureRect() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the global color of the sprite
+    /// \brief Get the global color of the m_sprite
     ///
-    /// \return Global color of the sprite
+    /// \return Global color of the m_sprite
     ///
     /// \see setColor
     ///
@@ -182,7 +182,7 @@ public:
     /// that it takes into account the transformations (translation,
     /// rotation, scale, ...) that are applied to the entity.
     /// In other words, this function returns the bounds of the
-    /// sprite in the global 2D world's coordinate system.
+    /// m_sprite in the global 2D world's coordinate system.
     ///
     /// \return Global bounding rectangle of the entity
     ///
@@ -192,7 +192,7 @@ public:
 private:
 
     ////////////////////////////////////////////////////////////
-    /// \brief Draw the sprite to a render target
+    /// \brief Draw the m_sprite to a render target
     ///
     /// \param target Render target to draw to
     /// \param states Current render states
@@ -215,8 +215,8 @@ private:
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Vertex         m_vertices[4]; ///< Vertices defining the sprite's geometry
-    const Texture* m_texture;     ///< Texture of the sprite
+    Vertex         m_vertices[4]; ///< Vertices defining the m_sprite's geometry
+    const Texture* m_texture;     ///< Texture of the m_sprite
     IntRect        m_textureRect; ///< Rectangle defining the area of the source texture to display
 };
 
@@ -234,10 +234,10 @@ private:
 /// a texture (or a part of it) on a render target.
 ///
 /// It inherits all the functions from sf::Transformable:
-/// position, rotation, scale, origin. It also adds sprite-specific
+/// position, rotation, scale, origin. It also adds m_sprite-specific
 /// properties such as the texture to use, the part of it to display,
 /// and some convenience functions to change the overall color of the
-/// sprite, or to get its bounding rectangle.
+/// m_sprite, or to get its bounding rectangle.
 ///
 /// sf::Sprite works in combination with the sf::Texture class, which
 /// loads and provides the pixel data of a given texture.
@@ -253,7 +253,7 @@ private:
 /// copy the texture that it uses, it only keeps a reference to it.
 /// Thus, a sf::Texture must not be destroyed while it is
 /// used by a sf::Sprite (i.e. never write a function that
-/// uses a local sf::Texture instance for creating a sprite).
+/// uses a local sf::Texture instance for creating a m_sprite).
 ///
 /// See also the note on coordinates and undistorted rendering in sf::Transformable.
 ///
@@ -263,15 +263,15 @@ private:
 /// sf::Texture texture;
 /// texture.loadFromFile("texture.png");
 ///
-/// // Create a sprite
-/// sf::Sprite sprite;
-/// sprite.setTexture(texture);
-/// sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
-/// sprite.setColor(sf::Color(255, 255, 255, 200));
-/// sprite.setPosition(100, 25);
+/// // Create a m_sprite
+/// sf::Sprite m_sprite;
+/// m_sprite.setTexture(texture);
+/// m_sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
+/// m_sprite.setColor(sf::Color(255, 255, 255, 200));
+/// m_sprite.setPosition(100, 25);
 ///
 /// // Draw it
-/// window.draw(sprite);
+/// window.draw(m_sprite);
 /// \endcode
 ///
 /// \see sf::Texture, sf::Transformable
