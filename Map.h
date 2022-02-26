@@ -5,8 +5,8 @@
 #include <vector>
 #include "Player.h"
 using namespace sf;
-const int HEIGHT_MAP = 12;//размер карты высота
-const int WIDTH_MAP = 12;//размер карты ширина
+const int HEIGHT_MAP = 13;//размер карты высота
+const int WIDTH_MAP = 14;//размер карты ширина
 
 
 class Map {

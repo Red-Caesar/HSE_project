@@ -57,19 +57,42 @@ std::vector<String> Map::GetDiagramMap() {
             "0                                      0",
             "0000000000000000000000000000000000000000",
     };
+    std::vector<String> TileMap = {
+            "FFFFFFFFFFFFF@",
+            "F4F4F4F4F4F4F@",
+            "F4F4F4F4F4F4F@",
+            "F4F4F494F4F4F@",
+            "F4F4F3F3F4F4F@",
+            "F3F3F1F1F3F3F@",
+            "1F11F3F3F11F1@",
+            "8F33F1F1F33F8@",
+            "F1F1F444F1F1F@",
+            "F4F4F4F4F4F4F@",
+            "F4F4F3F3F4F4F@",
+            "F4F4F?1?F4F4F@",
+            "FFFFF0F2FFFFF@",
+    };
     switch (number_map) {
         case 0: return ZeroMap; break;
         case 1: return FirstMap; break;
-
+        case 2: return TileMap; break;
     }
 }
 
 void Map::CreateMap(std::vector<String> Diagram,int i, int j) {
 
-    if (Diagram[i][j] == ' ') map_sprite.setTextureRect(IntRect(160, 0, 190, 30)); //если встретили символ пробел, то рисуем 1й квадратик
-    if (Diagram[i][j] == 's') map_sprite.setTextureRect(IntRect(32, 0, 60, 30));//если встретили символ s, то рисуем 2й квадратик
-    if (Diagram[i][j] == '0') map_sprite.setTextureRect(IntRect(0, 0, 30, 30));//если встретили символ 0, то рисуем 3й квадратик
-
+    if (Diagram[i][j] == ' ') map_sprite.setTextureRect(IntRect(160, 0, 32, 32)); //если встретили символ пробел, то рисуем 1й квадратик
+    if (Diagram[i][j] == 's') map_sprite.setTextureRect(IntRect(32, 0, 32, 32));//если встретили символ s, то рисуем 2й квадратик
+//    if (Diagram[i][j] == '0') map_sprite.setTextureRect(IntRect(0, 0, 32, 32));//если встретили символ 0, то рисуем 3й квадратик
+    if (Diagram[i][j] == 'F')  map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
+    if (Diagram[i][j] == '0')  map_sprite.setTextureRect(IntRect(0,64,32,32));
+    if (Diagram[i][j] == '1')  map_sprite.setTextureRect(IntRect(0,128,32,32));
+    if (Diagram[i][j] == '2')  map_sprite.setTextureRect(IntRect(0,32,32,32));
+    if (Diagram[i][j] == '3')  map_sprite.setTextureRect(IntRect(0,96,32,32));
+    if (Diagram[i][j] == '4')  map_sprite.setTextureRect(IntRect(0,0,32,32));
+    if (Diagram[i][j] == '8')  map_sprite.setTextureRect(IntRect(64,96,32,32));
+    if (Diagram[i][j] == '?')  map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
+    if (Diagram[i][j] == '@')  map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
     map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
 

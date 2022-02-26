@@ -7,12 +7,12 @@ using namespace sf;
 int main() {
     // Объект, который, собственно, является главным окном приложения
     //Можно в параметрах прописать потом Style::fullscreen
-    RenderWindow window(VideoMode(338, 364), "Tan4iki!");
+    RenderWindow window(VideoMode(448, 416), "Tan4iki!");
 
     Clock clock;
     Map map("Background.png");
 
-    map.SetNumberMap(0);
+    map.SetNumberMap(2);
     Player tank( "sprite.bmp", 20, 20, 26, 26);
 
     // Главный цикл приложения. Выполняется, пока открыто окно
