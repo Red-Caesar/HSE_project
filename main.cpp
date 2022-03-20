@@ -68,6 +68,5 @@ int main() {
         // Отрисовка окна
         window.display();
     }
-
     return 0;
 }
