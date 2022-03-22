@@ -172,22 +172,13 @@ int main()
         for(int i=0 ; i < n_bul; i++){                               // Добавление новой пули
             if(!bul[i].Is_On_f){
                 bul[i].Is_On_f = true;
-                bul[i].New_Coordinates_and_Dir(main_tank);
+                bul[i].New_Coordinates_and_Dir(tank);
                 break;
             }
         }
         NewBullet = false;
     }
-        if (NewBullet) {
-            for(int i=0 ; i < n_bul; i++){                               // Добавление новой пули
-                if(!bul[i].Is_On_f){
-                    bul[i].Is_On_f = true;
-                    bul[i].New_Coordinates_and_Dir(main_tank);
-                    break;
-                }
-            }
-            NewBullet = false;
-        }
+
         tank.update(time);
         map.InteractionWithMap(map.GetDiagramMap(),tank);
         window.clear();
