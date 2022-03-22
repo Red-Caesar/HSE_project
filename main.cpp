@@ -133,23 +133,23 @@ int main()
                 window.close(); // тогда закрываем его
         }
 
-        if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) {
             tank.SetDir(1); tank.SetSpeed(0.1);
             tank.setRect();
 
         } //первая координата Х отрицательна =>идём влево
 
-        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) {
             tank.SetDir(0); tank.SetSpeed(0.1);
             tank.setRect();
         } //первая координата Х положительна =>идём вправо
 
-        if (Keyboard::isKeyPressed(Keyboard::Up)) {
+        if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) {
             tank.SetDir(3); tank.SetSpeed(0.1);
             tank.setRect();
         } //вторая координата (У) отрицательна =>идём вверх (вспоминаем из предыдущих уроков почему именно вверх, а не вниз)
 
-        if (Keyboard::isKeyPressed(Keyboard::Down)) {
+        if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) {
             tank.SetDir(2); tank.SetSpeed(0.1);
             tank.setRect();
         } //вторая координата (У) положительна =>идём вниз (если не понятно почему именно вниз - смотрим предыдущие уроки)
