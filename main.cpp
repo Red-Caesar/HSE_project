@@ -89,8 +89,8 @@ public:
 
     void New_Coordinates_and_Dir(Player &player){
         dir = player.GetDir();
-        x = player.GetX();
-        y = player.GetY();
+        x = player.GetX() + 10;
+        y = player.GetY() + 10;
         speed = 0.1;
     }
 
@@ -189,7 +189,7 @@ int main()
         }
         main_tank.update(time);
         window.clear();
-        window.draw(main_tank.GetSprite());
+
 
         for(int i=0; i < n_bul; i++){
             if(bul[i].Is_On_f){
@@ -197,6 +197,7 @@ int main()
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }
+        window.draw(main_tank.GetSprite());
         window.display();
     }
     return 0;
