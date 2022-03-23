@@ -174,16 +174,19 @@ int main() {
         if (NewBullet) {
             for (int i = 0; i < n_bul; i++) {  // Добавление новой пули
                 if (!bul[i].Is_On_f) {
+
                     bul[i].Is_On_f = true;
                     bul[i].New_Coordinates_and_Dir(tank);
                     break;
                 }
+
             }
             NewBullet = false;
         }
 
         tank.update(time);
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
+
         // std:: cout << tank.GetX() << ' ' << tank.GetY() << '\n';
         window.clear();
 
@@ -198,6 +201,7 @@ int main() {
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {
                 bul[i].update(time);
+                bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),bul[i]);
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }

@@ -71,6 +71,39 @@ void Bullet::SetFile(String F) {
 
 }
 
+float Bullet::GetX() const {
+    return x;
+}
+
+float Bullet::GetY() const {
+    return y;
+}
+
+float Bullet::GetSpeedX() const {
+    return dx;
+}
+
+float Bullet::GetSpeedY() const {
+    return dy;
+}
+
+
+void Bullet::SetX(int cur_x) {
+    x = cur_x;
+}
+
+void Bullet::SetY(int cur_y) {
+    y = cur_y;
+}
+
+float Bullet::GetH() const {
+    return h;
+}
+
+float Bullet::GetW() const {
+    return w;
+}
+
 //Bullet::Bullet(Player &player, String F) {
 //    File = F;//имя файла+расширение
 //    //SetWidth(7.0);

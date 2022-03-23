@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Bullet.h"
 
 Map::Map(const String &F) {
     File = F;
@@ -110,7 +111,9 @@ void Map::CreateMap(std::vector<String> Diagram, int i, int j) {
 Sprite Map::GetMapSprite() {
     return map_sprite;
 }
+void Map::SetDiagramMap(std::vector<String> Diagram) {
 
+}
 
 
 void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
@@ -122,8 +125,7 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             if (tank.GetX() > 420) { tank.SetX(420); }
             if (tank.GetY() > 390) { tank.SetY(390); }
 
-            if (Diagram[i][j] ==
-                '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
                 if (tank.GetSpeedY() > 0)//если мы шли вниз,
                 {
@@ -149,4 +151,46 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
 //            }
         }
 }
+//
+//void Map::ChangeMap(std::vector<String> Diagram, int i, int j,int side) {
+//    if(side == 1){ //вниз
+//        map_sprite.setTextureRect(IntRect(0, 95, 32, 112));
+//    }
+//    if(side == 2){//вверх
+//        map_sprite.setTextureRect(IntRect(0, 95, 32, 112));
+//    }
+//    if(side == 3){//вправо
+//        map_sprite.setTextureRect(IntRect(0, 32, 16, 64));
+//    }
+//    if(side == 4){//влево
+//        map_sprite.setTextureRect(IntRect(0, 32, 16, 64));
+//    }
+//    map_sprite.setPosition(j * 32, i * 32);
+//}
+bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
+    for (int i = bullet.GetY() / 32; i < bullet.GetY()/32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
+        for (int j = bullet.GetX() / 32; j < bullet.GetX() /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
+        {
+           std :: cout << bullet.GetX() << ' ' << bullet.GetY() << '\n';
+            if (bullet.GetX() < 0 || bullet.GetX() < 0 || bullet.GetX() > 420 || bullet.GetY() > 390  ) { return false;}
+            else {
+            if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            {
+//                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
+//                    ChangeMap(Diagram,i,j,1); }
+//                if (bullet.GetSpeedY() < 0) { // вверх
+//                    ChangeMap(Diagram,i,j,2);}
+//                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+//                    ChangeMap(Diagram,i,j,3);}
+//                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
+//                    ChangeMap(Diagram,i,j,4);}
+                return false; }
+            else
+                return true; }
+        }
+}
+
+
+
+
 
