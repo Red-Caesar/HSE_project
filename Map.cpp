@@ -63,31 +63,81 @@ Sprite Map::GetMapSprite() {
     return map_sprite;
 }
 
-
 void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
     for (int i = tank.GetY() / 32; i < (tank.GetY() + tank.GetH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
         for (int j = tank.GetX() / 32; j < (tank.GetX() + tank.GetW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
         {
+         //  std:: cout << tank.GetX() << ' ' << tank.GetY()<< ' '<< j*32 <<' '<< i*32 << '\n' ;
+
             if (tank.GetX() < 0) { tank.SetX(0); }
             if (tank.GetY() < 0) { tank.SetY(0); }
             if (tank.GetX() > 420) { tank.SetX(420); }
             if (tank.GetY() > 390) { tank.SetY(390); }
 
-            if (Diagram[i][j] == '4' || Diagram[i][j] == '0' || Diagram[i][j] == '1' || Diagram[i][j] == '2' || Diagram[i][j] == '3' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            if (Diagram[i][j] == '0' ){
+                if (tank.GetX() > j * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                }
+            }
+            if (Diagram[i][j] == '1' ){
+                if (tank.GetY() > i * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                }
+            }
+            if (Diagram[i][j] == '2' ){
+
+                if (tank.GetX() < j * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                }
+            }
+            if (Diagram[i][j] == '3' ){
+                if (tank.GetY() < i * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                }
+            }
+
+            if (Diagram[i][j] == '4' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
-                if (tank.GetSpeedY() > 0)//если мы шли вниз,
-                {
-                    tank.SetY(i * 32 - tank.GetH() - 6);//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
-                }
+                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+//                    if (Diagram[i][j] == '1' ){
+//                        if (tank.GetY() > i * 32 - 16 ){
+//                            tank.SetY(i * 32 + 14 - tank.GetH() - 6);
+//                        }
+//                    }else
+                    tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
                 if (tank.GetSpeedY() < 0) {
-                    tank.SetY(i * 32 + tank.GetH() + 6);//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
-                }
+//                    if (Diagram[i][j] == '3' ){
+//                        if (tank.GetY() < j * 32 - 16 ){
+//                            tank.SetY(i * 32 - 14 + tank.GetH() + 6);
+//                        }
+//                    }else
+                    tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
                 if (tank.GetSpeedX() > 0) {
-                    tank.SetX(j * 32 - tank.GetW() - 6);//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                }
+//                    if (Diagram[i][j] == '0' ){
+//                        if (tank.GetX() > j * 32 - 16 ){
+//                            tank.SetX(j * 32 + 14 - tank.GetW() - 6);
+//                        }
+//                    }else
+                    tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
                 if (tank.GetSpeedX() < 0) {
-                    tank.SetX(j * 32 + tank.GetW() + 6);//аналогично идем влево
-                }
+//                    if (Diagram[i][j] == '2' ){
+//                        if (tank.GetX() < j * 32 + 16 ){
+//                            tank.SetX(j * 32 - 14 + tank.GetW() + 6);
+//                        }
+//                    }else
+                    tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
             }
         }
 }
@@ -100,32 +150,22 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
            std :: cout << bullet.GetX() << ' ' << bullet.GetY() << '\n';
             if (bullet.GetX() < 0 || bullet.GetX() < 0 || bullet.GetX() > 435 || bullet.GetY() > 410  ) { return false;}
             else {
-            if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
-            {
-                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
-                    SetDiagramMap( i, j, '1'); }
-                if (bullet.GetSpeedY() < 0) { // вверх
-                    SetDiagramMap( i, j, '3');}
-                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                    SetDiagramMap( i, j, '0');}
-                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
-                    SetDiagramMap( i, j, '2');}
-                return false; }
-            if (Diagram[i][j] == '1' || Diagram[i][j] == '0' || Diagram[i][j] == '2' || Diagram[i][j] == '3' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+                if (Diagram[i][j] == '1' || Diagram[i][j] == '0' || Diagram[i][j] == '2' || Diagram[i][j] == '3' ) {
+                    SetDiagramMap( i, j, 'F');
+                    return false; }
+                if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
                 {
-                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
-                    SetDiagramMap( i, j, 'F'); }
-                if (bullet.GetSpeedY() < 0) { // вверх
-                    SetDiagramMap( i, j, 'F');}
-                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                    SetDiagramMap( i, j, 'F');}
-                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
-                    SetDiagramMap( i, j, 'F');}
+                    if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
+                        SetDiagramMap( i, j, '1'); }
+                    if (bullet.GetSpeedY() < 0) { // вверх
+                        SetDiagramMap( i, j, '3');}
+                    if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                        SetDiagramMap( i, j, '0');}
+                    if (bullet.GetSpeedX() < 0) { //аналогично идем влево
+                        SetDiagramMap( i, j, '2');}
                 return false; }
 
-
-
-                return true; }
+            return true; }
         }
 }
 

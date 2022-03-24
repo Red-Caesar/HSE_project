@@ -112,7 +112,7 @@ int main() {
     Clock clock;
     Map map("Background.png");
 
-    map.SetNumberMap(2);
+    map.SetNumberMap(1);
     Player tank("sprite.bmp", 20, 20, 26, 26);
     int n_bul = 1;
     Bullet bul[n_bul];
