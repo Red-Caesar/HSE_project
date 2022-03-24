@@ -17,76 +17,28 @@ int Map::GetNumberMap() {
 }
 
 std::vector<String> Map::GetDiagramMap() {
-    std::vector<String> ZeroMap = {
-            "0000000000",
-            "0         0",
-            "0   s     0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "0         0",
-            "00000000000",
-    };
-    std::vector<String> FirstMap = {
-            "s000000000000000000000000000000000000000",
-            "s                                      0",
-            "s   s                                  0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "s                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0                                      0",
-            "0000000000000000000000000000000000000000",
-    };
-    std::vector<String> TileMap = {
-            "FFFFFFFFFFFFF@",
-            "FFF4F4F4F4F4F@",
-            "FFF4F4F4F4F4F@",
-            "FFF4F494F4F4F@",
-            "FFF4F3F3F4F4F@",
-            "F3F3F1F1F3F3F@",
-            "1F11F3F3F11F1@",
-            "8F33F1F1F33F8@",
-            "F1F1F444F1F1F@",
-            "F4F4F4F4F4F4F@",
-            "F4F4F3F3F4F4F@",
-            "F4F4F?1?F4F4F@",
-            "FFFFF0F2FFFFF@",
-    };
     switch (number_map) {
         case 0:
             return ZeroMap;
-            break;
         case 1:
             return FirstMap;
-            break;
         case 2:
             return TileMap;
-            break;
     }
 }
+void Map::SetDiagramMap(int i, int j, char texture) {
+    switch (number_map) {
+        case 0:
+             ZeroMap[i][j] = texture;
+        case 1:
+            FirstMap[i][j] = texture;
+        case 2:
+             TileMap[i][j] = texture;
+    }
 
-void Map::CreateMap(std::vector<String> Diagram, int i, int j) {
+}
+
+void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
 
     if (Diagram[i][j] == ' ')
         map_sprite.setTextureRect(IntRect(160, 0, 32, 32)); //если встретили символ пробел, то рисуем 1й квадратик
@@ -102,17 +54,13 @@ void Map::CreateMap(std::vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '8') map_sprite.setTextureRect(IntRect(64, 96, 32, 32));
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
     if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
-    map_sprite.setPosition(j * 32, i *
-                                   32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
+    map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
 
 }
 
 Sprite Map::GetMapSprite() {
     return map_sprite;
-}
-void Map::SetDiagramMap(std::vector<String> Diagram) {
-
 }
 
 
@@ -125,70 +73,64 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             if (tank.GetX() > 420) { tank.SetX(420); }
             if (tank.GetY() > 390) { tank.SetY(390); }
 
-            if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            if (Diagram[i][j] == '4' || Diagram[i][j] == '0' || Diagram[i][j] == '1' || Diagram[i][j] == '2' || Diagram[i][j] == '3' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
                 if (tank.GetSpeedY() > 0)//если мы шли вниз,
                 {
-                    tank.SetY(i * 32 - tank.GetH() -
-                              6);//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
+                    tank.SetY(i * 32 - tank.GetH() - 6);//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
                 }
                 if (tank.GetSpeedY() < 0) {
-                    tank.SetY(i * 32 + tank.GetH() +
-                              6);//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
+                    tank.SetY(i * 32 + tank.GetH() + 6);//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
                 }
                 if (tank.GetSpeedX() > 0) {
-                    tank.SetX(j * 32 - tank.GetW() -
-                              6);//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                    tank.SetX(j * 32 - tank.GetW() - 6);//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
                 }
                 if (tank.GetSpeedX() < 0) {
                     tank.SetX(j * 32 + tank.GetW() + 6);//аналогично идем влево
                 }
             }
-
-//            if (Diagram[i][j] == 's') { //если символ равен 's' (камень)
-//                x = 300; y = 300;//какое то действие... например телепортация героя
-//                TileMap[i][j] = ' ';//убираем камень, типа взяли бонус. можем и не убирать, кстати.
-//            }
         }
 }
 //
-//void Map::ChangeMap(std::vector<String> Diagram, int i, int j,int side) {
-//    if(side == 1){ //вниз
-//        map_sprite.setTextureRect(IntRect(0, 95, 32, 112));
-//    }
-//    if(side == 2){//вверх
-//        map_sprite.setTextureRect(IntRect(0, 95, 32, 112));
-//    }
-//    if(side == 3){//вправо
-//        map_sprite.setTextureRect(IntRect(0, 32, 16, 64));
-//    }
-//    if(side == 4){//влево
-//        map_sprite.setTextureRect(IntRect(0, 32, 16, 64));
-//    }
-//    map_sprite.setPosition(j * 32, i * 32);
-//}
+
 bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
     for (int i = bullet.GetY() / 32; i < bullet.GetY()/32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
         for (int j = bullet.GetX() / 32; j < bullet.GetX() /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
         {
            std :: cout << bullet.GetX() << ' ' << bullet.GetY() << '\n';
-            if (bullet.GetX() < 0 || bullet.GetX() < 0 || bullet.GetX() > 420 || bullet.GetY() > 390  ) { return false;}
+            if (bullet.GetX() < 0 || bullet.GetX() < 0 || bullet.GetX() > 435 || bullet.GetY() > 410  ) { return false;}
             else {
             if (Diagram[i][j] == '4')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
-//                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
-//                    ChangeMap(Diagram,i,j,1); }
-//                if (bullet.GetSpeedY() < 0) { // вверх
-//                    ChangeMap(Diagram,i,j,2);}
-//                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-//                    ChangeMap(Diagram,i,j,3);}
-//                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
-//                    ChangeMap(Diagram,i,j,4);}
+                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
+                    SetDiagramMap( i, j, '1'); }
+                if (bullet.GetSpeedY() < 0) { // вверх
+                    SetDiagramMap( i, j, '3');}
+                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                    SetDiagramMap( i, j, '0');}
+                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
+                    SetDiagramMap( i, j, '2');}
                 return false; }
-            else
+            if (Diagram[i][j] == '1' || Diagram[i][j] == '0' || Diagram[i][j] == '2' || Diagram[i][j] == '3' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+                {
+                if (bullet.GetSpeedY() > 0){ //если мы шли вниз,
+                    SetDiagramMap( i, j, 'F'); }
+                if (bullet.GetSpeedY() < 0) { // вверх
+                    SetDiagramMap( i, j, 'F');}
+                if (bullet.GetSpeedX() > 0) { //если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                    SetDiagramMap( i, j, 'F');}
+                if (bullet.GetSpeedX() < 0) { //аналогично идем влево
+                    SetDiagramMap( i, j, 'F');}
+                return false; }
+
+
+
                 return true; }
         }
 }
+
+
+
 
 
 

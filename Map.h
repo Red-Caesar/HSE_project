@@ -22,26 +22,70 @@ private:
     Texture map_texture;
     //
     String File;
+    std::vector<String> ZeroMap = {
+            "0000000000",
+            "0         0",
+            "0   s     0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "0         0",
+            "00000000000",
+    };
+    std::vector<String> FirstMap = {
+            "FFFFFFFFFFFFF@",
+            "FFF4F4F4F4F4F@",
+            "FFF4F4F4F4F4F@",
+            "FFF4F494F4F4F@",
+            "FFF4F3F3F4F4F@",
+            "F3F3F1F1F3F3F@",
+            "1F11F3F3F11F1@",
+            "8F33F1F1F33F8@",
+            "F1F1F444F1F1F@",
+            "F4F4F4F4F4F4F@",
+            "F4F4F3F3F4F4F@",
+            "F4F4F?1?F4F4F@",
+            "FFFFF0F2FFFFF@",
+    };
+    std::vector<String> TileMap = {
+            "FFFFFFFFFFFFF@",
+            "FFF4F4F4F4F4F@",
+            "FFF4F4F4F4F4F@",
+            "FFF4F494F4F4F@",
+            "FFF4F3F3F4F4F@",
+            "F3F3F1F1F3F3F@",
+            "1F11F3F3F11F1@",
+            "8F33F1F1F33F8@",
+            "F1F1F444F1F1F@",
+            "F4F4F4F4F4F4F@",
+            "F4F4F3F3F4F4F@",
+            "F4F4F?1?F4F4F@",
+            "FFFFF0F2FFFFF@",
+    };
 public:
     explicit Map(const String &F);
 
     void SetNumberMap(int numb_m);
 
+    Sprite GetMapSprite();
+
     int GetNumberMap();
 
     std::vector<String> GetDiagramMap();
 
-    void SetDiagramMap(std::vector<String> Diagram);
+    void SetDiagramMap(int i, int j, char texture);
 
-    void CreateMap(std::vector<String> Diagram, int i, int j);
-
-    //void Map::ChangeMap(std::vector<String> Diagram, int i, int j,int side)
-
-    Sprite GetMapSprite();
+    void CreateMap( std::vector<String> Diagram, int i, int j);
 
     static void InteractionTankWithMap(std::vector<String> Diagram, Player &tank);
 
-    static bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);
+    bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);
+
+
 };
 
 
