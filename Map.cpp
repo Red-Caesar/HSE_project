@@ -50,6 +50,7 @@ void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '8') map_sprite.setTextureRect(IntRect( 64,  96, 32, 32));
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
+    if (Diagram[i][j] == 'G') map_sprite.setTextureRect(IntRect(160,   32, 32, 32));
     map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
 }
