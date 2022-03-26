@@ -59,6 +59,22 @@ Player::Player(const String F, float X, float Y, int W, int H) {
     }
 }
 
+Player::Player() {
+    {
+        m_width = 26;
+        m_height = 26;
+    }
+}
+
+void Player::SetFile(String F){
+    File = F;
+    m_image.loadFromFile("..\\images/" + File);
+    m_texture.loadFromImage(m_image);
+    m_sprite.setTexture(m_texture);
+    m_sprite.setTextureRect(IntRect(3, 5, m_width, m_height));
+
+}
+
 
 
 

@@ -6,10 +6,12 @@ using namespace sf;
 class Player {
     friend class Bullet;
 public:
+    Player();
     Player(const String F, float X, float Y, int W, int H);
     void Init(int x, int y);
     void update(float time);
 
+    void SetFile(String F);
     double GetSpeed();
     int GetX();
     int GetY();
@@ -32,6 +34,8 @@ private:
     int m_dir = 0;
     int m_width;
     int m_height;
+    bool IsAlive = true;
+    bool IsOnMap = false;
     Image m_image;
     Sprite m_sprite;
     Texture m_texture;

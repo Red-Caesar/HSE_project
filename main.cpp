@@ -109,18 +109,20 @@ int main()
     int Dir = 0;
     RenderWindow window(sf::VideoMode(640, 480), "Bullet");
     bool NewBullet = false;
-    bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
     Clock clock;
 
     Player main_tank( "sprite.bmp", 20, 20, 26, 26);
-    //Bullet b(main_tank,"heart.bmp");//создаем объект p класса player,задаем "hero.png" как имя файла+расширение, далее координата Х,У, ширина, высота.
     int n_bul=20;
     Bullet bul[n_bul];
+    int n_enemies = 5;
+    Player enemy_tank[n_enemies];
     for(int i=0;i<n_bul;i++){
         bul[i].SetFile("heart.bmp");
     }
-
+    for(int i=0;i<n_enemies;i++){
+        enemy_tank[i].SetFile("sprite.bmp");
+    }
 
     // X Y надо передавать из положения танка
     // направление тоже
@@ -154,7 +156,6 @@ int main()
 
             if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W)))) {
                 Dir = 3; // b.speed = 0.1;//направление вниз, см выше
-
             }
 
             if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S)))) { //если нажата клавиша стрелка влево или англ буква А
@@ -165,7 +166,7 @@ int main()
                 NewBullet = true;
             }
 
-            ////////////////////////////////////////////
+
             if (event.type == Event::KeyPressed)//событие нажатия клавиши
                 if ((event.key.code == Keyboard::Up) || (event.key.code == Keyboard::Down) || (event.key.code == Keyboard::Left) || (event.key.code == Keyboard::Right)) {
                     main_tank.SetDir(Dir);
@@ -173,9 +174,6 @@ int main()
                     main_tank.setRect();
                 }
         }
-
-        ///////////////////////////////////////////
-
 
         if (NewBullet) {
             for(int i=0 ; i < n_bul; i++){                               // Добавление новой пули
