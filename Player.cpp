@@ -9,26 +9,33 @@ double Player::GetSpeed()
 }
 
 
-int Player::GetX()
+float Player::GetX()
 {
     return m_x;
 }
 
 
-int Player::GetY()
+float Player::GetY()
 {
     return m_y;
 }
 
-int Player::GetSpeedX()
+float Player::GetSpeedX()
 {
     return m_vx;
 }
 
-int Player::GetSpeedY()
+float Player::GetSpeedY()
 {
     return m_vy;
 }
+float Player::GetH() {
+    return m_height;
+}
+float Player::GetW() {
+    return m_width;
+}
+
 void Player::Init(int x, int y) {
     m_sprite.setPosition(x, y);
     //m_speed = 5.5;
@@ -42,7 +49,7 @@ void Player::Init(int x, int y) {
 }
 
 
-Player::Player(const String F, float X, float Y, int W, int H) {
+Player::Player(const String& F, float X, float Y, int W, int H) {
     {
         File = F;
         m_x= X;
@@ -79,23 +86,23 @@ void Player::SetFile(String F){
 
 
 void Player::SetSpeed(float speed) {
-    m_speed = speed;
+ m_speed = speed;
 }
 
 void Player::SetX(int x) {
-    m_x = x;
+m_x = x;
 }
 
 void Player::SetY(int y) {
-    m_y = y;
+m_y = y;
 }
 
 void Player::SetSpeedX(int vx) {
-    m_vx = vx;
+m_vx = vx;
 }
 
 void Player::SetSpeedY(int vy) {
-    m_vy = vy;
+m_vy = vy;
 }
 
 Sprite Player::GetSprite() {
@@ -137,12 +144,18 @@ void Player::update(float time) //функция "оживления" объек
 
     m_speed = 0;//зануляем скорость, чтобы персонаж остановился.
     m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
+
 }
 
 int Player::GetDir() {
-    return m_dir;
+return m_dir;
 }
 
 void Player::SetDir(int dir) {
-    m_dir = dir;
+m_dir = dir;
 }
+
+
+
+
+
