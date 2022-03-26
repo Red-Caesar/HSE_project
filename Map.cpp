@@ -1,5 +1,5 @@
 #include "Map.h"
-
+// HRU _ HRU
 Map::Map(const String &F) {
     File = F;
     map_image.loadFromFile("..\\images/" + File);
