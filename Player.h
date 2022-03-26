@@ -32,6 +32,8 @@ private:
 public:
     Player(const String &F, float X, float Y, int W, int H);
 
+    Player();
+
     void Init(int x, int y);
 
     void update(float time);
@@ -55,6 +57,8 @@ public:
     void SetX(int x);
 
     void SetY(int y);
+
+    void SetFile(String F);
 
     void SetSpeedX(int vx);
 
