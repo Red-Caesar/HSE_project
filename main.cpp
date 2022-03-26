@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Bullet.h"
+#include "Audio.h"
 using namespace sf;
 
 ////////////////////////////////////////////////////КЛАСС ИГРОКА////////////////////////
@@ -108,7 +109,11 @@ int main() {
     Map map("Background.png");
     map.SetNumberMap(1);
     Player tank("sprite.bmp", 20, 20, 26, 26);
+    ///music
 
+    Audio audio;
+    audio.Init();
+    audio.playGame();
 
     int Dir = 0;
     bool NewBullet = false;
@@ -145,6 +150,7 @@ int main() {
             for (int i = 0; i < n_bul; i++) {  // Добавление новой пули
                 if (!bul[i].Is_On_f) {
                     bul[i].Is_On_f = true;
+                    audio.playShoot();
                     bul[i].New_Coordinates_and_Dir(tank);
                     break;
                 }
