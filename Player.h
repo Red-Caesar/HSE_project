@@ -18,7 +18,7 @@ private:
     //
     String File;
     float m_speed;         //базовая скорость
-    float m_x, m_y;        //позиция игрока
+    //позиция игрока
     float m_vx, m_vy;      //скорость игрока (ускорение по x и y)
     double m_speed_ratio;   //коэффициент скорости
     double m_bullet_speed;  //скорость пули
@@ -29,6 +29,9 @@ private:
     int m_tank_width; //высота и ширина в пикселях
     int m_tank_height;
 
+protected:
+    float m_x;
+    float m_y;
 public:
     Player(const String &F, float X, float Y, int W, int H);
 

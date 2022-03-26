@@ -37,10 +37,11 @@ int main() {
     for (int i=0;i<n_enemies;i++){
         t[i].SetFile("sprite.bmp");
     }
-    t[1].Start_Enemy_Function(t[0],t[1],t[2]);
+    t[0].Start_Enemy_Function(t[0],t[1],t[2]);
+    //t[1].Start_Enemy_Function(0,0);
 
 
-
+    std::srand(time(0));
     while (window.isOpen()) {
         float time = clock.getElapsedTime().asMicroseconds();
         clock.restart();
@@ -73,9 +74,9 @@ int main() {
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         //!!!
         for (int i=0;i<n_enemies;i++) {
-            if(t[i].GetIsOnTheField()) {
-                map.InteractionTankWithMap(map.GetDiagramMap(), tank);
-            }
+            //if(t[i].GetIsOnTheField()) {
+                map.InteractionTankWithMap(map.GetDiagramMap(), t[i]);
+           // }
         }
         window.clear();
 
@@ -91,7 +92,7 @@ int main() {
         }
         for (int i=0;i<n_enemies;i++){
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){
-//                t[i].update(time);
+                t[i].Update(time);
                 window.draw(t[i].GetSprite());
            // }
         }

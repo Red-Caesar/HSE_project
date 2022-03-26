@@ -82,9 +82,6 @@ void Player::SetFile(String F){
 
 }
 
-
-
-
 void Player::SetSpeed(float speed) {
  m_speed = speed;
 }
