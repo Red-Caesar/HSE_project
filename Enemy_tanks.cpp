@@ -44,21 +44,21 @@ void Enemy_tank::SetStartCoordinates(float x, float y){
     start_y=y;
 }
 void Enemy_tank::Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
-    t1.SetStartCoordinates(0,0);
-    t2.SetStartCoordinates(197,0);
-    t3.SetStartCoordinates(419,0);
+    t1.SetStartCoordinates(32,32);
+    t2.SetStartCoordinates(229,32);
+    t3.SetStartCoordinates(451,32);
     t1.IsOnTheField=true;
     t2.IsOnTheField=true;
     t3.IsOnTheField=true;
     t1.Init(t1.start_x, t1.start_y);
     t2.Init(t2.start_x, t2.start_y);
     t3.Init(t3.start_x, t3.start_y);
-    t1.SetX(0);
-    t1.SetY(0);
-    t2.SetX(197);
-    t2.SetY(0);
-    t3.SetX(419);
-    t3.SetY(0);
+    t1.SetX(32);
+    t1.SetY(32);
+    t2.SetX(229);
+    t2.SetY(32);
+    t3.SetX(451);
+    t3.SetY(32);
     t1.SetSpeed(0);
     t2.SetSpeed(0);
     t3.SetSpeed(0);
