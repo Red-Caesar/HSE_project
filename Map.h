@@ -10,8 +10,8 @@
 
 
 using namespace sf;
-const int HEIGHT_MAP = 13;//размер карты высота
-const int WIDTH_MAP = 14;//размер карты ширина
+const int HEIGHT_MAP = 15;//размер карты высота
+const int WIDTH_MAP = 17;//размер карты ширина
 
 
 class Map {
@@ -38,19 +38,21 @@ private:
             "00000000000",
     };
     std::vector<String> FirstMap = {
-            "FFFFFFFFFFFFF@",
-            "F4F4F4F4F4F4F@",
-            "F4F4F4F4F4F4F@",
-            "F4F4F444F4F4F@",
-            "F4F4FFFFF4F4F@",
-            "FFFFF1F1FFFFF@",
-            "1F44F3F3F11F1@",
-            "8F44F1F1F33F8@",
-            "F1F1F444F1F1F@",
-            "F4F4F4F4F4F4F@",
-            "F4F4F3F3F4F4F@",
-            "F4F4F?1?F4F4F@",
-            "FFFFF0F2FFFFF@",
+            "@@@@@@@@@@@@@@@@@",
+            "@FFFFFFFFFFFFF@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F494F4F4F@@@",
+            "@F4F4F3F3F4F4F@@@",
+            "@F3F3F1F1F3F3F@@@",
+            "@1F11F3F3F11F1@@@",
+            "@8F33F1F1F33F8@@@",
+            "@F1F1F444F1F1F@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F3F3F4F4F@@@",
+            "@F4F4F?1?F4F4F@@@",
+            "@FFFFF0G2FFFFF@@@",
+            "@@@@@@@@@@@@@@@@@",
     };
     std::vector<String> TileMap = {
             "FFFFFFFFFFFFF@",

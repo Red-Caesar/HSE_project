@@ -18,13 +18,13 @@ private:
     //
     String File;
     float m_speed;         //базовая скорость
-    //позиция игрока
+//    float m_x, m_y;        //позиция игрока
     float m_vx, m_vy;      //скорость игрока (ускорение по x и y)
     double m_speed_ratio;   //коэффициент скорости
     double m_bullet_speed;  //скорость пули
     int m_bullet_power;     //сила пули
 
-    int m_lifes; //кол-во жизней
+    int m_player_lives; //кол-во жизней
 
     int m_tank_width; //высота и ширина в пикселях
     int m_tank_height;

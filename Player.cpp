@@ -1,5 +1,4 @@
 #include "Player.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 using namespace sf;
 
@@ -56,6 +55,7 @@ Player::Player(const String& F, float X, float Y, int W, int H) {
         m_y = Y;
         m_width = W;
         m_height = H;
+
         m_image.loadFromFile("..\\images/" + File);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
         //m_image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
         m_texture.loadFromImage(m_image);//закидываем наше изображение в текстуру
