@@ -105,8 +105,9 @@ using namespace sf;
 //};
 
 int main() {
-    RenderWindow window(VideoMode(448, 416), "Tan4iki!");
-    Map map("Background.png");
+
+    RenderWindow window(VideoMode(544, 480), "Tan4iki!");
+    
     map.SetNumberMap(1);
     Player tank("sprite.bmp", 20, 20, 26, 26);
     ///music
@@ -116,11 +117,15 @@ int main() {
     audio.playGame();
 
     int Dir = 0;
+
     bool NewBullet = false;
     bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
     Clock clock;
+
+    Map map("Background2.png");
+
 
 
     int n_bul = 1;
