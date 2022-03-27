@@ -39,10 +39,10 @@ private:
     std::vector<String> FirstMap = {
             "@@@@@@@@@@@@@@@@@",
             "@FFFFFFFFFFFFF@@@",
-            "@FFF4F4F4F4F4F@@@",
-            "@FFF4F4F4F4F4F@@@",
-            "@FFF4F494F4F4F@@@",
-            "@FFF4F3F3F4F4F@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F494F4F4F@@@",
+            "@F4F4F3F3F4F4F@@@",
             "@F3F3F1F1F3F3F@@@",
             "@1F11F3F3F11F1@@@",
             "@8F33F1F1F33F8@@@",
@@ -50,7 +50,7 @@ private:
             "@F4F4F4F4F4F4F@@@",
             "@F4F4F3F3F4F4F@@@",
             "@F4F4F?1?F4F4F@@@",
-            "@FFFFF0F2FFFFF@@@",
+            "@FFFFF0G2FFFFF@@@",
             "@@@@@@@@@@@@@@@@@",
     };
     std::vector<String> TileMap = {
