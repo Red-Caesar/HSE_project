@@ -41,7 +41,7 @@ private:
             "@FFFFFFFFFFFFF@@@",
             "@FFF4F4F4F4F4F@@@",
             "@FFF4F4F4F4F4F@@@",
-            "@FFF4F494F4F4F@@@",
+            "@FFF4F444F4F4F@@@",
             "@FFF4F3F3F4F4F@@@",
             "@F3F3F1F1F3F3F@@@",
             "@1F11F3F3F11F1@@@",

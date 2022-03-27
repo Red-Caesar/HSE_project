@@ -67,29 +67,38 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             if (tank.GetX() > 420) { tank.SetX(420); }
             if (tank.GetY() > 422) { tank.SetY(422); }
 
-            if (Diagram[i][j] == '0' && tank.GetX() > j * 32 - 16) {
-                if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6); }
-                if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
-                if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+            if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
+                if (tank.GetX() > j * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                }
             }
-            if (Diagram[i][j] == '1' && tank.GetY() > i * 32 - 16) {
-                if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6); }
-                if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+            if (Diagram[i][j] == '1' || Diagram[i][j] == '6' ){
+                if (tank.GetY() > i * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                }
             }
-            if (Diagram[i][j] == '2' && tank.GetX() < j * 32 + 16) {
-                if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6); }
-                if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+            if (Diagram[i][j] == '2' || Diagram[i][j] == '7' ){
+
+                if (tank.GetX() < j * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                }
             }
-            if (Diagram[i][j] == '3' && tank.GetY() < i * 32 + 16) {
-                if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6); }
-                if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
-                if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+            if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
+                if (tank.GetY() < i * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                }
             }
 
 
@@ -112,38 +121,42 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             }
     }
 
-    bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
-        for (int i = bullet.GetY() / 32; i < bullet.GetY() / 32; i++)
-            for (int j = bullet.GetX() / 32; j < bullet.GetX() / 32; j++) {
-                if (bullet.GetX() < 32 || bullet.GetY() < 32 || bullet.GetX() > 448 ||
-                    bullet.GetY() > 448) { return false; }
-                else {
-                    if (Diagram[i][j] == '1' && bullet.GetY() > i * 32 - 16) {
-                        SetDiagramMap(i, j, 'F');
-                        return false;
-                    }
-                    if (Diagram[i][j] == '0' && bullet.GetX() > j * 32 - 16) {
-                        SetDiagramMap(i, j, 'F');
-                        return false;
-                    }
-                    if (Diagram[i][j] == '2' && bullet.GetX() < j * 32 + 16) {
-                        SetDiagramMap(i, j, 'F');
-                        return false;
-                    }
-                    if (Diagram[i][j] == '3' && bullet.GetY() < i * 32 + 16) {
-                        SetDiagramMap(i, j, 'F');
-                        return false;
-                    }
-                    if (Diagram[i][j] == '4') {
-                        if (bullet.GetSpeedY() > 0) { SetDiagramMap(i, j, '1'); }
-                        if (bullet.GetSpeedY() < 0) { SetDiagramMap(i, j, '3'); }
-                        if (bullet.GetSpeedX() > 0) { SetDiagramMap(i, j, '0'); }
-                        if (bullet.GetSpeedX() < 0) { SetDiagramMap(i, j, '2'); }
-                        return false;
-                    }
-                    return true;
-                }
-            }
-    }
+bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
+    for (int i = bullet.GetY() / 32; i < bullet.GetY() /32; i++)
+        for (int j = bullet.GetX() / 32; j < bullet.GetX()/32; j++){
+            if (bullet.GetX() < 32 || bullet.GetY() < 32 || bullet.GetX() > 448|| bullet.GetY() > 448  ) { return false;}
+            else {
+                if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 - 16 )
+                {
+                    if (Diagram[i][j] == '1')
+                         SetDiagramMap( i, j, 'F');
+                    return false;}
+                if ((Diagram[i][j] == '0' || Diagram[i][j] == '5')&& bullet.GetX() > j * 32 - 16 ) {
+                    if (Diagram[i][j] == '0')
+                        SetDiagramMap( i, j, 'F');
+                    return false;}
+                if ((Diagram[i][j] == '2' || Diagram[i][j] == '7') && bullet.GetX() < j * 32 + 16){
+                    if (Diagram[i][j] == '2')
+                        SetDiagramMap( i, j, 'F');
+                    return false;}
+                if ((Diagram[i][j] == '3' || Diagram[i][j] == '8') && bullet.GetY() < i * 32 + 16){
+                    if (Diagram[i][j] == '3')
+                        SetDiagramMap( i, j, 'F');
+                    return false;}
+                if (Diagram[i][j] == '4'){
+                    if (bullet.GetSpeedY() > 0){ SetDiagramMap( i, j, '1');}
+                    if (bullet.GetSpeedY() < 0){ SetDiagramMap( i, j, '3');}
+                    if (bullet.GetSpeedX() > 0){ SetDiagramMap( i, j, '0');}
+                    if (bullet.GetSpeedX() < 0){ SetDiagramMap( i, j, '2');}
+                    return false; }
+            return true; }
+        }
+}
+
+
+
+
+
+
 
 
