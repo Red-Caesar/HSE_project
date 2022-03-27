@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+#include <random>
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Map.h"
@@ -33,17 +35,23 @@ int main() {
 
     int n_enemies = 3;
     Enemy_tank t[n_enemies];
-
+    Bullet enemy_bul[n_enemies];
     for (int i=0;i<n_enemies;i++){
         t[i].SetFile("sprite.bmp");
+        enemy_bul[i].SetFile("heart.bmp");
     }
     t[0].Start_Enemy_Function(t[0],t[1],t[2]);
     //t[1].Start_Enemy_Function(0,0);
 
 
-    std::srand(time(0));
+    //std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница
+
     while (window.isOpen()) {
+        std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count());
         float time = clock.getElapsedTime().asMicroseconds();
+        //long long time_e = time_e + clock.getElapsedTime().asMicroseconds();
+        //long long time_e = chrono::steady_clock::now();
         clock.restart();
         time = time / 800;
         // Обрабатываем очередь событий в цикле
@@ -75,7 +83,7 @@ int main() {
         //!!!
         for (int i=0;i<n_enemies;i++) {
             //if(t[i].GetIsOnTheField()) {
-                map.InteractionTankWithMap(map.GetDiagramMap(), t[i]);
+                map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
            // }
         }
         window.clear();
@@ -92,7 +100,14 @@ int main() {
         }
         for (int i=0;i<n_enemies;i++){
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){
-                t[i].Update(time);
+            if(t[i].GetFlag_to_change()){
+                t[i].UpdateDir(time, engine);
+                t[i].SetFlag_to_change(false);
+            }
+            t[i].update(time);
+            if(t[i].GetIsOnTheField()){
+                t[i].SetSpeed(0.1);
+            }
                 window.draw(t[i].GetSprite());
            // }
         }

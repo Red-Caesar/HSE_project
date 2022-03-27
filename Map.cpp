@@ -59,13 +59,14 @@ Sprite Map::GetMapSprite() {
 }
 ////////////////надо доделать
 void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
+   // void Map::InteractionTankWithMap(std::vector<String> Diagram, Enemy_tank &tank) {
     for (int i = tank.GetY() / 32; i < (tank.GetY() + tank.GetH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
         for (int j = tank.GetX() / 32; j < (tank.GetX() + tank.GetW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
         {
-            if (tank.GetX() < 0) { tank.SetX(0); }
-            if (tank.GetY() < 0) { tank.SetY(0); }
-            if (tank.GetX() > 420) { tank.SetX(420); }
-            if (tank.GetY() > 390) { tank.SetY(390); }
+            if (tank.GetX() < 0) { tank.SetX(0);}
+            if (tank.GetY() < 0) { tank.SetY(0);}
+            if (tank.GetX() > 420) { tank.SetX(420);}
+            if (tank.GetY() > 390) { tank.SetY(390);}
 
             if (Diagram[i][j] == '0' ){
                 if (tank.GetX() > j * 32 - 16 ){
@@ -131,6 +132,94 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
 //                        }
 //                    }else
                     tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
+            }
+        }
+}
+
+void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank) {
+    for (int i = tank.GetY() / 32; i < (tank.GetY() + tank.GetH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
+        for (int j = tank.GetX() / 32; j < (tank.GetX() + tank.GetW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
+        {
+            if (tank.GetX() < 0) { tank.SetX(0);
+                if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                }
+            }
+            if (tank.GetY() < 0) { tank.SetY(0);
+                if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                }
+            }
+            if (tank.GetX() > 420) { tank.SetX(420);
+                if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                }
+            }
+            if (tank.GetY() > 390) { tank.SetY(390);
+                if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                }
+            }
+
+            if (Diagram[i][j] == '0' ){
+                if (tank.GetX() > j * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                    }
+                }
+            }
+            if (Diagram[i][j] == '1' ){
+                if (tank.GetY() > i * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                    }
+                }
+            }
+            if (Diagram[i][j] == '2' ){
+
+                if (tank.GetX() < j * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                    if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                    }
+                }
+            }
+            if (Diagram[i][j] == '3' ){
+                if (tank.GetY() < i * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                    if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                    }
+                }
+            }
+
+            if (Diagram[i][j] == '4' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            {
+                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+                    tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
+                if (tank.GetSpeedY() < 0) {
+                    tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
+                if (tank.GetSpeedX() > 0) {
+                    tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                if (tank.GetSpeedX() < 0) {
+                    tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
+                if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                }
             }
         }
 }

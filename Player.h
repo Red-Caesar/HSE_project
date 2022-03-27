@@ -29,6 +29,8 @@ private:
     int m_tank_width; //высота и ширина в пикселях
     int m_tank_height;
 
+    bool IsPlayer = true;
+
 protected:
     float m_x;
     float m_y;

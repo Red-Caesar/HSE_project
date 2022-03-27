@@ -6,6 +6,7 @@
 #include <vector>
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy_tanks.h"
 
 
 using namespace sf;
@@ -82,6 +83,7 @@ public:
     void CreateMap( std::vector<String> Diagram, int i, int j);
 
     static void InteractionTankWithMap(std::vector<String> Diagram, Player &tank);
+    static void InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank);
 
     bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);
 
