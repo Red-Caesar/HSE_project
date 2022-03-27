@@ -115,8 +115,8 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
     bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
         for (int i = bullet.GetY() / 32; i < bullet.GetY() / 32; i++)
             for (int j = bullet.GetX() / 32; j < bullet.GetX() / 32; j++) {
-                if (bullet.GetX() < 0 || bullet.GetY() < 0 || bullet.GetX() > 435 ||
-                    bullet.GetY() > 410) { return false; }
+                if (bullet.GetX() < 32 || bullet.GetY() < 32 || bullet.GetX() > 448 ||
+                    bullet.GetY() > 448) { return false; }
                 else {
                     if (Diagram[i][j] == '1' && bullet.GetY() > i * 32 - 16) {
                         SetDiagramMap(i, j, 'F');
