@@ -24,7 +24,7 @@ private:
     double m_bullet_speed;  //скорость пули
     int m_bullet_power;     //сила пули
 
-    int m_lifes; //кол-во жизней
+    int m_player_lives; //кол-во жизней
 
     int m_tank_width; //высота и ширина в пикселях
     int m_tank_height;
