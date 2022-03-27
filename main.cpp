@@ -41,17 +41,13 @@ int main() {
         enemy_bul[i].SetFile("heart.bmp");
     }
     t[0].Start_Enemy_Function(t[0],t[1],t[2]);
-    //t[1].Start_Enemy_Function(0,0);
 
 
-    //std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count());
     std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count());
         float time = clock.getElapsedTime().asMicroseconds();
-        //long long time_e = time_e + clock.getElapsedTime().asMicroseconds();
-        //long long time_e = chrono::steady_clock::now();
         clock.restart();
         time = time / 800;
         // Обрабатываем очередь событий в цикле
@@ -59,6 +55,13 @@ int main() {
 
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
+
+        ////
+        for(int i=0;i<n_enemies;i++) {
+            std::cout << t[i].GetX()<<','<<t[i].GetY()<<"\n";
+        }
+        ////
+
 
         if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(1); tank.SetSpeed(0.1); tank.setRect();}
         if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(0);tank.SetSpeed(0.1);tank.setRect();}
@@ -90,7 +93,7 @@ int main() {
 
 /////////////////////////////Рисуем карту/////////////////////
         draw_map(map,window);
-       // window.draw(map.GetMapSprite());
+       //window.draw(map.GetMapSprite());
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {
                 bul[i].update(time);
@@ -104,6 +107,13 @@ int main() {
                 t[i].UpdateDir(time, engine);
                 t[i].SetFlag_to_change(false);
             }
+            if(!enemy_bul[i].Is_On_f) {
+                enemy_bul[i].Is_On_f = true;
+                enemy_bul[i].New_Coordinates_and_Dir(t[i]);
+            }
+            enemy_bul[i].update(time);
+            enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]);
+            window.draw(enemy_bul[i].sprite);
             t[i].update(time);
             if(t[i].GetIsOnTheField()){
                 t[i].SetSpeed(0.1);
@@ -111,7 +121,6 @@ int main() {
                 window.draw(t[i].GetSprite());
            // }
         }
-
         window.draw(tank.GetSprite());
         window.display();
     }

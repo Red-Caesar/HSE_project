@@ -11,9 +11,9 @@ void Enemy_tank::SetStartY(float y){
 bool Enemy_tank::SetIsAlive(bool f) {
     IsAlive = f;
 }
-bool Enemy_tank::SetIsPlayer(bool f) {
-    IsPlayer = f;
-}
+//bool Enemy_tank::SetIsPlayer(bool f) {
+ //   IsPlayer = f;
+//}
 bool Enemy_tank::SetFlag_to_change(bool f) {
     Flag_to_change=f;
 }
@@ -27,9 +27,9 @@ float Enemy_tank::GetStartY() const{
 bool Enemy_tank::GetIsAlive() const{
     return IsAlive;
 }
-bool Enemy_tank::GetIsPlayer() const{
-    return IsPlayer;
-}
+//bool Enemy_tank::GetIsPlayer() const{
+ //   return IsPlayer;
+//}
 bool Enemy_tank::GetFlag_to_change() const{
     return Flag_to_change;
 }
@@ -64,18 +64,8 @@ void Enemy_tank::Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank
 }
 
 void Enemy_tank::UpdateDir(float time,std::mt19937 engine){
-
-    //const int periodDuration = 186 / 8;
-
-    //if(<periodDuration){
-        std::uniform_int_distribution<int> dist(0,4);
+        //std::uniform_int_distribution<int> dist(0,4);
+        std::uniform_int_distribution<int> dist(0,3);
         SetDir(dist(engine));
-        //SetSpeed(0.1);
         setRect();
-    //}
-
 }
-//void Enemy_tank::Update(float time,std::mt19937 engine){
-
- //   update(time);
-//}

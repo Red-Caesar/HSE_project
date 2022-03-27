@@ -10,7 +10,7 @@ private:
     float start_y;
     bool IsAlive=true;
     bool IsOnTheField=false;
-    bool IsPlayer=false;
+   // bool IsPlayer=false;
     bool Flag_to_change=true;
 
 public:
