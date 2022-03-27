@@ -7,13 +7,9 @@ void Enemy_tank::SetStartX(float x){
 void Enemy_tank::SetStartY(float y){
     start_y=y;
 }
-
 bool Enemy_tank::SetIsAlive(bool f) {
     IsAlive = f;
 }
-//bool Enemy_tank::SetIsPlayer(bool f) {
- //   IsPlayer = f;
-//}
 bool Enemy_tank::SetFlag_to_change(bool f) {
     Flag_to_change=f;
 }
@@ -27,9 +23,6 @@ float Enemy_tank::GetStartY() const{
 bool Enemy_tank::GetIsAlive() const{
     return IsAlive;
 }
-//bool Enemy_tank::GetIsPlayer() const{
- //   return IsPlayer;
-//}
 bool Enemy_tank::GetFlag_to_change() const{
     return Flag_to_change;
 }
@@ -42,7 +35,7 @@ void Enemy_tank::SetStartCoordinates(float x, float y){
     start_x=x;
     start_y=y;
 }
-void Enemy_tank::Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3){
+void Enemy_tank::Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
     t1.SetStartCoordinates(0,0);
     t2.SetStartCoordinates(197,0);
     t3.SetStartCoordinates(419,0);
@@ -58,13 +51,12 @@ void Enemy_tank::Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank
     t2.SetY(0);
     t3.SetX(419);
     t3.SetY(0);
-    t1.SetSpeed(0.1);
+    t1.SetSpeed(0);
     t2.SetSpeed(0);
     t3.SetSpeed(0);
 }
 
-void Enemy_tank::UpdateDir(float time,std::mt19937 engine){
-        //std::uniform_int_distribution<int> dist(0,4);
+void Enemy_tank::UpdateDir(float time,std::mt19937 engine){  // Добавляем "случайное" направление
         std::uniform_int_distribution<int> dist(0,3);
         SetDir(dist(engine));
         setRect();
