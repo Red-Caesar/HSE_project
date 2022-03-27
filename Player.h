@@ -77,7 +77,9 @@ public:
 
     void setRect();
 
+    void SetW();
 
+    void SetH();
 };
 
 #endif

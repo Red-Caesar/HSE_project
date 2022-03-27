@@ -101,6 +101,17 @@ m_vx = vx;
 void Player::SetSpeedY(int vy) {
 m_vy = vy;
 }
+void Player::SetW() {
+    {
+        m_width = 26;
+        m_height = 26;
+    }
+}
+void Player::SetH() {
+    {
+        m_height = 26;
+    }
+}
 
 Sprite Player::GetSprite() {
     return m_sprite;

@@ -15,7 +15,8 @@ private:
 
 public:
     //Enemy_tank(const String &F, float X, float Y, int W, int H) : Player(F,X, Y, W, H){}
-    Enemy_tank() : Player(){}
+    //Enemy_tank() : Player(){}
+    Enemy_tank();
     //void Update(float time);
     void UpdateDir(float time,std::mt19937 engine);
     void SetStartX(float x);

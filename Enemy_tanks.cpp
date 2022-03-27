@@ -1,6 +1,14 @@
 #include <random>
 #include "Enemy_tanks.h"
 
+
+Enemy_tank::Enemy_tank() {
+    {
+        SetW();
+        SetH();
+    }
+}
+
 void Enemy_tank::SetStartX(float x){
     start_x=x;
 }
