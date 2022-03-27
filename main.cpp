@@ -93,7 +93,7 @@ int main() {
 
 /////////////////////////////Рисуем карту/////////////////////
         draw_map(map,window);
-       //window.draw(map.GetMapSprite());
+
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {
                 bul[i].update(time);
