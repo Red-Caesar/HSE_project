@@ -34,6 +34,7 @@ int main() {
     }
 
     int n_enemies = 3;
+    int alive_enemies =n_enemies;
     Enemy_tank t[n_enemies];
     Bullet enemy_bul[n_enemies];
     for (int i=0;i<n_enemies;i++){
@@ -116,7 +117,7 @@ int main() {
             window.draw(enemy_bul[i].sprite);
             t[i].update(time);
             if(t[i].GetIsOnTheField()){
-                t[i].SetSpeed(0.1);
+                t[i].SetSpeed(0.05);
             }
                 window.draw(t[i].GetSprite());
            // }
