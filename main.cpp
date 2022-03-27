@@ -107,9 +107,9 @@ using namespace sf;
 int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
-    
+    Map map("Background2.png");
     map.SetNumberMap(1);
-    Player tank("sprite.bmp", 20, 20, 26, 26);
+    Player tank("sprite.bmp", 32, 32, 26, 26);
     ///music
 
     Audio audio;
@@ -123,8 +123,6 @@ int main() {
     float CurrentFrame = 0;//хранит текущий кадр
 
     Clock clock;
-
-    Map map("Background2.png");
 
 
 
