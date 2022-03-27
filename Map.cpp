@@ -1,5 +1,4 @@
 #include "Map.h"
-// HRU _ HRU
 Map::Map(const String &F) {
     File = F;
     map_image.loadFromFile("..\\images/" + File);
@@ -58,19 +57,21 @@ std::vector<String> Map::GetDiagramMap() {
             "0000000000000000000000000000000000000000",
     };
     std::vector<String> TileMap = {
-            "FFFFFFFFFFFFF@",
-            "FFF4F4F4F4F4F@",
-            "FFF4F4F4F4F4F@",
-            "FFF4F494F4F4F@",
-            "FFF4F3F3F4F4F@",
-            "F3F3F1F1F3F3F@",
-            "1F11F3F3F11F1@",
-            "8F33F1F1F33F8@",
-            "F1F1F444F1F1F@",
-            "F4F4F4F4F4F4F@",
-            "F4F4F3F3F4F4F@",
-            "F4F4F?1?F4F4F@",
-            "FFFFF0F2FFFFF@",
+            "@@@@@@@@@@@@@@@@@",
+            "@FFFFFFFFFFFFF@@@",
+            "@FFF4F4F4F4F4F@@@",
+            "@FFF4F4F4F4F4F@@@",
+            "@FFF4F494F4F4F@@@",
+            "@FFF4F3F3F4F4F@@@",
+            "@F3F3F1F1F3F3F@@@",
+            "@1F11F3F3F11F1@@@",
+            "@8F33F1F1F33F8@@@",
+            "@F1F1F444F1F1F@@@",
+            "@F4F4F4F4F4F4F@@@",
+            "@F4F4F3F3F4F4F@@@",
+            "@F4F4F?1?F4F4F@@@",
+            "@FFFFF0F2FFFFF@@@",
+            "@@@@@@@@@@@@@@@@@",
     };
     switch (number_map) {
         case 0:
@@ -100,7 +101,8 @@ void Map::CreateMap(std::vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '4') map_sprite.setTextureRect(IntRect(0, 0, 32, 32));
     if (Diagram[i][j] == '8') map_sprite.setTextureRect(IntRect(64, 96, 32, 32));
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
-    if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160, 0, 32, 32));
+    if (Diagram[i][j] == '@') {map_sprite.setTextureRect(IntRect(160, 128, 32, 32));
+        }
     map_sprite.setPosition(j * 32, i *
                                    32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 

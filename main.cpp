@@ -105,12 +105,12 @@ using namespace sf;
 
 int main() {
     int Dir = 0;
-    RenderWindow window(VideoMode(448, 416), "Tan4iki!");
+    RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     bool NewBullet = false;
     bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
     Clock clock;
-    Map map("Background.png");
+    Map map("Background2.png");
 
     map.SetNumberMap(2);
     Player tank("sprite.bmp", 20, 20, 26, 26);
