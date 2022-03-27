@@ -1,5 +1,4 @@
 #include "Player.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 using namespace sf;
 
