@@ -70,7 +70,7 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             if (tank.GetY() > 422) { tank.SetY(422); }
 
             if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
-                if (tank.GetX() > j * 32 - 16 ){
+                if (tank.GetX() > j * 32 - 12 ){
                     if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
                     if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
                     if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
@@ -78,7 +78,7 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
                 }
             }
             if (Diagram[i][j] == '1' || Diagram[i][j] == '6' ){
-                if (tank.GetY() > i * 32 - 16 ){
+                if (tank.GetY() > i * 32 - 12 ){
                     if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
                     if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
                     if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
@@ -87,7 +87,7 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             }
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7' ){
 
-                if (tank.GetX() < j * 32 + 16 ){
+                if (tank.GetX() < j * 32 + 12 ){
                     if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
                     if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
                     if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
@@ -95,14 +95,13 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
                 }
             }
             if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
-                if (tank.GetY() < i * 32 + 16 ){
+                if (tank.GetY() < i * 32 + 12 ){
                     if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
                     if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
                     if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
                     if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
                 }
             }
-
 
                 if (Diagram[i][j] == '4' || Diagram[i][j] == '9')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
                 {
@@ -127,12 +126,12 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
         for (int j = bullet.GetX() / 32; j < bullet.GetX()/32; j++){
             if (bullet.GetX() < 32 || bullet.GetY() < 32 || bullet.GetX() > 448|| bullet.GetY() > 448  ) { return false;}
             else {
-                if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 - 16 )
+                if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 + 16 )
                 {
                     if (Diagram[i][j] == '1')
                          SetDiagramMap( i, j, 'F');
                     return false;}
-                if ((Diagram[i][j] == '0' || Diagram[i][j] == '5')&& bullet.GetX() > j * 32 - 16 ) {
+                if ((Diagram[i][j] == '0' || Diagram[i][j] == '5')&& bullet.GetX() > j * 32 + 16 ) {
                     if (Diagram[i][j] == '0')
                         SetDiagramMap( i, j, 'F');
                     return false;}
@@ -140,16 +139,16 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     if (Diagram[i][j] == '2')
                         SetDiagramMap( i, j, 'F');
                     return false;}
-                if ((Diagram[i][j] == '3' || Diagram[i][j] == '8') && bullet.GetY() < i * 32 + 16){
+                if ((Diagram[i][j] == '3' || Diagram[i][j] == '8') && bullet.GetY() < i * 32 + 16 ){
                     if (Diagram[i][j] == '3')
                         SetDiagramMap( i, j, 'F');
                     return false;}
                 if (Diagram[i][j] == '4' || Diagram[i][j] == '9'){
                     if (Diagram[i][j] == '4'){
-                        if (bullet.GetSpeedY() > 0){ SetDiagramMap( i, j, '1');}
-                        if (bullet.GetSpeedY() < 0){ SetDiagramMap( i, j, '3');}
-                        if (bullet.GetSpeedX() > 0){ SetDiagramMap( i, j, '0');}
-                        if (bullet.GetSpeedX() < 0){ SetDiagramMap( i, j, '2');}
+                        if (bullet.GetSpeedY() > 0){  SetDiagramMap( i, j, '1');}
+                        if (bullet.GetSpeedY() < 0){  SetDiagramMap( i, j, '3');}
+                        if (bullet.GetSpeedX() > 0){  SetDiagramMap( i, j, '0');}
+                        if (bullet.GetSpeedX() < 0){  SetDiagramMap( i, j, '2');}
                     }
                     return false; }
             return true; }

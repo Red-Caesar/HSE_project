@@ -161,7 +161,7 @@ int main() {
             }
             NewBullet = false;
         }
-
+        NewBullet = false;
         tank.update(time);
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         window.clear();
