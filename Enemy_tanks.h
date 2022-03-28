@@ -17,7 +17,7 @@ private:
     float respawn;
     int period;
 public:
-    Enemy_tank(const String &F, float X, float Y, int W, int H, const String name, int class_of_enemy) : Entity(F,X, Y, W, H, name){
+    Enemy_tank(const String &F, float X, float Y, int W, int H, const String name) : Entity(F,X, Y, W, H, name){
         IsOnTheField=false;
         Flag_to_change=true;
     }
@@ -31,7 +31,7 @@ public:
     void SetStartY(float y);
     float GetStartX() const;
     float GetStartY() const;
-    bool GetIsAlive() const;
+    //bool GetIsAlive() const;
     bool GetIsOnTheField() const;
     void SetIsOnTheField(bool flag);
     void SetStartCoordinates(float x, float y);
@@ -43,7 +43,7 @@ public:
 
     bool SetFlag_to_change(bool f);
 
-    //bool GetIsPlayer() const;
+   //bool GetIsPlayer() const;
 
     bool GetFlag_to_change() const;
 

@@ -8,61 +8,10 @@
 #include "Audio.h"
 #include "Game_time.h"
 #include "Enemy_tanks.h"
+#include "Menu.h"
+#include "Types.h"
 using namespace sf;
-bool menu (RenderWindow &window){
-    Texture menuTexture1, menuTexture2, menuTexture3;
-    Sprite menuSprite1, menuSprite2, menuSprite3;
-    Image menuImage1,menuImage2,menuImage3;
 
-    menuImage1.loadFromFile("..\\images/sprite.bmp");
-    menuImage2.loadFromFile("..\\images/sprite.bmp");
-    menuImage3.loadFromFile("..\\images/sprite.bmp");
-
-    menuTexture1.loadFromImage(menuImage1);
-    menuTexture2.loadFromImage(menuImage2);
-    menuTexture3.loadFromImage(menuImage3);
-
-    menuSprite1.setTexture(menuTexture1);
-    menuSprite1.setTextureRect(IntRect(135, 274, 374, 137));
-    menuSprite1.setPosition(75,50);
-    menuSprite2.setTexture(menuTexture2);
-    menuSprite2.setTextureRect(IntRect(354, 423, 62, 14));
-    menuSprite2.setPosition(193,230);
-    menuSprite3.setTexture(menuTexture3);
-    menuSprite3.setTextureRect(IntRect(1, 35, 26,26));
-    menuSprite3.setPosition(165,226);
-
-    bool IsMenu = true;
-    bool IsPlay=false;
-
-    while(IsMenu){
-        IsPlay=false;
-
-        if(IntRect(193,230,62, 14).contains(Mouse::getPosition(window))){
-            window.draw(menuSprite3);
-            IsPlay=true;
-        }
-
-        if (Mouse::isButtonPressed(Mouse::Left)) {
-            if (IsPlay) {
-                IsMenu = false;
-            }
-        }
-        Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == Event::Closed) {
-                window.close();
-                return false;}
-        }
-
-        window.draw(menuSprite1);
-        window.draw(menuSprite2);
-
-        window.display();
-        window.clear();
-    }
-    return true;
-}
 
 int main() {
 
@@ -72,7 +21,7 @@ int main() {
     }
     Map map("Background.png");
     map.SetNumberMap(1);
-    Player tank("sprite.bmp", 164, 420, 26, 26);
+    Player tank("sprite.bmp", 164, 420, 26, 26, "main_tank");
     ///music
 
     Audio audio;
@@ -81,9 +30,6 @@ int main() {
     audio.Init();
     audio.playGame();
     audio.playSpawn();
-
-
-    int Dir = 0;
 
     bool NewBullet = false;
     bool BigFlag = false;
@@ -96,53 +42,16 @@ int main() {
         bul[i].SetFile("heart.bmp");
     }
 
-    int n_enemies = 3; // Количество танков, позже должно увеличиться до 10(?)
-    int alive_enemies = n_enemies; //Маша просила переменную
-    Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
-    Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
-    for (int i=0;i<n_enemies;i++){  // Установка спрайтов
-        t[i].SetFile("sprite.bmp");
-        enemy_bul[i].SetFile("heart.bmp");
-    }
-    t[0].Start_Enemy_Function(t[0],t[1],t[2]); //Стартовая функция. Я планировала, что танки будут появляться на 3 местах, когда один из них умрет и
-    //соответственно на это же место будет вставать новый танк, но, видимо, надо делать иначе.
-    // Скорее всего эту функцию надо переписать, чтобы она была доступной для всех вражеских танков
-
-
     std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница рандома
     int STATE =1;
 
     float time_to_go = 0;
     int enemies_number = 9;
 
-
-    class Icon {
-    public:
-        float x, y, w, h, a, b = 0;
-        String File;
-        Image image;
-        Texture icon_texture;
-        Sprite icon_sprite;
-
-        Icon(String F, float X, float Y) {
-            File = F;
-            x = X;
-            y = Y;
-            // x = 48/33;
-            //y = 273;
-            w = 16;
-            h = 16;
-            image.loadFromFile("..\\images/" + File);
-            icon_texture.loadFromImage(image);
-            icon_sprite.setTexture(icon_texture);
-            icon_sprite.setTextureRect(IntRect(x, y, w,h));
-        }
-        void CreateIcon(int x, int y) {
-            // x = 464;
-            // y = 64/200;
-                icon_sprite.setPosition(x, y);
-        }
-    };
+    int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
+    Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
+    Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
+    int enemy_iterator = 0;
 
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
@@ -157,10 +66,10 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
         if (tank.GetIsAlive()){
-            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(1); tank.SetSpeed(0.1); tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(0);tank.SetSpeed(0.1);tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(3); tank.SetSpeed(0.1); tank.setRect(); }
-            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(2); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
+            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
             if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true; }
         }
 
@@ -180,7 +89,7 @@ int main() {
         NewBullet = false;
         tank.update(g_time.GetTime());
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
-        for (int i=0;i<n_enemies;i++) {
+        for (int i=0;i<enemy_iterator;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
             // }
@@ -196,9 +105,13 @@ int main() {
             }
        // window.draw(map.GetMapSprite());
         time_to_go += g_time.GetTime();
-        if (time_to_go > 3000) {
+        if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
             enemies_number--;
+            t[enemy_iterator].SetEnemyClass(0);
+            enemy_bul[enemy_iterator].SetFile("heart.bmp");
+            Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());
+            enemy_iterator ++;
         }
 
        int icons_counter = enemies_number;
@@ -227,20 +140,29 @@ int main() {
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }
-        for (int i=0;i<n_enemies;i++){   //Общий цикл врагов
+        for (int i = 0;i<enemy_iterator;i++){   //Общий цикл врагов
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
             if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
-                t[i].UpdateDir(g_time.GetTime(), engine);    // меняем направление
+                t[i].UpdateDir(engine);    // меняем направление
                 t[i].SetFlag_to_change(false);  //Опускаем флаг
             }
             if(!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
                 enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
-                enemy_bul[i].New_Coordinates_and_Dir(t[i]); // Установить ей координаты и направление
+                enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
+            }
+//           Делаем еще один рандом
+//            srand(time(NULL));
+//            int random = 1 + rand()%32;
+            std::uniform_int_distribution<int> dist(1,1024);
+            switch (dist(engine)) {
+                case 512:
+                    t[i].UpdateDir(engine);
+                    break;
             }
             enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
             enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
             window.draw(enemy_bul[i].sprite); //Рисуем пулю
-            t[i].update(g_time.GetTime());
+            t[i].EnemyUpdate(g_time.GetTime());
             if(t[i].GetIsOnTheField()){  //Если пуля на поле, то устанавливаем ей скорость
                 t[i].SetSpeed(0.05);
             }

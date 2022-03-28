@@ -12,9 +12,8 @@ void Enemy_tank::SetEnemyClass( int class_of_enemy) {
             m_speed = 0.1;
             break;
     }
-
-
 }
+
 void Enemy_tank::SetStartX(float x){
     start_x=x;
 }
