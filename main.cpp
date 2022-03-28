@@ -6,14 +6,72 @@
 #include "Map.h"
 #include "Bullet.h"
 #include "Audio.h"
+#include "Enemy_tanks.h"
 using namespace sf;
+bool menu (RenderWindow &window){
+    Texture menuTexture1, menuTexture2, menuTexture3;
+    Sprite menuSprite1, menuSprite2, menuSprite3;
+    Image menuImage1,menuImage2,menuImage3;
+
+    menuImage1.loadFromFile("..\\images/sprite.bmp");
+    menuImage2.loadFromFile("..\\images/sprite.bmp");
+    menuImage3.loadFromFile("..\\images/sprite.bmp");
+
+    menuTexture1.loadFromImage(menuImage1);
+    menuTexture2.loadFromImage(menuImage2);
+    menuTexture3.loadFromImage(menuImage3);
+
+    menuSprite1.setTexture(menuTexture1);
+    menuSprite1.setTextureRect(IntRect(135, 274, 374, 137));
+    menuSprite1.setPosition(30,50);
+    menuSprite2.setTexture(menuTexture2);
+    menuSprite2.setTextureRect(IntRect(354, 423, 62, 14));
+    menuSprite2.setPosition(193,230);
+    menuSprite3.setTexture(menuTexture3);
+    menuSprite3.setTextureRect(IntRect(1, 35, 26,26));
+    menuSprite3.setPosition(165,226);
+
+    bool IsMenu = true;
+    bool IsPlay=false;
+
+    while(IsMenu){
+        IsPlay=false;
+
+        if(IntRect(193,230,62, 14).contains(Mouse::getPosition(window))){
+            window.draw(menuSprite3);
+            IsPlay=true;
+        }
+
+        if (Mouse::isButtonPressed(Mouse::Left)) {
+            if (IsPlay) {
+                IsMenu = false;
+            }
+        }
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+                return false;}
+        }
+
+        window.draw(menuSprite1);
+        window.draw(menuSprite2);
+
+        window.display();
+        window.clear();
+    }
+    return true;
+}
 
 int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
+    if(!menu(window)){
+        return 0;
+    }
     Map map("Background.png");
     map.SetNumberMap(1);
-    Player tank("sprite.bmp", 32, 32, 26, 26);
+    Player tank("sprite.bmp", 20, 380, 26, 26);
     ///music
 
     Audio audio;
@@ -44,11 +102,12 @@ int main() {
         enemy_bul[i].SetFile("heart.bmp");
     }
     t[0].Start_Enemy_Function(t[0],t[1],t[2]); //Стартовая функция. Я планировала, что танки будут появляться на 3 местах, когда один из них умрет и
-                                                         //соответственно на это же место будет вставать новый танк, но, видимо, надо делать иначе.
-                                                         // Скорее всего эту функцию надо переписать, чтобы она была доступной для всех вражеских танков
+    //соответственно на это же место будет вставать новый танк, но, видимо, надо делать иначе.
+    // Скорее всего эту функцию надо переписать, чтобы она была доступной для всех вражеских танков
 
 
     std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница рандома
+    int STATE =1;
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
@@ -84,8 +143,8 @@ int main() {
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         for (int i=0;i<n_enemies;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
-                map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
-           // }
+            map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
+            // }
         }
         window.clear();
 
@@ -95,7 +154,7 @@ int main() {
                 map.CreateMap(map.GetDiagramMap(), i, j);
                 window.draw(map.GetMapSprite());//рисуем квадратики на экран
             }
-       // window.draw(map.GetMapSprite());
+        // window.draw(map.GetMapSprite());
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {
                 bul[i].update(time);
@@ -120,8 +179,8 @@ int main() {
             if(t[i].GetIsOnTheField()){  //Если пуля на поле, то устанавливаем ей скорость
                 t[i].SetSpeed(0.05);
             }
-                window.draw(t[i].GetSprite());
-           // }
+            window.draw(t[i].GetSprite());
+            // }
         }
         window.draw(tank.GetSprite());
         window.display();
