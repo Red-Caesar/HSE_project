@@ -89,7 +89,7 @@ using namespace sf;
 //        //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 //    }
 //
- //void New_Coordinates_and_Dir(Player &player){
+//    void New_Coordinates_and_Dir(Player &player){
 //        dir = player.GetDir();
 //        x = player.GetX() + 10;
 //        y = player.GetY() + 10;
@@ -115,6 +115,7 @@ int main() {
     Audio audio;
     audio.Init();
     audio.playGame();
+    audio.playSpawn();
 
 
     int Dir = 0;
