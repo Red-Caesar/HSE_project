@@ -16,7 +16,7 @@ private:
     String File;
     float start_x;
     float start_y;
-    bool IsAlive=true;
+    bool IsAlive = true;
     bool IsOnTheField=false;
     float e_speed;         //базовая скорость
     float e_x, e_y;        //позиция игрока

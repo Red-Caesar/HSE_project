@@ -50,14 +50,8 @@ int main() {
     int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
     Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
     Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
-//    for (int i = 0; i < n_enemies; i++){  // Установка спрайтов
-//        t[i].SetEnemyFile("sprite.bmp", 0);
-//        enemy_bul[i].SetFile("heart.bmp");
-//    }
-//    t[0].SetEnemyFile("sprite.bmp", 0);
-//    enemy_bul[0].SetFile("heart.bmp");
-//    Start_Enemy_Function(t[0]);
     int enemy_iterator = 0;
+
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
 
