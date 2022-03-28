@@ -12,7 +12,7 @@ int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(2);
     Player tank("sprite.bmp", 164, 420, 26, 26);
     ///music
 

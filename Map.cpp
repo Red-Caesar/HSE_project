@@ -23,7 +23,7 @@ std::vector<String> Map::GetDiagramMap() {
         case 1:
             return FirstMap;
         case 2:
-            return TileMap;
+            return SecondMap;
     }
 }
 void Map::SetDiagramMap(int i, int j, char texture) {
