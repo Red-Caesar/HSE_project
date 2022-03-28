@@ -56,7 +56,7 @@ public:
     void SetEnemyDir(int new_dir);
     void SetEnemyFile(String F, int class_of_enemy);
     //void Update(float time);
-    void UpdateDir(float time,std::mt19937 engine);
+    void UpdateDir(std::mt19937 engine);
     void SetStartX(float x);
     void SetStartY(float y);
     float GetStartX() const;

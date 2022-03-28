@@ -143,12 +143,21 @@ int main() {
         for (int i = 0;i<enemy_iterator;i++){   //Общий цикл врагов
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
             if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
-                t[i].UpdateDir(g_time.GetTime(), engine);    // меняем направление
+                t[i].UpdateDir(engine);    // меняем направление
                 t[i].SetFlag_to_change(false);  //Опускаем флаг
             }
             if(!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
                 enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
                 enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
+            }
+//           Делаем еще один рандом
+//            srand(time(NULL));
+//            int random = 1 + rand()%32;
+            std::uniform_int_distribution<int> dist(1,1024);
+            switch (dist(engine)) {
+                case 512:
+                    t[i].UpdateDir(engine);
+                    break;
             }
             enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
             enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля

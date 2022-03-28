@@ -175,12 +175,7 @@ void Enemy_tank::SetEnemyRect(){
     }
 }
 
-void Enemy_tank::UpdateDir(float time,std::mt19937 engine){  // Добавляем "случайное" направление
-    switch (period) {
-        case 1:
-
-            break;
-    }
+void Enemy_tank::UpdateDir(std::mt19937 engine){  // Добавляем "случайное" направление
     std::uniform_int_distribution<int> dist(0,3);
     SetEnemyDir(dist(engine));
     SetEnemyRect();
