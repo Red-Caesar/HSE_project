@@ -1,5 +1,4 @@
 #include "Player.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 using namespace sf;
 
@@ -56,6 +55,9 @@ Player::Player(const String& F, float X, float Y, int W, int H) {
         m_y = Y;
         m_width = W;
         m_height = H;
+        m_player_lives = 3;
+        m_alive = true;
+
         m_image.loadFromFile("..\\images/" + File);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
         //m_image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
         m_texture.loadFromImage(m_image);//закидываем наше изображение в текстуру
@@ -128,7 +130,7 @@ void Player::update(float time) //функция "оживления" объек
 
     m_speed = 0;//зануляем скорость, чтобы персонаж остановился.
     m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
-
+    if (m_player_lives == 0){ m_alive = false;}
 }
 
 int Player::GetDir() {
@@ -137,6 +139,22 @@ return m_dir;
 
 void Player::SetDir(int dir) {
 m_dir = dir;
+}
+
+bool Player::GetAlive() const {
+    return m_alive;
+}
+
+void Player::SetAlive(bool alive) {
+    Player:: m_alive = alive;
+}
+
+int Player::GetPlayerLives() const {
+    return m_player_lives;
+}
+
+void Player::SetPlayerLives(int lives) {
+    m_player_lives = lives;
 }
 
 
