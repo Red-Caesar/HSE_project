@@ -41,25 +41,23 @@ int main() {
         bul[i].SetFile("heart.bmp");
     }
 
-    int n_enemies = 3; // Количество танков, позже должно увеличиться до 10(?)
-    int alive_enemies = n_enemies; //Маша просила переменную
-    Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
-    Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
-    for (int i=0;i<n_enemies;i++){  // Установка спрайтов
-        t[i].SetEnemyFile("sprite.bmp", 0);
-        enemy_bul[i].SetFile("heart.bmp");
-    }
-    Start_Enemy_Function(t[0],t[1],t[2]); //Стартовая функция. Я планировала, что танки будут появляться на 3 местах, когда один из них умрет и
-    //соответственно на это же место будет вставать новый танк, но, видимо, надо делать иначе.
-    // Скорее всего эту функцию надо переписать, чтобы она была доступной для всех вражеских танков
-
-
     std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница рандома
     int STATE =1;
 
     float time_to_go = 0;
     int enemies_number = 9;
 
+    int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
+    Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
+    Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
+//    for (int i = 0; i < n_enemies; i++){  // Установка спрайтов
+//        t[i].SetEnemyFile("sprite.bmp", 0);
+//        enemy_bul[i].SetFile("heart.bmp");
+//    }
+//    t[0].SetEnemyFile("sprite.bmp", 0);
+//    enemy_bul[0].SetFile("heart.bmp");
+//    Start_Enemy_Function(t[0]);
+    int enemy_iterator = 0;
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
 
@@ -96,7 +94,7 @@ int main() {
         NewBullet = false;
         tank.update(g_time.GetTime());
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
-        for (int i=0;i<n_enemies;i++) {
+        for (int i=0;i<enemy_iterator;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
             // }
@@ -112,9 +110,13 @@ int main() {
             }
        // window.draw(map.GetMapSprite());
         time_to_go += g_time.GetTime();
-        if (time_to_go > 3000) {
+        if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
             enemies_number--;
+            t[enemy_iterator].SetEnemyFile("sprite.bmp", 0);
+            enemy_bul[enemy_iterator].SetFile("heart.bmp");
+            Start_Enemy_Function(t[enemy_iterator]);
+            enemy_iterator ++;
         }
 
        int icons_counter = enemies_number;
@@ -143,7 +145,7 @@ int main() {
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }
-        for (int i=0;i<n_enemies;i++){   //Общий цикл врагов
+        for (int i = 0;i<enemy_iterator;i++){   //Общий цикл врагов
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
             if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
                 t[i].UpdateDir(g_time.GetTime(), engine);    // меняем направление

@@ -1,4 +1,5 @@
 #include <random>
+#include <stdlib.h>
 #include "Enemy_tanks.h"
 
 
@@ -82,7 +83,7 @@ bool Enemy_tank::SetIsAlive(bool f) {
     IsAlive = f;
 }
 bool Enemy_tank::SetFlag_to_change(bool f) {
-    Flag_to_change=f;
+    Flag_to_change = f;
 }
 
 void Enemy_tank::SetEnemySpeed(float speed) {
@@ -100,6 +101,10 @@ bool Enemy_tank::GetIsAlive() const{
 }
 bool Enemy_tank::GetFlag_to_change() const{
     return Flag_to_change;
+}
+
+void Enemy_tank::SetIsOnTheField(bool flag){
+    IsOnTheField = flag;
 }
 
 bool Enemy_tank::GetIsOnTheField() const{
@@ -130,25 +135,25 @@ void Enemy_tank::EnemyUpdate(float time) //функция "оживления" �
     e_sprite.setPosition(e_x,e_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 
 }
-void Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
-    t1.SetStartCoordinates(32,32);
-    t2.SetStartCoordinates(229,32);
-    t3.SetStartCoordinates(451,32);
-    t1.IsOnTheField = true;
-    t2.IsOnTheField = true;
-    t3.IsOnTheField = true;
-    t1.EnemyInit(t1.start_x, t1.start_y);
-    t2.EnemyInit(t2.start_x, t2.start_y);
-    t3.EnemyInit(t3.start_x, t3.start_y);
-    t1.e_x = 32;
-    t1.e_y = 32;
-    t2.e_x = 229;
-    t2.e_y = 32;
-    t3.e_x = 451;
-    t3.e_y = 32;
-    t1.e_speed = 0;
-    t2.e_speed = 0;
-    t3.e_speed = 0;
+void Start_Enemy_Function(Enemy_tank &t){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
+    srand(time(NULL));
+    int random = 1 + rand()%9;
+    switch (random) {
+    case 1: case 4: case 7:
+        t.SetStartCoordinates(32,32);
+        break;
+    case 2: case 5: case 8:
+        t.SetStartCoordinates(229,32);
+        break;
+   case 3: case 6: case 9:
+       t.SetStartCoordinates(451,32);
+       break;
+    }
+    t.SetIsOnTheField(true);
+    t.EnemyInit(t.GetStartX(), t.GetStartY());
+    t.SetEnemyX(t.GetStartX());
+    t.SetEnemyY(t.GetStartY());
+    t.SetEnemySpeed(0);
 }
 void Enemy_tank::SetEnemyDir(int new_dir){
     e_dir = new_dir;

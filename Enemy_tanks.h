@@ -5,7 +5,7 @@
 #include "Player.h"
 
 class Enemy_tank : public Player{
-    friend void Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3);
+    friend void Start_Enemy_Function(Enemy_tank &t);
     friend class Bullet;
 private:
     int enemy_class;
@@ -60,8 +60,9 @@ public:
     float GetStartY() const;
     bool GetIsAlive() const;
     bool GetIsOnTheField() const;
+    void SetIsOnTheField(bool flag);
     void SetStartCoordinates(float x, float y);
-    void Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3);
+    void Start_Enemy_Function(Enemy_tank &t);
     void EnemyInit(int x, int y);
     void SetEnemyRect();
     //bool SetIsPlayer(bool f);
