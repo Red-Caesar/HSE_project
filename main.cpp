@@ -23,7 +23,7 @@ bool menu (RenderWindow &window){
 
     menuSprite1.setTexture(menuTexture1);
     menuSprite1.setTextureRect(IntRect(135, 274, 374, 137));
-    menuSprite1.setPosition(30,50);
+    menuSprite1.setPosition(75,50);
     menuSprite2.setTexture(menuTexture2);
     menuSprite2.setTextureRect(IntRect(354, 423, 62, 14));
     menuSprite2.setPosition(193,230);
