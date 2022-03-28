@@ -53,6 +53,25 @@ private:
             "@FFFFF0G2FFFFF@@@",
             "@@@@@@@@@@@@@@@@@",
     };
+    //SecondMap
+    std::vector<String> SecondMap = {
+            "@@@@@@@@@@@@@@@@@",
+            "@FFF9FFF9FFFFF@@@",
+            "@F4F9FFF4F4F4F@@@",
+            "@F4FFFF44F494F@@@",
+            "@FFF4FFFFF9FFF@@@",
+            "@sFF4FF9FF4s49@@@",
+            "@ssFFF4FF9FsFF@@@",
+            "@F444sss9FFs4F@@@",
+            "@FFF9s4F4F4F4F@@@",
+            "@94F9F4F4FFF4F@@@",
+            "@F4F4F444F494F@@@",
+            "@F4F4F444FFFFF@@@",
+            "@F4FFF?1?F4F4F@@@",
+            "@F4F4F0G2F444F@@@",
+            "@@@@@@@@@@@@@@@@@",
+    };
+
     std::vector<String> TileMap = {
             "FFFFFFFFFFFFF@",
             "FFFFFFF4F4F4F@",
