@@ -31,9 +31,9 @@ void Map::SetDiagramMap(int i, int j, char texture) {
         case 0:
              ZeroMap[i][j] = texture;
         case 1:
-            FirstMap[i][j] = texture;
+             FirstMap[i][j] = texture;
         case 2:
-             TileMap[i][j] = texture;
+             SecondMap[i][j] = texture;
     }
 
 }
