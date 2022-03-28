@@ -17,7 +17,7 @@ public:
     bool Is_On_f = false;
 
     Bullet();
-  //  Bullet(Player &player, String F)
+    //  Bullet(Player &player, String F)
     void update(float time);
     void  New_Coordinates_and_Dir(Player &player);
     void SetFile(String F);

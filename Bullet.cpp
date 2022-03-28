@@ -1,7 +1,3 @@
-//
-// Created by NP on 23.03.2022.
-//
-
 #include "Bullet.h"
 
 Bullet::Bullet() {
@@ -45,7 +41,7 @@ void Bullet::update(float time) {
          time;//то движение из прошлого урока. наше ускорение на время получаем смещение координат и как следствие движение
     y += dy * time;//аналогично по игреку
 
-    if (x >= 32 * 14 || y >= 32 * 13 || x <= 0 || y <= 0) {
+    if (x >= 32 * 17 || y >= 32 * 15 || x <= 32 || y <= 32) {
         speed = 0;
         Is_On_f = false;
     } else {
@@ -60,7 +56,7 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     dir = player.GetDir();
     x = player.GetX() + 10;
     y = player.GetY() + 10;
-    speed = 0.1;
+    speed = 0.3;
 }
 
 void Bullet::SetFile(String F) {
