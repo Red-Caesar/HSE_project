@@ -115,6 +115,9 @@ void Enemy_tank::SetStartCoordinates(float x, float y){
     start_x = x;
     start_y = y;
 }
+void Enemy_tank::SetRespawnTime(float time){
+    respawn = time;
+}
 void Enemy_tank::EnemyInit(int x, int y){
     e_sprite.setPosition(x, y);
 }
@@ -135,7 +138,7 @@ void Enemy_tank::EnemyUpdate(float time) //функция "оживления" �
     e_sprite.setPosition(e_x,e_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 
 }
-void Start_Enemy_Function(Enemy_tank &t){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
+void Start_Enemy_Function(Enemy_tank &t, float r_time){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
     srand(time(NULL));
     int random = 1 + rand()%9;
     switch (random) {
@@ -149,6 +152,8 @@ void Start_Enemy_Function(Enemy_tank &t){   //Расставляем первы�
        t.SetStartCoordinates(451,32);
        break;
     }
+    t.SetRespawnTime(r_time);
+    t.period = 1;
     t.SetIsOnTheField(true);
     t.EnemyInit(t.GetStartX(), t.GetStartY());
     t.SetEnemyX(t.GetStartX());
@@ -171,7 +176,12 @@ void Enemy_tank::SetEnemyRect(){
 }
 
 void Enemy_tank::UpdateDir(float time,std::mt19937 engine){  // Добавляем "случайное" направление
-        std::uniform_int_distribution<int> dist(0,3);
-        SetEnemyDir(dist(engine));
-        SetEnemyRect();
+    switch (period) {
+        case 1:
+
+            break;
+    }
+    std::uniform_int_distribution<int> dist(0,3);
+    SetEnemyDir(dist(engine));
+    SetEnemyRect();
 }

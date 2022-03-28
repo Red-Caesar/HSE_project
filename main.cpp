@@ -9,6 +9,7 @@
 #include "Game_time.h"
 #include "Enemy_tanks.h"
 #include "Menu.h"
+#include "Types.h"
 using namespace sf;
 
 
@@ -65,10 +66,10 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
         if (tank.GetAlive()){
-            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(1); tank.SetSpeed(0.1); tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(0);tank.SetSpeed(0.1);tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(3); tank.SetSpeed(0.1); tank.setRect(); }
-            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(2); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
+            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
             if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true; }
         }
 
@@ -109,7 +110,7 @@ int main() {
             enemies_number--;
             t[enemy_iterator].SetEnemyFile("sprite.bmp", 0);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
-            Start_Enemy_Function(t[enemy_iterator]);
+            Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());
             enemy_iterator ++;
         }
 

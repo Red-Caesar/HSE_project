@@ -3,9 +3,10 @@
 #define GAME_ENEMY_TANKS_H
 #include <random>
 #include "Player.h"
+#include "Game_time.h"
 
 class Enemy_tank : public Player{
-    friend void Start_Enemy_Function(Enemy_tank &t);
+    friend void Start_Enemy_Function(Enemy_tank &t,float r_time);
     friend class Bullet;
 private:
     int enemy_class;
@@ -25,6 +26,8 @@ private:
     bool Flag_to_change=true; //Флаг показывающий, что пора сменить направление
     int e_width;
     int e_height;
+    float respawn;
+    int period;
 public:
     //Enemy_tank(const String &F, float X, float Y, int W, int H) : Player(F,X, Y, W, H){}
     //Enemy_tank() : Player(){}
@@ -62,7 +65,8 @@ public:
     bool GetIsOnTheField() const;
     void SetIsOnTheField(bool flag);
     void SetStartCoordinates(float x, float y);
-    void Start_Enemy_Function(Enemy_tank &t);
+    void SetRespawnTime(float time);
+    void Start_Enemy_Function(Enemy_tank &t,float r_time);
     void EnemyInit(int x, int y);
     void SetEnemyRect();
     //bool SetIsPlayer(bool f);
