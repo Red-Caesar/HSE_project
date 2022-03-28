@@ -20,9 +20,7 @@ void Enemy_tank::SetStartX(float x){
 void Enemy_tank::SetStartY(float y){
     start_y=y;
 }
-bool Enemy_tank::SetIsAlive(bool f) {
-    is_alive = f;
-}
+
 bool Enemy_tank::SetFlag_to_change(bool f) {
     Flag_to_change = f;
 }
@@ -33,9 +31,7 @@ float Enemy_tank::GetStartX() const{
 float Enemy_tank::GetStartY() const{
     return start_y;
 }
-bool Enemy_tank::GetIsAlive() const{
-    return is_alive;
-}
+
 bool Enemy_tank::GetFlag_to_change() const{
     return Flag_to_change;
 }

@@ -21,6 +21,7 @@ public:
         IsOnTheField=false;
         Flag_to_change=true;
     }
+    Enemy_tank():Entity(){}
 
 
     void EnemyUpdate(float time);

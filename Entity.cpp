@@ -21,6 +21,10 @@ Entity::Entity(const String& F, float X, float Y, int W, int H, const String nam
     //m_sprite.setPosition(m_x,m_y);
 }
 
+Entity::Entity() {
+
+}
+
 float Entity::GetX()
 {
     return m_x;

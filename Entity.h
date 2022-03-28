@@ -23,7 +23,7 @@ protected:
     Texture m_texture;
 public:
     Entity(const String& F, float X, float Y, int W, int H, const String name);
-
+    Entity();
     float GetX(); void SetX(float x);
 
     float GetY(); void SetY(float y);
