@@ -24,10 +24,12 @@ private:
 
     int m_player_lives; //кол-во жизней
     bool m_alive; //живой или нет
-
+    bool IsPlayer = true;
 
 public:
     Player(const String &F, float X, float Y, int W, int H);
+
+    Player();
 
     void Init(int x, int y);
 
@@ -61,6 +63,8 @@ public:
 
     void SetY(int y);
 
+    void SetFile(String F);
+
     void SetSpeedX(int vx);
 
     void SetSpeedY(int vy);
@@ -73,7 +77,9 @@ public:
 
     void setRect();
 
+    void SetW();
 
+    void SetH();
 };
 
 #endif

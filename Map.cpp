@@ -122,11 +122,95 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             }
     }
 
+void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank) {   // Та же функция, но для врагов
+                                                                                         // В случае коллизии поднимаем флаг смены направления
+    for (int i = tank.GetY() / 32; i < (tank.GetY() + tank.GetH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
+        for (int j = tank.GetX() / 32; j < (tank.GetX() + tank.GetW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
+        {
+            if (tank.GetX() < 32) { tank.SetX(32);
+                    tank.SetFlag_to_change(true);
+            }
+            if (tank.GetY() < 32) { tank.SetY(32);
+                    tank.SetFlag_to_change(true);
+            }
+            if (tank.GetX() > 420) { tank.SetX(420);
+                    tank.SetFlag_to_change(true);
+            }
+            if (tank.GetY() > 422) { tank.SetY(422);
+                    tank.SetFlag_to_change(true);
+            }
+
+            if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
+                if (tank.GetX() > j * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    tank.SetFlag_to_change(true);
+                }
+            }
+            if (Diagram[i][j] == '1'|| Diagram[i][j] == '6' ){
+                if (tank.GetY() > i * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                  //  if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                   // }
+                }
+            }
+            if (Diagram[i][j] == '2' || Diagram[i][j] == '7'){
+
+                if (tank.GetX() < j * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                   // if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                   // }
+                }
+            }
+            if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
+                if (tank.GetY() < i * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                  //  if(!tank.GetIsPlayer()){
+                        tank.SetFlag_to_change(true);
+                   // }
+                }
+            }
+
+            if (Diagram[i][j] == '4' || Diagram[i][j] == '9' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+            {
+                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+                    tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
+                if (tank.GetSpeedY() < 0) {
+                    tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
+                if (tank.GetSpeedX() > 0) {
+                    tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                if (tank.GetSpeedX() < 0) {
+                    tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
+               // if(!tank.GetIsPlayer()){
+                    tank.SetFlag_to_change(true);
+                //}
+            }
+            //if(tank.GetX())
+        }
+}
+
 bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) {
     for (int i = bullet.GetY() / 32; i < bullet.GetY() /32; i++)
         for (int j = bullet.GetX() / 32; j < bullet.GetX()/32; j++){
             if (bullet.GetX() < 32 || bullet.GetY() < 32 || bullet.GetX() > 448|| bullet.GetY() > 448  ) { return false;}
             else {
+                if (Diagram[i][j] == 'G'){
+//                    game over
+//                    who is the owner of bullet doesnt matter
+//                }
                 if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 + 16 )
                 {
                     if (Diagram[i][j] == '1')
@@ -140,16 +224,16 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     if (Diagram[i][j] == '2')
                         SetDiagramMap( i, j, 'F');
                     return false;}
-                if ((Diagram[i][j] == '3' || Diagram[i][j] == '8') && bullet.GetY() < i * 32 + 16 ){
+                if ((Diagram[i][j] == '3' || Diagram[i][j] == '8') && bullet.GetY() < i * 32 + 16){
                     if (Diagram[i][j] == '3')
                         SetDiagramMap( i, j, 'F');
                     return false;}
                 if (Diagram[i][j] == '4' || Diagram[i][j] == '9'){
                     if (Diagram[i][j] == '4'){
-                        if (bullet.GetSpeedY() > 0){  SetDiagramMap( i, j, '1');}
-                        if (bullet.GetSpeedY() < 0){  SetDiagramMap( i, j, '3');}
-                        if (bullet.GetSpeedX() > 0){  SetDiagramMap( i, j, '0');}
-                        if (bullet.GetSpeedX() < 0){  SetDiagramMap( i, j, '2');}
+                        if (bullet.GetSpeedY() > 0){ SetDiagramMap( i, j, '1');}
+                        if (bullet.GetSpeedY() < 0){ SetDiagramMap( i, j, '3');}
+                        if (bullet.GetSpeedX() > 0){ SetDiagramMap( i, j, '0');}
+                        if (bullet.GetSpeedX() < 0){ SetDiagramMap( i, j, '2');}
                     }
                     return false; }
                 if (Diagram[i][j] == '9'){
