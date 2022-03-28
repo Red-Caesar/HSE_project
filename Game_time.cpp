@@ -9,6 +9,7 @@ void Game_time::Init() {
     time = clock.getElapsedTime().asMicroseconds();
     clock.restart();
     time = time /1000;
+
 }
 
 float Game_time::GetTime() {
