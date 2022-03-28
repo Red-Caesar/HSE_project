@@ -116,6 +116,7 @@ int main() {
     audio.Init();
     audio.playGame();
 
+
     int Dir = 0;
 
     bool NewBullet = false;
@@ -166,12 +167,15 @@ int main() {
         window.clear();
 
 /////////////////////////////Рисуем карту/////////////////////
+
         for (int i = 0; i < HEIGHT_MAP; i++)
             for (int j = 0; j < WIDTH_MAP; j++) {
                 map.CreateMap(map.GetDiagramMap(), i, j);
                 window.draw(map.GetMapSprite());//рисуем квадратики на экран
             }
        // window.draw(map.GetMapSprite());
+
+
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {
                 bul[i].update(time);

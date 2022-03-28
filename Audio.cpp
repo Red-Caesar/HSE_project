@@ -15,6 +15,7 @@ void Audio::Init() {
 
 void Audio::playGame() {
     game.play();
+    game.setLoop(true);
 }
 
 void Audio::playShoot() {
