@@ -56,7 +56,7 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     dir = player.GetDir();
     x = player.GetX() + 10;
     y = player.GetY() + 10;
-    speed = 0.1;
+    speed = 0.3;
 }
 
 void Bullet::SetFile(String F) {

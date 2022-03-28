@@ -87,7 +87,7 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
             }
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7' ){
 
-                if (tank.GetX() < j * 32 + 12 ){
+                if (tank.GetX() < j * 32 + 16 ){
                     if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
                     if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
                     if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
@@ -103,7 +103,8 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
                 }
             }
 
-                if (Diagram[i][j] == '4' || Diagram[i][j] == '9')//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
+
+                if (Diagram[i][j] == '4' || Diagram[i][j] == '9' || Diagram[i][j] == 'A' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
                 {
                     if (tank.GetSpeedY() > 0) {//если мы шли вниз,
                         tank.SetY(i * 32 - tank.GetH() - 6);
@@ -151,6 +152,9 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                         if (bullet.GetSpeedX() < 0){  SetDiagramMap( i, j, '2');}
                     }
                     return false; }
+                if (Diagram[i][j] == '9'){
+                    return false;
+                }
             return true; }
         }
 }

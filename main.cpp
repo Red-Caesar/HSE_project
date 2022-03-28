@@ -89,7 +89,7 @@ using namespace sf;
 //        //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 //    }
 //
-//    void New_Coordinates_and_Dir(Player &player){
+ //void New_Coordinates_and_Dir(Player &player){
 //        dir = player.GetDir();
 //        x = player.GetX() + 10;
 //        y = player.GetY() + 10;
@@ -109,7 +109,7 @@ int main() {
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     Map map("Background.png");
     map.SetNumberMap(1);
-    Player tank("sprite.bmp", 32, 32, 26, 26);
+    Player tank("sprite.bmp", 164, 420, 26, 26);
     ///music
 
     Audio audio;
@@ -136,18 +136,20 @@ int main() {
     while (window.isOpen()) {
         float time = clock.getElapsedTime().asMicroseconds();
         clock.restart();
-        time = time / 800;
+        time = time /1000;
         // Обрабатываем очередь событий в цикле
         Event event;
 
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
+        if (tank.GetAlive()){
+            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(1); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(0);tank.SetSpeed(0.1);tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(3); tank.SetSpeed(0.1); tank.setRect(); }
+            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(2); tank.SetSpeed(0.1); tank.setRect();}
+            if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true; }
+        }
 
-        if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(1); tank.SetSpeed(0.1); tank.setRect();}
-        if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(0);tank.SetSpeed(0.1);tank.setRect();}
-        if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(3); tank.SetSpeed(0.1); tank.setRect(); }
-        if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(2); tank.SetSpeed(0.1); tank.setRect();}
-        if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true; }
         ///////////////////////////////////////////
 
         if (NewBullet) {
