@@ -2,6 +2,7 @@
 #define GAME_BULLET_H
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Enemy_tanks.h"
 using namespace sf;
 
 class Bullet {
@@ -20,6 +21,7 @@ public:
     //  Bullet(Player &player, String F)
     void update(float time);
     void  New_Coordinates_and_Dir(Player &player);
+    void New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy);
     void SetFile(String F);
 
     float GetX() const;

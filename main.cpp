@@ -30,9 +30,6 @@ int main() {
     audio.playGame();
     audio.playSpawn();
 
-
-    int Dir = 0;
-
     bool NewBullet = false;
     bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
@@ -49,10 +46,10 @@ int main() {
     Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
     Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
     for (int i=0;i<n_enemies;i++){  // Установка спрайтов
-        t[i].SetFile("sprite.bmp");
+        t[i].SetEnemyFile("sprite.bmp", 0);
         enemy_bul[i].SetFile("heart.bmp");
     }
-    t[0].Start_Enemy_Function(t[0],t[1],t[2]); //Стартовая функция. Я планировала, что танки будут появляться на 3 местах, когда один из них умрет и
+    Start_Enemy_Function(t[0],t[1],t[2]); //Стартовая функция. Я планировала, что танки будут появляться на 3 местах, когда один из них умрет и
     //соответственно на это же место будет вставать новый танк, но, видимо, надо делать иначе.
     // Скорее всего эту функцию надо переписать, чтобы она была доступной для всех вражеских танков
 
@@ -62,35 +59,6 @@ int main() {
 
     float time_to_go = 0;
     int enemies_number = 9;
-
-
-    class Icon {
-    public:
-        float x, y, w, h, a, b = 0;
-        String File;
-        Image image;
-        Texture icon_texture;
-        Sprite icon_sprite;
-
-        Icon(String F, float X, float Y) {
-            File = F;
-            x = X;
-            y = Y;
-            // x = 48/33;
-            //y = 273;
-            w = 16;
-            h = 16;
-            image.loadFromFile("..\\images/" + File);
-            icon_texture.loadFromImage(image);
-            icon_sprite.setTexture(icon_texture);
-            icon_sprite.setTextureRect(IntRect(x, y, w,h));
-        }
-        void CreateIcon(int x, int y) {
-            // x = 464;
-            // y = 64/200;
-                icon_sprite.setPosition(x, y);
-        }
-    };
 
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
@@ -183,16 +151,16 @@ int main() {
             }
             if(!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
                 enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
-                enemy_bul[i].New_Coordinates_and_Dir(t[i]); // Установить ей координаты и направление
+                enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
             }
             enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
             enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
             window.draw(enemy_bul[i].sprite); //Рисуем пулю
-            t[i].update(g_time.GetTime());
+            t[i].EnemyUpdate(g_time.GetTime());
             if(t[i].GetIsOnTheField()){  //Если пуля на поле, то устанавливаем ей скорость
-                t[i].SetSpeed(0.05);
+                t[i].SetEnemySpeed(0.05);
             }
-            window.draw(t[i].GetSprite());
+            window.draw(t[i].GetEnemySprite());
             // }
         }
         window.draw(tank.GetSprite());

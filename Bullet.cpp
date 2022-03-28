@@ -58,6 +58,12 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     y = player.GetY() + 10;
     speed = 0.3;
 }
+void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
+    dir = enemy.GetEnemyDir();
+    x = enemy.GetEnemyX() + 10;
+    y = enemy.GetEnemyY() + 10;
+    speed = 0.3;
+}
 
 void Bullet::SetFile(String F) {
     File = F;
