@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 #include <chrono>
 #include <random>
 #include <SFML/Graphics.hpp>
@@ -17,6 +18,9 @@ int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     if(!menu(window)){
+        return 0;
+    }
+    if(!end_menu(window)){
         return 0;
     }
     Map map("Background.png");
@@ -71,7 +75,7 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
             if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
             if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
-            if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true; }
+            if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true;}
         }
 
         ///////////////////////////////////////////
@@ -85,7 +89,6 @@ int main() {
                     break;
                 }
             }
-            NewBullet = false;
         }
         NewBullet = false;
         tank.update(g_time.GetTime());
@@ -110,7 +113,23 @@ int main() {
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
             enemies_number--;
-            t[enemy_iterator].SetEnemyFile("sprite.bmp", 0);
+            int class_of_enemy = ENEMY_SLOW;
+            if (enemy_iterator > 3){
+                std::uniform_int_distribution<int> dist(1,4);
+                switch (dist(engine)) {
+                    case 1:
+                        class_of_enemy = ENEMY_MEDIUM;
+                        break;
+                    case 2:
+                        class_of_enemy = ENEMY_FAST;
+                        break;
+                    case 4:
+                        if (enemy_iterator > 5) class_of_enemy = ENEMY_BIG;
+                        break;
+                }
+            }
+
+            t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
 
             Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());

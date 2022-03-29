@@ -3,16 +3,16 @@
 
 
 enum DIRECTION {
-    DIR_UP = 3,
     DIR_RIGHT = 0,
-    DIR_DOWN = 2,
     DIR_LEFT = 1,
+    DIR_DOWN = 2,
+    DIR_UP = 3,
 };
 
 enum ENEMY_TYPE {
     ENEMY_SLOW = 0,
-    ENEMY_FAST = 1,
-    ENEMY_MEDIUM = 2,
+    ENEMY_MEDIUM = 1,
+    ENEMY_FAST = 2,
     ENEMY_BIG = 3,
     ENEMY_SLOW_BONUS = 4,
     ENEMY_FAST_BONUS = 5,

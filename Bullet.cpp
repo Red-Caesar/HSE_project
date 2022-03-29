@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Types.h"
 
 Bullet::Bullet() {
     //File = F;//имя файла+расширение
@@ -37,8 +38,7 @@ void Bullet::update(float time) {
             dy = -speed;
             break;//по иксу задаем нулевое значение, по игреку отрицательное. получается, что персонаж идет только вверх
     }
-    x += dx *
-         time;//то движение из прошлого урока. наше ускорение на время получаем смещение координат и как следствие движение
+    x += dx * time;//то движение из прошлого урока. наше ускорение на время получаем смещение координат и как следствие движение
     y += dy * time;//аналогично по игреку
 
     if (x >= 32 * 17 || y >= 32 * 15 || x <= 32 || y <= 32) {
@@ -56,13 +56,19 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     dir = player.GetDir();
     x = player.GetX() + 10;
     y = player.GetY() + 10;
-    speed = 0.3;
+    speed = 0.2;
 }
 void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
     dir = enemy.GetDir();
     x = enemy.GetX() + 10;
     y = enemy.GetY() + 10;
-    speed = 0.3;
+    speed = 0.2;
+    switch (enemy.enemy_class) {
+        case ENEMY_MEDIUM:
+            speed = 0.3;
+            break;
+    }
+
 }
 
 void Bullet::SetFile(String F) {

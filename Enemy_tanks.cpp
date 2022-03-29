@@ -1,26 +1,38 @@
 #include <random>
 #include <stdlib.h>
+#include "Types.h"
 #include "Enemy_tanks.h"
 
 void Enemy_tank::SetEnemyFile( String F, int class_of_enemy) {
     enemy_class = class_of_enemy;
-
     m_image.loadFromFile("..\\images/" + F);
     m_texture.loadFromImage(m_image);
     m_sprite.setTexture(m_texture);
+    m_width = 26;
+    m_height = 30;
+    int top;
+    m_dir = 2;
     switch (enemy_class) {
-        case 0:
-            m_width = 26;
-            m_height = 30;
-            m_sprite.setTextureRect(IntRect(3, 488, m_width, m_height));
-            m_dir = 2;
-            m_speed = 0.1;
-            is_alive = true;
+        case ENEMY_SLOW:
+            top = 488;
+            m_speed = 0.01;
+            break;
+        case ENEMY_MEDIUM:
+            top = 616;
+            m_speed = 0.01;
+            break;
+        case ENEMY_FAST:
+            top = 744;
+            m_speed = 0.2;
+            break;
+        case ENEMY_BIG:
+            top = 872;
+            m_speed = 0.01;
             break;
     }
-
+    is_alive = true;
+    m_sprite.setTextureRect(IntRect(3, top, m_width, m_height));
 }
-
 void Enemy_tank::SetStartX(float x){
     start_x=x;
 }
@@ -102,14 +114,43 @@ void Start_Enemy_Function(Enemy_tank &t, float r_time){   //Расставляе
 }
 
 void Enemy_tank::SetEnemyRect(){
-    switch (m_dir)
-    {
-        case 0: m_sprite.setTextureRect(IntRect(0, 459, 30, 26)); break;
-        case 1: m_sprite.setTextureRect(IntRect(2, 523, 30, 26));break;
-        case 2: m_sprite.setTextureRect(IntRect(3, 488, 26, 30));break;
-        case 3: m_sprite.setTextureRect(IntRect(3, 426, 26, 30));break;
-
-
+    switch (enemy_class) {
+        case ENEMY_SLOW:
+            switch (m_dir)
+            {
+                case DIR_RIGHT: m_sprite.setTextureRect(IntRect(0, 459, 30, 26)); break;
+                case DIR_LEFT: m_sprite.setTextureRect(IntRect(2, 523, 30, 26));break;
+                case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 488, 26, 30));break;
+                case DIR_UP: m_sprite.setTextureRect(IntRect(3, 426, 26, 30));break;
+            }
+            break;
+        case ENEMY_MEDIUM:
+            switch (m_dir)
+            {
+                case DIR_RIGHT: m_sprite.setTextureRect(IntRect(0, 587, 30, 26)); break;
+                case DIR_LEFT: m_sprite.setTextureRect(IntRect(2, 651, 30, 26));break;
+                case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 616, 26, 30));break;
+                case DIR_UP: m_sprite.setTextureRect(IntRect(3, 554, 26, 30));break;
+            }
+            break;
+        case ENEMY_FAST:
+            switch (m_dir)
+            {
+                case DIR_RIGHT: m_sprite.setTextureRect(IntRect(0, 715, 30, 26)); break;
+                case DIR_LEFT: m_sprite.setTextureRect(IntRect(2, 779, 30, 26));break;
+                case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 744, 26, 30));break;
+                case DIR_UP: m_sprite.setTextureRect(IntRect(3, 682, 26, 30));break;
+            }
+            break;
+        case ENEMY_BIG:
+            switch (m_dir)
+            {
+                case DIR_RIGHT: m_sprite.setTextureRect(IntRect(0, 843, 30, 26)); break;
+                case DIR_LEFT: m_sprite.setTextureRect(IntRect(2, 907, 30, 26));break;
+                case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 872, 26, 30));break;
+                case DIR_UP: m_sprite.setTextureRect(IntRect(3, 810, 26, 30));break;
+            }
+            break;
     }
 }
 
