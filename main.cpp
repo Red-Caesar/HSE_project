@@ -27,6 +27,8 @@ int main() {
     Map map("Background.png");
     map.SetNumberMap(1);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
+    Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
+    friend_t.Init(324,420);
     tank.Init(164, 420);
     ///music
 
@@ -38,11 +40,13 @@ int main() {
     audio.playSpawn();
 
     bool NewBullet = false;
+    bool FriendBullet = false;
     bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
 
     int n_bul = 1;
+    if (page.TwoPlayers) n_bul = 2;
     Bullet bul[n_bul];
     for (int i = 0; i < n_bul; i++) {
         bul[i].SetFile("heart.bmp");
@@ -72,28 +76,46 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
         if (tank.GetIsAlive()){
-            if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
-            if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
-            if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true;}
+            if (Keyboard::isKeyPressed(Keyboard::A)) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
+            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Z)) { NewBullet = true;}
         }
-
+        if (page.TwoPlayers){
+            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect();}
+            if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
+        }
         ///////////////////////////////////////////
 
         if (NewBullet) {
-            for (int i = 0; i < n_bul; i++) {  // Добавление новой пули
-                if (!bul[i].Is_On_f) {
-                    bul[i].Is_On_f = true;
-                    audio.playShoot();
-                    bul[i].New_Coordinates_and_Dir(tank);
-                    break;
-                }
+            if (!bul[0].Is_On_f) {
+                bul[0].Is_On_f = true;
+                audio.playShoot();
+                bul[0].New_Coordinates_and_Dir(tank);
             }
         }
+        if (page.TwoPlayers){
+            if (FriendBullet) {
+                    if (!bul[1].Is_On_f) {
+                        bul[1].Is_On_f = true;
+                        audio.playShoot();
+                        bul[1].New_Coordinates_and_Dir(friend_t);
+                    }
+            }
+        }
+
         NewBullet = false;
+        FriendBullet = false;
         tank.update(g_time.GetTime());
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
+        if (page.TwoPlayers){
+            friend_t.update(g_time.GetTime());
+            map.InteractionTankWithMap(map.GetDiagramMap(), friend_t);
+        }
         for (int i=0;i<enemy_iterator;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
@@ -194,6 +216,7 @@ int main() {
             // }
         }
         window.draw(tank.GetSprite());
+        if (page.TwoPlayers) window.draw(friend_t.GetSprite());
         window.display();
     }
     return 0;
