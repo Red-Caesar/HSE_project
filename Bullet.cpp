@@ -130,3 +130,8 @@ float Bullet::GetW() const {
 //                                  h));
 //
 //}
+
+
+FloatRect Bullet::GetRect() {
+    return FloatRect(x, y, w, h);
+}

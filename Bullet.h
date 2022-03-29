@@ -40,6 +40,7 @@ public:
 
     void SetY(int cur_y);
 
+    FloatRect GetRect();
 };
 
 

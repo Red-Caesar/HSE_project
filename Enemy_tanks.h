@@ -50,7 +50,7 @@ public:
 
     bool GetFlag_to_change() const;
 
-    bool SetIsAlive(bool f);
+
 };
 
 #endif //GAME_ENEMY_TANKS_H

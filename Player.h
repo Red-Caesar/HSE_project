@@ -13,19 +13,19 @@ private:
 
     int m_player_lives; //кол-во жизней
     int m_score; //счет игрока
+    bool is_just_lost_life; //только что отняли жизнь
 
 public:
     Player(const String& F, float X, float Y,int W,int H, const String name) : Entity(F,X,Y,W,H,name){
         m_player_lives = 3;
         m_score = 0;
+        is_just_lost_life = false;
     }
 
 
     void Init(int x, int y);
 
     void update(float time);
-
-    bool GetIsAlive() const;
 
     void SetIsAlive(bool alive);
 
@@ -34,6 +34,15 @@ public:
     void SetPlayerLives(int lives);
 
     void setRect();
+
+    void DecreaseLives();
+
+    void Respawn();
+
+    bool IsJustLostLife();
+
+
+
 
 };
 

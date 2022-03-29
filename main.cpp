@@ -20,9 +20,11 @@ int main() {
     if(!menu(window)){
         return 0;
     }
-    if(!end_menu(window)){
+   /* if(!end_menu(window)){
         return 0;
-    }
+    }*/
+
+    //////////инициализация переменных////////////////////
     Map map("Background.png");
     map.SetNumberMap(1);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
@@ -42,7 +44,7 @@ int main() {
 
 
     int n_bul = 1;
-    Bullet bul[n_bul];
+    Bullet bul[n_bul]; // массив пуль главного танка
     for (int i = 0; i < n_bul; i++) {
         bul[i].SetFile("heart.bmp");
     }
@@ -61,6 +63,10 @@ int main() {
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
 
+
+
+    /////////////////главный цикл открытого окна//////////////////////////////
+
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
           g_time.Init();
@@ -77,27 +83,30 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
             if ((Keyboard::isKeyPressed(Keyboard::Space))) { NewBullet = true;}
         }
+        else  if(!end_menu(window)){
+        return 0;
+    }
 
         ///////////////////////////////////////////
+
+        //обработка пуль главного танка
 
         if (NewBullet) {
             for (int i = 0; i < n_bul; i++) {  // Добавление новой пули
                 if (!bul[i].Is_On_f) {
                     bul[i].Is_On_f = true;
                     audio.playShoot();
-                    bul[i].New_Coordinates_and_Dir(tank);
+                    bul[i].New_Coordinates_and_Dir(tank); //привязываем пулю к направлению главного танка
                     break;
                 }
             }
         }
         NewBullet = false;
-        tank.update(g_time.GetTime());
-        map.InteractionTankWithMap(map.GetDiagramMap(), tank);
-        for (int i=0;i<enemy_iterator;i++) {
-            //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
-            map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
-            // }
-        }
+
+
+        //обновление главного танка
+      //  for (int i = 0; i<enemy_iterator; i++) {
+
 
         window.clear();
 
@@ -109,6 +118,9 @@ int main() {
                 window.draw(map.GetMapSprite());//рисуем квадратики на экран
             }
        // window.draw(map.GetMapSprite());
+
+       //спауним врагов на поле
+
         time_to_go += g_time.GetTime();
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
@@ -135,6 +147,10 @@ int main() {
             Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());
             enemy_iterator ++;
         }
+
+
+
+        //рисуем иконки врагов и жизней
 
        int icons_counter = enemies_number;
         for (int i = 0; i < 3; i++) {
@@ -163,36 +179,77 @@ int main() {
             }
         }
 
-        for (int i = 0;i<enemy_iterator;i++){   //Общий цикл врагов
-            //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
-            if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
-                t[i].UpdateDir(engine);    // меняем направление
-                t[i].SetFlag_to_change(false);  //Опускаем флаг
+
+
+        ///////////////Общий цикл врагов///////////////////////
+
+       // for (int i=0;i<enemy_iterator;i++) {
+            //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
+
+            // }
+       // }
+
+        for (int i = 0;i<enemy_iterator;i++){   //проходимся по врагам
+
+            for (int j = 0; j<n_bul; j++){
+                if (t[i].GetRect().intersects(bul[j].GetRect())){
+                    t[i].SetIsOnTheField(false);
+                    t[i].SetIsAlive(false);
+                    bul[j].Is_On_f = false;
+                }
             }
-            if(!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
-                enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
-                enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
-            }
+            if (t[i].GetIsAlive()){
+                map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
+                //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
+                if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
+                    t[i].UpdateDir(engine);    // меняем направление
+                    t[i].SetFlag_to_change(false);  //Опускаем флаг
+                }
+                if(!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
+                    enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
+                    enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
+                }
 //           Делаем еще один рандом
 //            srand(time(NULL));
 //            int random = 1 + rand()%32;
-            std::uniform_int_distribution<int> dist(1,1024);
-            switch (dist(engine)) {
-                case 512:
-                    t[i].UpdateDir(engine);
-                    break;
+                std::uniform_int_distribution<int> dist(1,1024);
+                switch (dist(engine)) {
+                    case 512:
+                        t[i].UpdateDir(engine);
+                        break;
+                }
+
+
+                enemy_bul[i].update(g_time.GetTime());   //Обновляем ПУЛЮ по времени
+                enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
+                if (enemy_bul[i].GetRect().intersects(tank.GetRect())) {
+                    enemy_bul[i].Is_On_f = false;
+                    //tank.DecreaseLives();
+                }
+
+                window.draw(enemy_bul[i].sprite); //Рисуем пулю
+                t[i].EnemyUpdate(g_time.GetTime()); //Обновляем ВРАГА
+                if(t[i].GetIsOnTheField()){  //Если пуля на поле, то устанавливаем ей скорость
+                    t[i].SetSpeed(0.05);
+                }
+                window.draw(t[i].GetSprite());
             }
-            enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
-            enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
-            window.draw(enemy_bul[i].sprite); //Рисуем пулю
-            t[i].EnemyUpdate(g_time.GetTime());
-            if(t[i].GetIsOnTheField()){  //Если пуля на поле, то устанавливаем ей скорость
-                t[i].SetSpeed(0.05);
-            }
-            window.draw(t[i].GetSprite());
+
             // }
         }
+
+        map.InteractionTankWithMap(map.GetDiagramMap(), tank);
+
+        for (int i=0;i<enemy_iterator;i++) {
+            if (enemy_bul[i].GetRect().intersects(tank.GetRect())) {
+                tank.DecreaseLives();
+                tank.Respawn();
+            }
+        }
+
+        tank.update(g_time.GetTime()); //обновление главного танка
         window.draw(tank.GetSprite());
+
         window.display();
     }
     return 0;

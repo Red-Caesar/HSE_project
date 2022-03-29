@@ -3,6 +3,7 @@
 //
 
 #include "Entity.h"
+#include <SFML/Graphics.hpp>
 Entity::Entity(const String &F, float X, float Y, int W, int H, const String name){
     m_file = F;
     m_vx= 0;
@@ -13,6 +14,7 @@ Entity::Entity(const String &F, float X, float Y, int W, int H, const String nam
     m_name = name;
    // m_lives = 3;
     is_alive = true;
+
 
     m_image.loadFromFile("..\\images/" + m_file);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
     //m_image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
@@ -95,4 +97,16 @@ void Entity::SetDir(int dir){
 
 Sprite Entity::GetSprite() {
     return m_sprite;
+}
+
+FloatRect Entity::GetRect() {
+    return FloatRect(m_x, m_y, m_width, m_height);
+}
+
+bool Entity::GetIsAlive() const {
+    return is_alive;
+}
+
+void Entity::SetIsAlive(bool flag){
+    is_alive = flag;
 }

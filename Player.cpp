@@ -41,13 +41,16 @@ void Player::update(float time) //функция "оживления" объек
     m_y += m_vy*time;//аналогично по игреку
 
     m_speed = 0;//зануляем скорость, чтобы персонаж остановился.
-    m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y, посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
+    /*if (!is_just_lost_life) {
+        m_sprite.setPosition(m_x,m_y); }//выводим спрайт в позицию x y, посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
+    else {  m_sprite.setPosition(164, 420);
+            is_just_lost_life = false;
+         }*/
+    m_sprite.setPosition(m_x,m_y);
+
     if (m_player_lives == 0){ is_alive = false;}
 }
 
-bool Player::GetIsAlive() const {
-    return is_alive;
-}
 
 void Player::SetIsAlive(bool alive) {
     Player:: is_alive = alive;
@@ -61,7 +64,19 @@ void Player::SetPlayerLives(int lives) {
     m_player_lives = lives;
 }
 
+void Player::DecreaseLives(){
+    m_player_lives--;
+    //is_just_lost_life = true;
+}
 
+void Player::Respawn(){
+    m_x = 164;
+    m_y = 420;
+}
+
+bool Player::IsJustLostLife(){
+    return is_just_lost_life;
+}
 
 
 

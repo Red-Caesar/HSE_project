@@ -143,19 +143,19 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
 
             if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
                 if (tank.GetX() > j * 32 - 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                     tank.SetFlag_to_change(true);
                 }
             }
             if (Diagram[i][j] == '1'|| Diagram[i][j] == '6' ){
                 if (tank.GetY() > i * 32 - 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -164,10 +164,10 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7'){
 
                 if (tank.GetX() < j * 32 + 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
                    // if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -175,10 +175,10 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
             }
             if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
                 if (tank.GetY() < i * 32 + 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32  + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -187,13 +187,13 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
 
             if (Diagram[i][j] == '4' || Diagram[i][j] == '9' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
-                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+                if (tank.GetSpeedY() > 0.0f){//если мы шли вниз,
                     tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
-                if (tank.GetSpeedY() < 0) {
+                if (tank.GetSpeedY() < 0.0f) {
                     tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
-                if (tank.GetSpeedX() > 0) {
+                if (tank.GetSpeedX() > 0.0f) {
                     tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                if (tank.GetSpeedX() < 0) {
+                if (tank.GetSpeedX() < 0.0f) {
                     tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
                // if(!tank.GetIsPlayer()){
                     tank.SetFlag_to_change(true);
@@ -235,10 +235,10 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     }
                     if (Diagram[i][j] == '4' || Diagram[i][j] == '9') {
                         if (Diagram[i][j] == '4') {
-                            if (bullet.GetSpeedY() > 0) { SetDiagramMap(i, j, '1'); }
-                            if (bullet.GetSpeedY() < 0) { SetDiagramMap(i, j, '3'); }
-                            if (bullet.GetSpeedX() > 0) { SetDiagramMap(i, j, '0'); }
-                            if (bullet.GetSpeedX() < 0) { SetDiagramMap(i, j, '2'); }
+                            if (bullet.GetSpeedY() > 0.0f) { SetDiagramMap(i, j, '1'); }
+                            if (bullet.GetSpeedY() < 0.0f) { SetDiagramMap(i, j, '3'); }
+                            if (bullet.GetSpeedX() > 0.0f) { SetDiagramMap(i, j, '0'); }
+                            if (bullet.GetSpeedX() < 0.0f) { SetDiagramMap(i, j, '2'); }
                         }
                         return false;
                     }
