@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Types.h"
 #include <iostream>
 using namespace sf;
 
@@ -13,16 +14,25 @@ void Player::Init(int x, int y) {
 
 void Player:: setRect(){
     //m_sprite.setTextureRect(IntRect(3, 5, m_width, m_height));
-    switch (m_dir)
-    {
-
-        case 0: m_sprite.setTextureRect(IntRect(1, 35, 26, 26)); break;
-        case 1: m_sprite.setTextureRect(IntRect(5, 99, 26, 26));break;
-        case 2: m_sprite.setTextureRect(IntRect(3, 65, 26, 26));break;
-        case 3: m_sprite.setTextureRect(IntRect(3, 5, 26, 26));break;
-
-
+    if (m_name == "main_tank"){
+        switch (m_dir)
+        {
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(1, 35, 26, 26)); break;
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(5, 99, 26, 26));break;
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 65, 26, 26));break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(3, 5, 26, 26));break;
+        }
     }
+    if (m_name == "friend_tank"){
+        switch (m_dir)
+        {
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(1, 163, 26, 26)); break;
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(5, 227, 26, 26));break;
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 193, 26, 26));break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(3, 133, 26, 26));break;
+        }
+    }
+
 }
 
 

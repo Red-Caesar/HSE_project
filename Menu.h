@@ -2,8 +2,15 @@
 #define GAME_MENU_H
 #include <SFML/Graphics.hpp>
 using namespace sf;
-bool menu (RenderWindow &window);
-bool end_menu (RenderWindow &window);
+
+class MENU{
+public:
+    bool TwoPlayers = false;
+    bool menu (RenderWindow &window);
+    bool end_menu (RenderWindow &window);
+};
+
+
 class Icon {
 public:
     float x, y, w, h, a, b = 0;

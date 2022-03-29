@@ -1,52 +1,60 @@
 #include "Menu.h"
-bool menu (RenderWindow &window){
-    Texture menuTexture1, menuTexture2, menuTexture3;
-    Sprite menuSprite1, menuSprite2, menuSprite3;
-    Image menuImage1,menuImage2,menuImage3;
 
-    menuImage1.loadFromFile("..\\images/sprite.bmp");
-    menuImage2.loadFromFile("..\\images/sprite.bmp");
-    menuImage3.loadFromFile("..\\images/sprite.bmp");
 
-    menuTexture1.loadFromImage(menuImage1);
-    menuTexture2.loadFromImage(menuImage2);
-    menuTexture3.loadFromImage(menuImage3);
+bool MENU::menu (RenderWindow &window){
+    Texture menuTexture;
+    Sprite menuSprite1, menuSprite2, menuSprite3, menuSprite4;
+    Image menuImage;
 
-    menuSprite1.setTexture(menuTexture1);
+    menuImage.loadFromFile("..\\images/sprite.bmp");
+
+    menuTexture.loadFromImage(menuImage);
+
+    menuSprite1.setTexture(menuTexture);
     menuSprite1.setTextureRect(IntRect(135, 274, 374, 137));
     menuSprite1.setPosition(75,50);
-    menuSprite2.setTexture(menuTexture2);
+    menuSprite2.setTexture(menuTexture);
     menuSprite2.setTextureRect(IntRect(354, 423, 62, 14));
     menuSprite2.setPosition(230,230);
-    menuSprite3.setTexture(menuTexture3);
+    menuSprite3.setTexture(menuTexture);
     menuSprite3.setTextureRect(IntRect(1, 35, 26,26));
-    menuSprite3.setPosition(202,226);
+    menuSprite3.setPosition(195,226);
+    menuSprite4.setTexture(menuTexture);
+    menuSprite4.setTextureRect(IntRect(324, 455, 140,14));
+    menuSprite4.setPosition(230,260);
 
     bool IsMenu = true;
-    bool IsPlay=false;
 
     while(IsMenu){
-        IsPlay=false;
 
         if(IntRect(230,230,62, 14).contains(Mouse::getPosition(window))){
+            menuSprite3.setPosition(195,226);
             window.draw(menuSprite3);
-            IsPlay=true;
-        }
-
-        if (Mouse::isButtonPressed(Mouse::Left)) {
-            if (IsPlay) {
+            if (Mouse::isButtonPressed(Mouse::Left)) {
                 IsMenu = false;
             }
         }
+
+        if(IntRect(195,256,140, 14).contains(Mouse::getPosition(window))){
+            menuSprite3.setPosition(195,256);
+            window.draw(menuSprite3);
+            if (Mouse::isButtonPressed(Mouse::Left)) {
+                IsMenu = false;
+                TwoPlayers = true;
+            }
+        }
+
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
-                return false;}
+                return false;
+            }
         }
 
         window.draw(menuSprite1);
         window.draw(menuSprite2);
+        window.draw(menuSprite4);
 
         window.display();
         window.clear();
@@ -54,7 +62,7 @@ bool menu (RenderWindow &window){
     return true;
 }
 
-bool end_menu (RenderWindow &window){
+bool MENU::end_menu (RenderWindow &window){
     Texture endTexture1, endTexture2, endTexture3;
     Sprite endSprite1, endSprite2, endSprite3;
     Image endImage1,endImage2,endImage3;
