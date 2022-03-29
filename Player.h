@@ -15,7 +15,7 @@ private:
     int m_score; //счет игрока
 
 public:
-    Player(const String& F, float X, float Y,int W,int H, const String name):Entity(F,X,Y,W,H,name){
+    Player(const String& F, float X, float Y,int W,int H, const String name) : Entity(F,X,Y,W,H,name){
         m_player_lives = 3;
         m_score = 0;
     }

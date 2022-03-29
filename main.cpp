@@ -90,7 +90,6 @@ int main() {
         NewBullet = false;
         tank.update(g_time.GetTime());
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
-        window.draw(tank.GetSprite());
         for (int i=0;i<enemy_iterator;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
@@ -174,7 +173,7 @@ int main() {
             window.draw(t[i].GetSprite());
             // }
         }
-
+        window.draw(tank.GetSprite());
         window.display();
     }
     return 0;

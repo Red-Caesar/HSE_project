@@ -41,11 +41,9 @@ void Player::update(float time) //функция "оживления" объек
     m_y += m_vy*time;//аналогично по игреку
 
     m_speed = 0;//зануляем скорость, чтобы персонаж остановился.
-    m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
+    m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y, посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
     if (m_player_lives == 0){ is_alive = false;}
 }
-
-
 
 bool Player::GetIsAlive() const {
     return is_alive;
