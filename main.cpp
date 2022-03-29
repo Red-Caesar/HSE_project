@@ -17,10 +17,11 @@ using namespace sf;
 int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
-    if(!menu(window)){
+    MENU page;
+    if(!page.menu(window)){
         return 0;
     }
-    if(!end_menu(window)){
+    if(!page.end_menu(window)){
         return 0;
     }
     Map map("Background.png");
@@ -63,7 +64,7 @@ int main() {
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
-          g_time.Init();
+        g_time.Init();
 
         // Обрабатываем очередь событий в цикле
         Event event;
@@ -108,7 +109,7 @@ int main() {
                 map.CreateMap(map.GetDiagramMap(), i, j);
                 window.draw(map.GetMapSprite());//рисуем квадратики на экран
             }
-       // window.draw(map.GetMapSprite());
+        // window.draw(map.GetMapSprite());
         time_to_go += g_time.GetTime();
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
@@ -136,7 +137,7 @@ int main() {
             enemy_iterator ++;
         }
 
-       int icons_counter = enemies_number;
+        int icons_counter = enemies_number;
         for (int i = 0; i < 3; i++) {
             if (icons_counter<0)
                 break;
@@ -150,8 +151,8 @@ int main() {
         }
 
         for (int i = 0; i < tank.GetPlayerLives(); i++){
-                lives_icon.CreateIcon(464 + i * 24, 200);
-                window.draw(lives_icon.icon_sprite);
+            lives_icon.CreateIcon(464 + i * 24, 200);
+            window.draw(lives_icon.icon_sprite);
         }
 
 
