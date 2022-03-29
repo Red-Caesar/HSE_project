@@ -107,13 +107,13 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
                 if (Diagram[i][j] == '4' || Diagram[i][j] == '9' || Diagram[i][j] == 'A' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
                 {
                     if (tank.GetSpeedY() > 0) {//если мы шли вниз,
-                        tank.SetY(i * 32 - tank.GetH() - 6);
+                        tank.SetY(i * 32 - tank.GetH());
                     }//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
                     if (tank.GetSpeedY() < 0) {
                         tank.SetY(i * 32 + tank.GetH() + 6);
                     }//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
                     if (tank.GetSpeedX() > 0) {
-                        tank.SetX(j * 32 - tank.GetW() - 6);
+                        tank.SetX(j * 32 - tank.GetW() );
                     }//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
                     if (tank.GetSpeedX() < 0) {
                         tank.SetX(j * 32 + tank.GetW() + 6);
