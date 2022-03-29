@@ -8,7 +8,7 @@ void Player::Init(int x, int y) {
     m_sprite.setPosition(x, y);
     m_x = x;
     m_y = y;
-
+    m_dir = DIR_UP;
 }
 
 
