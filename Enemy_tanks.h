@@ -1,7 +1,7 @@
 #ifndef GAME_ENEMY_TANKS_H
 #define GAME_ENEMY_TANKS_H
 #include <random>
-#include "Player.h"
+#include "Entity.h"
 #include "Game_time.h"
 
 class Enemy_tank : public Entity{
@@ -17,15 +17,17 @@ private:
     float respawn;
     int period;
 public:
-    Enemy_tank(const String &F, float X, float Y, int W, int H, const String name) : Entity(F,X, Y, W, H, name){
-        IsOnTheField=false;
-        Flag_to_change=true;
+    //Enemy_tank(const String &F, float X, float Y, int W, int H, const String name) : Entity(F,X, Y, W, H, name){
+      //  IsOnTheField=false;
+     //   Flag_to_change=true;
+  //  }
+    Enemy_tank(){
+
     }
-    Enemy_tank():Entity(){}
 
 
     void EnemyUpdate(float time);
-    void SetEnemyClass(int class_of_enemy);
+    void SetEnemyFile(String F, int class_of_enemy);
     //void Update(float time);
     void UpdateDir(std::mt19937 engine);
     void SetStartX(float x);
@@ -42,7 +44,7 @@ public:
     void SetEnemyRect();
     //bool SetIsPlayer(bool f);
 
-    bool SetFlag_to_change(bool f);
+    void SetFlag_to_change(bool f);
 
    //bool GetIsPlayer() const;
 

@@ -21,7 +21,8 @@ int main() {
     }
     Map map("Background.png");
     map.SetNumberMap(1);
-    Player tank("sprite.bmp", 164, 420, 26, 26, "main_tank");
+    Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
+    tank.Init(164, 420);
     ///music
 
     Audio audio;
@@ -89,11 +90,13 @@ int main() {
         NewBullet = false;
         tank.update(g_time.GetTime());
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
+        window.draw(tank.GetSprite());
         for (int i=0;i<enemy_iterator;i++) {
             //if(t[i].GetIsOnTheField()) { //Для ситуации когда танков всего больше, чем на поле
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
             // }
         }
+
         window.clear();
 
 /////////////////////////////Рисуем карту/////////////////////
@@ -108,8 +111,9 @@ int main() {
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
             enemies_number--;
-            t[enemy_iterator].SetEnemyClass(0);
+            t[enemy_iterator].SetEnemyFile("sprite.bmp", 0);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
+
             Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());
             enemy_iterator ++;
         }
@@ -140,6 +144,7 @@ int main() {
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }
+
         for (int i = 0;i<enemy_iterator;i++){   //Общий цикл врагов
             //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
             if(t[i].GetFlag_to_change()){      //Если флаг сигнализирует о том, что надо поменять направление
@@ -169,7 +174,7 @@ int main() {
             window.draw(t[i].GetSprite());
             // }
         }
-        window.draw(tank.GetSprite());
+
         window.display();
     }
     return 0;

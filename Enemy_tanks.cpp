@@ -2,7 +2,12 @@
 #include <stdlib.h>
 #include "Enemy_tanks.h"
 
-void Enemy_tank::SetEnemyClass( int class_of_enemy) {
+void Enemy_tank::SetEnemyFile( String F, int class_of_enemy) {
+    enemy_class = class_of_enemy;
+
+    m_image.loadFromFile("..\\images/" + F);
+    m_texture.loadFromImage(m_image);
+    m_sprite.setTexture(m_texture);
     switch (enemy_class) {
         case 0:
             m_width = 26;
@@ -10,8 +15,10 @@ void Enemy_tank::SetEnemyClass( int class_of_enemy) {
             m_sprite.setTextureRect(IntRect(3, 488, m_width, m_height));
             m_dir = 2;
             m_speed = 0.1;
+            is_alive = true;
             break;
     }
+
 }
 
 void Enemy_tank::SetStartX(float x){
@@ -21,7 +28,7 @@ void Enemy_tank::SetStartY(float y){
     start_y=y;
 }
 
-bool Enemy_tank::SetFlag_to_change(bool f) {
+void Enemy_tank::SetFlag_to_change(bool f) {
     Flag_to_change = f;
 }
 

@@ -3,10 +3,11 @@
 //
 
 #include "Entity.h"
-Entity::Entity(const String& F, float X, float Y, int W, int H, const String name){
+Entity::Entity(const String &F, float X, float Y, int W, int H, const String name){
     m_file = F;
-    m_x= X;
-    m_y = Y;
+    m_vx= 0;
+    m_vy = 0;
+    m_x = 0;m_y = 0; m_speed = 0;
     m_width = W;
     m_height = H;
     m_name = name;
@@ -21,9 +22,7 @@ Entity::Entity(const String& F, float X, float Y, int W, int H, const String nam
     //m_sprite.setPosition(m_x,m_y);
 }
 
-Entity::Entity() {
 
-}
 
 float Entity::GetX()
 {
@@ -39,7 +38,7 @@ float Entity::GetY(){
 }
 
 void Entity::SetY(float y) {
-    m_x = y;
+    m_y = y;
 }
 
 float Entity::GetSpeedX() {
@@ -55,7 +54,7 @@ float Entity::GetSpeedY() {
 }
 
 void Entity::SetSpeedY(float vy) {
-    m_vx = vy;
+    m_vy = vy;
 }
 
 float Entity::GetSpeed() {
@@ -80,6 +79,10 @@ int Entity:: GetW(){
 
 void Entity:: SetW(int width){
     m_width = width;
+}
+
+Entity::Entity() {
+
 }
 
 int Entity::GetDir() {

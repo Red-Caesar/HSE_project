@@ -25,6 +25,7 @@ std::vector<String> Map::GetDiagramMap() {
         case 2:
             return SecondMap;
     }
+    return {"0"};
 }
 void Map::SetDiagramMap(int i, int j, char texture) {
     switch (number_map) {
@@ -247,6 +248,7 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     return true;
                 }
         }
+
 }
 
 
