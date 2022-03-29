@@ -19,6 +19,9 @@ int main() {
     if(!menu(window)){
         return 0;
     }
+    if(!end_menu(window)){
+        return 0;
+    }
     Map map("Background.png");
     map.SetNumberMap(1);
     Player tank("sprite.bmp", 164, 420, 26, 26);

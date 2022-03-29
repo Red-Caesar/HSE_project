@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 bool menu (RenderWindow &window);
+bool end_menu (RenderWindow &window);
 class Icon {
 public:
     float x, y, w, h, a, b = 0;
@@ -29,5 +30,6 @@ public:
         // y = 64/200;
         icon_sprite.setPosition(x, y);
     }
+
 };
 #endif //GAME_MENU_H
