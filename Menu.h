@@ -19,14 +19,16 @@ public:
     Texture icon_texture;
     Sprite icon_sprite;
 
-    Icon(String F, float X, float Y) {
+    Icon(String F, float X, float Y, int S) {
         File = F;
         x = X;
         y = Y;
         // x = 48/33;
         //y = 273;
-        w = 16;
-        h = 16;
+        //w = 16;
+        //h = 16;
+        w = S;
+        h = S;
         image.loadFromFile("..\\images/" + File);
         icon_texture.loadFromImage(image);
         icon_sprite.setTexture(icon_texture);

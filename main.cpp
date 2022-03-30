@@ -26,7 +26,7 @@ int main() {
 //        return 0;
 //    }
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(3);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
@@ -59,13 +59,22 @@ int main() {
     float time_to_go = 0;
     int enemies_number = 9;
 
+    float normal_speed = 0.1;
+    float bonus_speed = 0.2;
+
     int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
     Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
     Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
     int enemy_iterator = 0;
 
-    Icon enemy_icon("sprite.bmp", 48, 273);
-    Icon lives_icon("sprite.bmp", 33, 273);
+    Icon enemy_icon("sprite.bmp", 48, 273, 16);
+    Icon lives_icon("sprite.bmp", 33, 273, 16);
+    Icon bonus_icon("sprite.bmp", 32, 392, 30);
+
+    int randomX = 0;
+    int randomY = 0;
+    int bonus_f = 0;
+
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
@@ -81,17 +90,17 @@ int main() {
 
         if (tank.GetIsAlive()){
 
-            if (Keyboard::isKeyPressed(Keyboard::A)) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(0.1);tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::A)) { tank.SetDir(DIR_LEFT); tank.SetSpeed(normal_speed); tank.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(normal_speed);tank.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(normal_speed); tank.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(normal_speed); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::Z)) { NewBullet = true;}
         }
         if (page.TwoPlayers){
-            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(normal_speed); friend_t.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(normal_speed);friend_t.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(normal_speed); friend_t.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(normal_speed); friend_t.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
         }
         ///////////////////////////////////////////
@@ -130,6 +139,8 @@ int main() {
         window.clear();
 
 /////////////////////////////Рисуем карту/////////////////////
+
+
 
         for (int i = 0; i < HEIGHT_MAP; i++)
             for (int j = 0; j < WIDTH_MAP; j++) {
@@ -182,6 +193,21 @@ int main() {
             window.draw(lives_icon.icon_sprite);
         }
 
+
+          if ((enemies_number == 6) and (bonus_f == 0)){
+                randomX = 0;
+                randomY = 0;
+                srand(time(0));//рандом
+                randomX = 32 + rand() % (384);
+                randomY = 32 + rand() % (384);
+                bonus_f = 1;
+                bonus_icon.CreateIcon(randomX, randomY);
+         }
+       if(bonus_f == 1) window.draw(bonus_icon.icon_sprite);
+
+       if((tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
+            bonus_f = 0;
+        }
 
         for (int i = 0; i < n_bul; i++) {
             if (bul[i].Is_On_f) {

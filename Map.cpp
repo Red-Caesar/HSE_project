@@ -24,6 +24,9 @@ std::vector<String> Map::GetDiagramMap() {
             return FirstMap;
         case 2:
             return SecondMap;
+        case 3:
+            return ThirdMap;
+
     }
     return {"0"};
 }
@@ -35,13 +38,15 @@ void Map::SetDiagramMap(int i, int j, char texture) {
              FirstMap[i][j] = texture;
         case 2:
              SecondMap[i][j] = texture;
+        case 3:
+            ThirdMap[i][j] = texture;
     }
 
 }
 
 void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == ' ') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
-    if (Diagram[i][j] == 's') map_sprite.setTextureRect(IntRect( 32,   0, 32, 32));
+    if (Diagram[i][j] == 'B') map_sprite.setTextureRect(IntRect( 32,   0, 32, 32));
     if (Diagram[i][j] == 'F') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '0') map_sprite.setTextureRect(IntRect(  0,  64, 32, 32));
     if (Diagram[i][j] == '1') map_sprite.setTextureRect(IntRect(  0, 128, 32, 32));
@@ -50,6 +55,8 @@ void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '4') map_sprite.setTextureRect(IntRect(  0,   0, 32, 32));
     if (Diagram[i][j] == '8') map_sprite.setTextureRect(IntRect( 64,  96, 32, 32));
     if (Diagram[i][j] == '9') map_sprite.setTextureRect(IntRect( 64,  0, 32, 32));
+    if (Diagram[i][j] == '7') map_sprite.setTextureRect(IntRect( 64,  32, 32, 32));
+    if (Diagram[i][j] == '6') map_sprite.setTextureRect(IntRect( 64,  128, 32, 32));
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160,   64, 32, 32));
     if (Diagram[i][j] == 'G') map_sprite.setTextureRect(IntRect(160,   32, 32, 32));
