@@ -16,6 +16,8 @@ void Audio::Init() {
     SpawnBuf.loadFromFile("..\\audio/Spawn.wav");
     Spawn.setBuffer(SpawnBuf);
 
+    the_end.openFromFile("..\\audio/the_end.wav");
+
     game.openFromFile("..\\audio/game.wav");
     menu.openFromFile("..\\audio/menu.wav");
 

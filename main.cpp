@@ -101,7 +101,8 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
-        }else if(!page.end_menu(window)){
+        }else if(!page.end_menu(window) ){
+            audio.playEnd();
             return 0;
         }
         if (page.TwoPlayers){
@@ -216,6 +217,7 @@ int main() {
         if(bonus_f == 1) window.draw(bonus_icon.icon_sprite);
 
         if((tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
+            audio.playBones();
             bonus_f = 0;
             tank_speed = 0.2;
             tank.m_level = 1;
