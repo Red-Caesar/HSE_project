@@ -29,8 +29,7 @@ int main() {
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
-    tank.Init(164, 420);
-    tank.SpawnInit(164, 420);
+    tank.SpawnInit (tank.GetX(),tank.GetY());
     ///music
 
     Audio audio;
@@ -296,12 +295,13 @@ int main() {
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         if (page.TwoPlayers) map.InteractionTankWithMap(map.GetDiagramMap(), friend_t);
 
-        for (int i=0;i<enemy_iterator;i++) {
+        for (int i = 0;i < enemy_iterator; i++) {
             //if  (enemy_bul[i].GetRect().intersects(tank.GetRect()))
                // std::cout <<  (enemy_bul[i].GetRect().intersects(tank.GetRect())) << " " << enemy_bul[i].Is_On_f << std::endl;                                                                                                               enemy_bul[i].Is_On_f;
             if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
                 tank.DecreaseLives();
                 tank.Respawn();
+                tank.SetFlagSpawn(true);
 
             }
             if (tank.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
@@ -313,11 +313,20 @@ int main() {
         if (page.TwoPlayers) friend_t.update(g_time.GetTime());
         window.draw(tank.GetSprite());
         if (page.TwoPlayers) window.draw(friend_t.GetSprite());
-        g_time.updateSpawn();
-        if(g_time.GetTimeSpawn() < 1000){
-            tank.DrawSpawn(g_time);
-            window.draw(tank.GetSpriteSpawn());
+
+        if(tank.GetFlagSpawn()){
+            tank.SpawnInit (tank.GetX(),tank.GetY());
+            if(g_time.GetTimeSpawn() < 1000){
+                tank.DrawSpawn(g_time);
+                window.draw(tank.GetSpriteSpawn());
+                g_time.updateSpawn();
+            }else{
+                tank.SetFlagSpawn(false);
+                g_time.SetTimeSpawn(0);
+            }
+
         }
+
         window.display();
     }
     return 0;

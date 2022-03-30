@@ -132,4 +132,10 @@ void Player::DrawSpawn(Game_time time) {
 
 }
 
+void Player::SetFlagSpawn(bool value){
+    Spawn = value;
+}
+bool Player::GetFlagSpawn(){
+    return Spawn;
+}
 
