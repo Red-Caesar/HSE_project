@@ -32,6 +32,7 @@ bool WorkingWithKeyboardPlayer1(Player &tank, MENU page, float CurrentFrame){
     }
     return NewBullet;
 }
+
 bool WorkingWithKeyboardPlayer2(Player &friend_t, MENU page, float CurrentFrame){
     bool FriendBullet = false;
     if (page.TwoPlayers) {
@@ -60,14 +61,17 @@ bool WorkingWithKeyboardPlayer2(Player &friend_t, MENU page, float CurrentFrame)
     return FriendBullet;
 }
 
-
 void GlobalDrawing(RenderWindow &window, Map &map, int &enemies_number, Icon &enemy_icon, Player &tank, Icon &lives_icon,
-                   Bullet bul[],int n_bul, Game_time &g_time, MENU page, Player &friend_t){
+                   Bullet bul[],int n_bul, Game_time &g_time, MENU page, Player &friend_t)
+                   //int &enemy_iterator,Enemy_tank t[])
+                   {
+
     for (int i = 0; i < HEIGHT_MAP; i++)
         for (int j = 0; j < WIDTH_MAP; j++) {
             map.CreateMap(map.GetDiagramMap(), i, j);
             window.draw(map.GetMapSprite());//рисуем квадратики на экран
         }
+
     int icons_counter = enemies_number;
     for (int i = 0; i < 3; i++) {
         if (icons_counter<0)
@@ -86,7 +90,6 @@ void GlobalDrawing(RenderWindow &window, Map &map, int &enemies_number, Icon &en
         window.draw(lives_icon.icon_sprite);
     }
 
-
     for (int i = 0; i < n_bul; i++) {
         if (bul[i].Is_On_f) {
             bul[i].update(g_time.GetTime());
@@ -96,6 +99,9 @@ void GlobalDrawing(RenderWindow &window, Map &map, int &enemies_number, Icon &en
     }
     window.draw(tank.GetSprite());
     if (page.TwoPlayers) window.draw(friend_t.GetSprite());
+//    for(int i=0;i < enemy_iterator;i++){
+//        window.draw(t[i].GetSprite);
+//    }
 
 }
 
@@ -113,43 +119,69 @@ void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator,
     //спауним врагов на поле
     bool sparkle = false;
 
-    time_to_go += g_time.GetTime();
+    //time_to_go += g_time.GetTime();
     float sparkle_x = 32;
     float sparkle_y = 32;
 
-    if (time_to_go > 2000 and !sparkle) {
-        sparkle = true;
-
-        srand(time(NULL));
-        int random = 1 + rand() % 9;
-        switch (random) {
-            case 1:
-            case 4:
-            case 7:
-                sparkle_x = 32;
-                break;
-            case 2:
-            case 5:
-            case 8:
-                sparkle_x = 229;
-                break;
-            case 3:
-            case 6:
-            case 9:
-                sparkle_x = 451;
-                break;
-        }
-//Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
-//Передачу в enemy этих координат я уже сделала.
-    }
+//    if (time_to_go > 2000 and !sparkle) {
+//        sparkle = true;
+//
+//        srand(time(NULL));
+//        int random = 1 + rand() % 9;
+//        switch (random) {
+//            case 1:
+//            case 4:
+//            case 7:
+//                sparkle_x = 32;
+//                break;
+//            case 2:
+//            case 5:
+//            case 8:
+//                sparkle_x = 229;
+//                break;
+//            case 3:
+//            case 6:
+//            case 9:
+//                sparkle_x = 451;
+//                break;
+//        }
+////Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
+////Передачу в enemy этих координат я уже сделала.
+//    }
+//
+//    if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
+//        time_to_go = 0;
+//        sparkle = false;
+//        enemies_number--;
+//        int class_of_enemy = ENEMY_SLOW;
+//        if (enemy_iterator > 3) {
+//            std::uniform_int_distribution<int> dist(1, 4);
+//            switch (dist(engine)) {
+//                case 1:
+//                    class_of_enemy = ENEMY_MEDIUM;
+//                    break;
+//                case 2:
+//                    class_of_enemy = ENEMY_FAST;
+//                    break;
+//                case 4:
+//                    if (enemy_iterator > 5) class_of_enemy = ENEMY_BIG;
+//                    break;
+//            }
+//        }
+//
+//        t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
+//        enemy_bul[enemy_iterator].SetFile("heart.bmp");
+//
+//        Start_Enemy_Function(t[enemy_iterator], 0, 0);
+//        enemy_iterator++;
+//    }
 
     if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
         time_to_go = 0;
-        sparkle = false;
         enemies_number--;
         int class_of_enemy = ENEMY_SLOW;
-        if (enemy_iterator > 3) {
-            std::uniform_int_distribution<int> dist(1, 4);
+        if (enemy_iterator > 3){
+            std::uniform_int_distribution<int> dist(1,4);
             switch (dist(engine)) {
                 case 1:
                     class_of_enemy = ENEMY_MEDIUM;
@@ -166,10 +198,9 @@ void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator,
         t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
         enemy_bul[enemy_iterator].SetFile("heart.bmp");
 
-        Start_Enemy_Function(t[enemy_iterator], 0, 0);
-        enemy_iterator++;
+        Start_Enemy_Function(t[enemy_iterator]);
+        enemy_iterator ++;
     }
-
         for (int i = 0; i < enemy_iterator; i++) {
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
         }
@@ -179,16 +210,15 @@ bool EnemyUpdateAndDraw(float CurrentFrame, Enemy_tank t[], int &enemy_iterator,
                         Map &map, RenderWindow &window,Game_time &g_time, Bullet bul[], int n_bul){
     bool base_is_damaged=false;
     for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
-        //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
         for (int j = 0; j < n_bul; j++) {
             if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f) {
                 enemy_bul[i].Is_On_f = false;
                 enemy_bul[i].SetSpeed(0);
             }
         }
-
         for (int j = 0; j < n_bul; j++) {
             if (t[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && t[i].GetIsAlive()) {
+                //t[i].SetIsOnTheField(false);
                 //t[i].SetIsOnTheField(false);
                 t[i].SetIsAlive(false);
                 bul[j].Is_On_f = false;
@@ -197,8 +227,6 @@ bool EnemyUpdateAndDraw(float CurrentFrame, Enemy_tank t[], int &enemy_iterator,
         }
 
         if (t[i].GetIsAlive()) {
-            map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
-
             if (t[i].GetFlag_to_change()) {      //Если флаг сигнализирует о том, что надо поменять направление
                 t[i].UpdateDir(engine);    // меняем направление
                 t[i].SetFlag_to_change(false);  //Опускаем флаг
@@ -226,8 +254,8 @@ bool EnemyUpdateAndDraw(float CurrentFrame, Enemy_tank t[], int &enemy_iterator,
             if (t[i].GetIsOnTheField()) {  //Если пуля на поле, то устанавливаем ей скорость
                 t[i].SetSpeed(t[i].GetSpeed());
             }
+            map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
             window.draw(t[i].GetSprite());
-            // }
         }
     }
     return base_is_damaged;
@@ -271,11 +299,14 @@ void Reset(int STATE, Player &tank,Enemy_tank t[]){
     tank.SetY(420);
     int enemies_number = 9;
     for (int i=0;i<enemies_number;i++){
-        Start_Enemy_Function(t[i],0,0);
+        Start_Enemy_Function(t[i]);
     }
+
 }
+
 void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank,
                     Game_time g_time, RenderWindow &window, Enemy_tank t[]){
+
     for (int i = 0;i < enemy_iterator; i++) {
         if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
             tank.DecreaseLives();
@@ -292,11 +323,11 @@ void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank,
             tank.DrawSpawn(g_time);
             window.draw(tank.GetSpriteSpawn());
             g_time.updateSpawn();
+            tank.SetFlagSpawn(false);
         }else{
             tank.SetFlagSpawn(false);
             g_time.SetTimeSpawn(0);
         }
-
     }
 }
 
@@ -357,12 +388,13 @@ bool Game(RenderWindow &window, MENU page) {
                 }
                 STATE = 1;
                 Reset(STATE, tank,t);
+                base_is_damaged1=false;
+                base_is_damaged2=false;
                 break;
             }
             case 1:
             case 2:
             case 3: {
-
                 while (window.isOpen()) {
                     std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
                     g_time.Init();
@@ -400,16 +432,17 @@ bool Game(RenderWindow &window, MENU page) {
                     }
 
                     time_to_go += g_time.GetTime();
-                    base_is_damaged2 = EnemyUpdateAndDraw(CurrentFrame, t, enemy_iterator, enemy_bul, engine, map, window, g_time,bul,n_bul);
+
+
 
                     GlobalUpdate(tank, g_time, map, enemy_iterator, t, enemy_bul, time_to_go, enemies_number, n_enemies, engine, page,  friend_t);
-
 
                     base_is_damaged1 = OurBullets(bul,n_bul,enemy_iterator, enemy_bul,t,map,g_time,window);
 
                     IfTankIsKilled(enemy_iterator, enemy_bul, tank, g_time, window, t);
 
                     GlobalDrawing(window, map, enemies_number, enemy_icon, tank, lives_icon, bul, n_bul, g_time, page, friend_t);
+                    base_is_damaged2 = EnemyUpdateAndDraw(CurrentFrame, t, enemy_iterator, enemy_bul, engine, map, window, g_time,bul,n_bul);
 
                     window.display();
                     window.clear();
