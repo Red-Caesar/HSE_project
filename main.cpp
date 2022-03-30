@@ -19,9 +19,9 @@ int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     MENU page;
-//    if(!page.menu(window)){
-//        return 0;
-//    }
+    if(!page.menu(window)){
+        return 0;
+    }
 //    if(!page.end_menu(window)){
 //        return 0;
 //    }
