@@ -12,24 +12,28 @@ void Player::Init(int x, int y) {
 }
 
 
-void Player:: setRect(){
+void Player:: setRect(float CurrentFrame){
     //m_sprite.setTextureRect(IntRect(3, 5, m_width, m_height));
     if (m_name == "main_tank"){
         switch (m_dir)
         {
-            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(1, 35, 26, 26)); break;
-            case DIR_LEFT: m_sprite.setTextureRect(IntRect(5, 99, 26, 26));break;
-            case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 65, 26, 26));break;
-            case DIR_UP: m_sprite.setTextureRect(IntRect(3, 5, 26, 26));break;
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 35, 26, 26));
+                break;
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 99, 26, 26));
+                break;
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 65, 26, 26));
+                break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 5, 26, 26));
+                break;
         }
     }
     if (m_name == "friend_tank"){
         switch (m_dir)
         {
-            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(1, 163, 26, 26)); break;
-            case DIR_LEFT: m_sprite.setTextureRect(IntRect(5, 227, 26, 26));break;
-            case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 193, 26, 26));break;
-            case DIR_UP: m_sprite.setTextureRect(IntRect(3, 133, 26, 26));break;
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 163, 26, 26)); break;
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 227, 26, 26));break;
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 193, 26, 26));break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 133, 26, 26));break;
         }
     }
 
@@ -51,19 +55,8 @@ void Player::update(float time) //функция "оживления" объек
     m_y += m_vy*time;//аналогично по игреку
 
     m_speed = 0;//зануляем скорость, чтобы персонаж остановился.
-    /*if (!is_just_lost_life) {
-        m_sprite.setPosition(m_x,m_y); }//выводим спрайт в позицию x y, посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
-    else {  m_sprite.setPosition(164, 420);
-            is_just_lost_life = false;
-         }*/
-    m_sprite.setPosition(m_x,m_y);
-
+    m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y, посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
     if (m_player_lives == 0){ is_alive = false;}
-}
-
-
-void Player::SetIsAlive(bool alive) {
-    Player:: is_alive = alive;
 }
 
 int Player::GetPlayerLives() const {

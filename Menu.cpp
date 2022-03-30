@@ -1,5 +1,5 @@
 #include "Menu.h"
-
+//#define TWO_PLAYERS
 
 bool MENU::menu (RenderWindow &window){
     Texture menuTexture;
@@ -34,7 +34,7 @@ bool MENU::menu (RenderWindow &window){
                 IsMenu = false;
             }
         }
-
+#ifdef TWO_PLAYERS
         if(IntRect(195,256,140, 14).contains(Mouse::getPosition(window))){
             menuSprite3.setPosition(195,256);
             window.draw(menuSprite3);
@@ -43,7 +43,8 @@ bool MENU::menu (RenderWindow &window){
                 TwoPlayers = true;
             }
         }
-
+        window.draw(menuSprite4);
+#endif
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
@@ -54,7 +55,7 @@ bool MENU::menu (RenderWindow &window){
 
         window.draw(menuSprite1);
         window.draw(menuSprite2);
-        window.draw(menuSprite4);
+
 
         window.display();
         window.clear();
