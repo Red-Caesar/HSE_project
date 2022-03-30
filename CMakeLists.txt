@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(SFML/include)
 
-add_executable(game main.cpp Player.cpp Player.h Game.cpp Game.h Map.cpp Map.h Bullet.cpp Bullet.h Audio.cpp Audio.h Game_time.cpp Game_time.h Enemy_tanks.cpp Enemy_tanks.h Menu.cpp Menu.h Types.h)
+add_executable(game main.cpp Player.cpp Player.h Game.cpp Game.h Map.cpp Map.h Bullet.cpp Bullet.h Audio.cpp Audio.h Game_time.cpp Game_time.h Enemy_tanks.cpp Enemy_tanks.h Entity.h Entity.cpp Menu.h Types.h Menu.cpp)
 
 set(SFML_ROOT SFML)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")

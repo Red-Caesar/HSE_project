@@ -25,6 +25,7 @@ std::vector<String> Map::GetDiagramMap() {
         case 2:
             return SecondMap;
     }
+    return {"0"};
 }
 void Map::SetDiagramMap(int i, int j, char texture) {
     switch (number_map) {
@@ -124,37 +125,37 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
 
 void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank) {   // Та же функция, но для врагов
                                                                                          // В случае коллизии поднимаем флаг смены направления
-    for (int i = tank.GetEnemyY() / 32; i < (tank.GetEnemyY() + tank.GetEnemyH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
-        for (int j = tank.GetEnemyX() / 32; j < (tank.GetEnemyX() + tank.GetEnemyW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
+    for (int i = tank.GetY() / 32; i < (tank.GetY() + tank.GetH()) /32; i++)//проходимся по тайликам, контактирующим с игроком, то есть по всем квадратикам размера 32*32, которые мы окрашивали в 9 уроке. про условия читайте ниже.
+        for (int j = tank.GetX() / 32; j < (tank.GetX() + tank.GetW()) /32; j++)//икс делим на 32, тем самым получаем левый квадратик, с которым персонаж соприкасается. (он ведь больше размера 32*32, поэтому может одновременно стоять на нескольких квадратах). А j<(x + w) / 32 - условие ограничения координат по иксу. то есть координата самого правого квадрата, который соприкасается с персонажем. таким образом идем в цикле слева направо по иксу, проходя по от левого квадрата (соприкасающегося с героем), до правого квадрата (соприкасающегося с героем)
         {
-            if (tank.GetEnemyX() < 32) { tank.SetEnemyX(32);
+            if (tank.GetX() < 32) { tank.SetX(32);
                     tank.SetFlag_to_change(true);
             }
-            if (tank.GetEnemyY() < 32) { tank.SetEnemyY(32);
+            if (tank.GetY() < 32) { tank.SetY(32);
                     tank.SetFlag_to_change(true);
             }
-            if (tank.GetEnemyX() > 420) { tank.SetEnemyX(420);
+            if (tank.GetX() > 420) { tank.SetX(420);
                     tank.SetFlag_to_change(true);
             }
-            if (tank.GetEnemyY() > 422) { tank.SetEnemyY(422);
+            if (tank.GetY() > 422) { tank.SetY(422);
                     tank.SetFlag_to_change(true);
             }
 
             if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
-                if (tank.GetEnemyX() > j * 32 - 16 ){
-                    if (tank.GetEnemySpeedY() > 0) { tank.SetEnemyY(i * 32 - tank.GetEnemyH() - 6);}
-                    if (tank.GetEnemySpeedY() < 0) { tank.SetEnemyY(i * 32 + tank.GetEnemyH() + 6); }
-                    if (tank.GetEnemySpeedX() > 0) { tank.SetEnemyX(j * 32 + 16 - tank.GetEnemyW() - 6);}
-                    if (tank.GetEnemySpeedX() < 0) { tank.SetEnemyX(j * 32 + tank.GetEnemyW() + 6); }
+                if (tank.GetX() > j * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
                     tank.SetFlag_to_change(true);
                 }
             }
             if (Diagram[i][j] == '1'|| Diagram[i][j] == '6' ){
-                if (tank.GetEnemyY() > i * 32 - 16 ){
-                    if (tank.GetEnemySpeedY() > 0) { tank.SetEnemyY(i * 32 + 16 - tank.GetEnemyH() - 6);}
-                    if (tank.GetEnemySpeedY() < 0) { tank.SetEnemyY(i * 32 + tank.GetEnemyH() + 6); }
-                    if (tank.GetEnemySpeedX() > 0) { tank.SetEnemyX(j * 32 - tank.GetEnemyW() - 6);}
-                    if (tank.GetEnemySpeedX() < 0) { tank.SetEnemyX(j * 32 + tank.GetEnemyW() + 6); }
+                if (tank.GetY() > i * 32 - 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -162,22 +163,22 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
             }
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7'){
 
-                if (tank.GetEnemyX() < j * 32 + 16 ){
-                    if (tank.GetEnemySpeedY() > 0) { tank.SetEnemyY(i * 32 - tank.GetEnemyH() - 6);}
-                    if (tank.GetEnemySpeedY() < 0) { tank.SetEnemyY(i * 32 + tank.GetEnemyH() + 6); }
-                    if (tank.GetEnemySpeedX() > 0) { tank.SetEnemyX(j * 32 - tank.GetEnemyW() - 6);}
-                    if (tank.GetEnemySpeedX() < 0) { tank.SetEnemyX(j * 32 - 16 + tank.GetEnemyW() + 6); }
+                if (tank.GetX() < j * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
                    // if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
                 }
             }
             if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
-                if (tank.GetEnemyY() < i * 32 + 16 ){
-                    if (tank.GetEnemySpeedY() > 0) { tank.SetEnemyY(i * 32 - tank.GetEnemyH() - 6);}
-                    if (tank.GetEnemySpeedY() < 0) { tank.SetEnemyY(i * 32 - 16 + tank.GetEnemyH() + 6); }
-                    if (tank.GetEnemySpeedX() > 0) { tank.SetEnemyX(j * 32 - tank.GetEnemyW() - 6);}
-                    if (tank.GetEnemySpeedX() < 0) { tank.SetEnemyX(j * 32  + tank.GetEnemyW() + 6); }
+                if (tank.GetY() < i * 32 + 16 ){
+                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -186,14 +187,14 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
 
             if (Diagram[i][j] == '4' || Diagram[i][j] == '9' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
-                if (tank.GetEnemySpeedY() > 0){//если мы шли вниз,
-                    tank.SetEnemyY(i * 32 - tank.GetEnemyH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
-                if (tank.GetEnemySpeedY() < 0) {
-                    tank.SetEnemyY(i * 32 + tank.GetEnemyH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
-                if (tank.GetEnemySpeedX() > 0) {
-                    tank.SetEnemyX(j * 32 - tank.GetEnemyW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                if (tank.GetEnemySpeedX() < 0) {
-                    tank.SetEnemyX(j * 32 + tank.GetEnemyW() + 6);}//аналогично идем влево
+                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+                    tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
+                if (tank.GetSpeedY() < 0) {
+                    tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
+                if (tank.GetSpeedX() > 0) {
+                    tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
+                if (tank.GetSpeedX() < 0) {
+                    tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
                // if(!tank.GetIsPlayer()){
                     tank.SetFlag_to_change(true);
                 //}
@@ -247,6 +248,7 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     return true;
                 }
         }
+
 }
 
 
