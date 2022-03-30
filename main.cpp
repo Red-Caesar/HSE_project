@@ -372,7 +372,19 @@ int main() {
                 tank.SetFlagSpawn(false);
                 g_time.SetTimeSpawn(0);
             }
-
+        }
+        if (page.TwoPlayers){
+            if(friend_t.GetFlagSpawn()){
+                friend_t.SpawnInit (friend_t.GetX(),friend_t.GetY());
+                if(g_time.GetTimeSpawn() < 1000){
+                    friend_t.DrawSpawn(g_time);
+                    window.draw(friend_t.GetSpriteSpawn());
+                    g_time.updateSpawn();
+                }else{
+                    friend_t.SetFlagSpawn(false);
+                    g_time.SetTimeSpawn(0);
+                }
+            }
         }
         window.display();
     }
