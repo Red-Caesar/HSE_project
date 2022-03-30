@@ -61,15 +61,34 @@ private:
             "@F4F9FFF4F4F4F@@@",
             "@F4FFFF44F494F@@@",
             "@FFF4FFFFF9FFF@@@",
-            "@sFF4FF9FF4s49@@@",
-            "@ssFFF4FF9FsFF@@@",
-            "@F444sss9FFs4F@@@",
+            "@BFF4FF9FF4B49@@@",
+            "@BBFFF4FF9FBFF@@@",
+            "@F444BBB9FFB4F@@@",
             "@FFF9s4F4F4F4F@@@",
             "@94F9F4F4FFF4F@@@",
             "@F4F4F444F494F@@@",
             "@F4F4F444FFFFF@@@",
             "@F4FFF?1?F4F4F@@@",
             "@F4F4F0G2F444F@@@",
+            "@@@@@@@@@@@@@@@@@",
+    };
+
+    //ThirdMap
+    std::vector<String> ThirdMap = {
+            "@@@@@@@@@@@@@@@@@",
+            "@FFFF4FFF4FFFF@@@",
+            "@FBBB4FFFFF666@@@",
+            "@4BBBFFFFFFFFF@@@",
+            "@BBBBFFF4F444F@@@",
+            "@BBBB4443F4F2F@@@",
+            "@BBBBFF4FFFF2F@@@",
+            "@FBFFFF999FFBF@@@",
+            "@F1F1FFFFFBBBB@@@",
+            "@420420333BBBB@@@",
+            "@FFFFF4F11BBBB@@@",
+            "@4FF7FFF33BBBF@@@",
+            "@44F7F?1?FBBBF@@@",
+            "@944FF0G2F4FFF@@@",
             "@@@@@@@@@@@@@@@@@",
     };
 
@@ -110,6 +129,5 @@ public:
 
 
 };
-
 
 #endif //GAME_MAP_H

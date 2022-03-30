@@ -20,6 +20,13 @@ enum ENEMY_TYPE {
     ENEMY_BIG_BONUS = 7
 };
 
+enum TANK_TYPE {
+    TANK_SLOW = 0,
+    TANK_MEDIUM = 1,
+    TANK_FAST = 2,
+    TANK_BIG = 3,
+};
+
 enum ITEM_TYPE {
     ITEM_STAR = 0,
     ITEM_LIFE = 1,
