@@ -13,16 +13,14 @@
 #include "Types.h"
 using namespace sf;
 
-
-int main() {
-
+int StartGame(int level){
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     MENU page;
     if(!page.menu(window)){
-        return 0;
+        return EXIT;
     }
     Map map("Background.png");
-    map.SetNumberMap(2);
+    map.SetNumberMap(level);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(290,420);
@@ -75,13 +73,16 @@ int main() {
     int randomX = 0;
     int randomY = 0;
     int bonus_f = 0;
+    int bonus_f_f = 0;
+    int cur_tank_lives = 0;
+    int cur_friend_tank_lives = 0;
 
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
         g_time.Init();
         Event event;
-        while (window.pollEvent(event)) {if (event.type == Event::Closed) window.close();}
+        while (window.pollEvent(event)) {if (event.type == Event::Closed) window.close(); }
 
         CurrentFrame += 0.005*g_time.GetTime(); //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
         if (CurrentFrame > 2) CurrentFrame -= 2; //проходимся по кадрам с первого по третий включительно. если пришли к третьему кадру - откидываемся назад.
@@ -90,7 +91,7 @@ int main() {
             tank.Control(CurrentFrame);
             if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
         }else if(!page.end_menu(window) ){
-            return 0;
+            return GAME_OVER;
         }
         if (page.TwoPlayers){
             if (friend_t.GetIsAlive() && (!base_is_damaged)){
@@ -111,11 +112,11 @@ int main() {
         }
         if (page.TwoPlayers){
             if (FriendBullet) {
-                    if (!bul[1].Is_On_f) {
-                        bul[1].Is_On_f = true;
-                        audio.playShoot();
-                        bul[1].New_Coordinates_and_Dir(friend_t);
-                    }
+                if (!bul[1].Is_On_f) {
+                    bul[1].Is_On_f = true;
+                    audio.playShoot();
+                    bul[1].New_Coordinates_and_Dir(friend_t);
+                }
             }
         }
 
@@ -128,7 +129,7 @@ int main() {
 
         map.DrawMapBack(window);
 
-       //спауним врагов на поле
+        //спауним врагов на поле
 
         time_to_go += g_time.GetTime();
 
@@ -198,27 +199,48 @@ int main() {
         }
         if(bonus_f == 1) window.draw(bonus_icon.icon_sprite);
 
-        if((tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
+        if(bonus_f == 1 and (tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
             audio.playBones();
-            bonus_f = 0;
-            tank_speed = 0.2;
-            tank.m_level = 1;
-            //tank.SetPlayerLevel(1);
-            for (int i = 0; i < n_bul; i++) {
-                bul[i].speed = 0.4;
-            }
+            bonus_f = 2;
+            cur_tank_lives = tank.GetPlayerLives();
         }
-        if (page.TwoPlayers){
-            if((friend_t.GetX() >= randomX-16 ) and (friend_t.GetX() <= randomX+16) and (friend_t.GetY() >= randomY - 16) and (friend_t.GetY() <= randomY+16)){
-                audio.playBones();
-                bonus_f = 0;
+        if (bonus_f == 2)
+            if(cur_tank_lives == tank.GetPlayerLives()){
                 tank_speed = 0.2;
-                friend_t.m_level = 1;
+                tank.m_level = 1;
                 //tank.SetPlayerLevel(1);
+                for (int i = 0; i < n_bul; i++){
+                    bul[i].speed = 0.4;}
+            }
+            else {
+                bonus_f = 0;
+                tank_speed = 0.1;
+                tank.m_level = 0;
                 for (int i = 0; i < n_bul; i++) {
-                    bul[i].speed = 0.4;
+                    bul[i].speed = 0.2;
                 }
             }
+
+        if (page.TwoPlayers){
+            if((bonus_f == 1 and friend_t.GetX() >= randomX-16 ) and (friend_t.GetX() <= randomX+16) and (friend_t.GetY() >= randomY - 16) and (friend_t.GetY() <= randomY+16)){
+                audio.playBones();
+                bonus_f = 3;
+                cur_friend_tank_lives = friend_t.GetPlayerLives();
+            }
+            if(bonus_f == 3)
+                if(cur_friend_tank_lives == friend_t.GetPlayerLives()){
+                    tank_speed = 0.2;
+                    friend_t.m_level = 1;
+                    for (int i = 0; i < n_bul; i++) {
+                        bul[i].speed = 0.4;}
+                }
+                else{
+                    bonus_f = 0;
+                    tank_speed = 0.1;
+                    friend_t.m_level = 0;
+                    for (int i = 0; i < n_bul; i++) {
+                        bul[i].speed = 0.2;}
+                }
         }
 
         for (int i = 0; i < n_bul; i++) {
@@ -323,7 +345,7 @@ int main() {
         tank.update(g_time.GetTime()); //обновление главного танка
         if (page.TwoPlayers) friend_t.update(g_time.GetTime());
         window.draw(tank.GetSprite());
-        if (page.TwoPlayers) window.draw(friend_t.GetSprite());
+        if (page.TwoPlayers) if (friend_t.GetIsAlive())window.draw(friend_t.GetSprite());
 
         if(tank.GetFlagSpawn()){
             tank.SpawnInit (tank.GetX(),tank.GetY());
@@ -353,5 +375,23 @@ int main() {
         map.DrawMapForward(window);
         window.display();
     }
+}
+
+int main() {
+    int level = 1;
+    int state_of_game;
+    while(true){
+    state_of_game = StartGame(level);
+        switch (state_of_game){
+            case GAME_OVER: StartGame(1); break;
+            case LVL_UP:
+                if (level < 3)
+                    StartGame(++level);
+                else
+//                    панелька с победой
+            case EXIT: return 0;
+        }
+    }
+
     return 0;
 }

@@ -91,7 +91,7 @@ bool MENU::end_menu (RenderWindow &window){
     endSprite3.setPosition(170,267);
 
     bool IsMenu = true;
-    bool IsPlay=false;
+    bool IsPlay = false;
 
     while(IsMenu){
         IsPlay=false;
@@ -110,7 +110,8 @@ bool MENU::end_menu (RenderWindow &window){
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
-                return false;}
+                return false;
+            }
         }
 
         window.draw(endSprite1);

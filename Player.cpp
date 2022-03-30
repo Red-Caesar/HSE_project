@@ -97,7 +97,7 @@ void Player::Respawn(){
         m_y = 420;
     }
     if (m_name == "friend_tank"){
-        m_x = 324;
+        m_x = 290;
         m_y = 420;
     }
 }

@@ -54,4 +54,9 @@ enum SOUNDS {
     SOUND_DIE = 6
 };
 
+enum STATE {
+    GAME_OVER = 0,
+    LVL_UP = 1,
+    EXIT = 2
+};
 #endif //GAME_TYPES_H
