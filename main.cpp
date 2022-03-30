@@ -99,7 +99,6 @@ int main() {
             tank.Control(CurrentFrame);
             if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
         }else if(!page.end_menu(window) ){
-            audio.playEnd();
             return 0;
         }
         if (page.TwoPlayers){

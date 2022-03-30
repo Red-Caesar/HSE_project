@@ -22,7 +22,6 @@ public:
     void playMenu();
     void playBones();
     void playSpawn();
-
 };
 
 
