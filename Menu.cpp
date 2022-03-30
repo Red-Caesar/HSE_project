@@ -1,5 +1,5 @@
 #include "Menu.h"
-//#define TWO_PLAYERS
+#define TWO_PLAYERS
 
 bool MENU::menu (RenderWindow &window){
     Texture menuTexture;
@@ -55,7 +55,6 @@ bool MENU::menu (RenderWindow &window){
 
         window.draw(menuSprite1);
         window.draw(menuSprite2);
-
 
         window.display();
         window.clear();
@@ -116,4 +115,22 @@ bool MENU::end_menu (RenderWindow &window){
         window.clear();
     }
     return true;
+}
+
+void NewStage(int STATE){
+    Image im;
+    Texture text;
+    Sprite sprite;
+    if (STATE==1){
+        im.loadFromFile("..\\images/s_stage_1");
+    }
+    if(STATE==2){
+        im.loadFromFile("..\\images/s_stage_2");
+    }
+    if(STATE==3){
+        im.loadFromFile("..\\images/s_stage_3");
+    }
+    text.loadFromImage(im);
+    sprite.setTexture(text);
+    sprite.setPosition(0,0);
 }

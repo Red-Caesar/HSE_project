@@ -18,8 +18,8 @@ int Map::GetNumberMap() {
 
 std::vector<String> Map::GetDiagramMap() {
     switch (number_map) {
-        case 0:
-            return ZeroMap;
+       // case 0:
+        //    return ZeroMap;
         case 1:
             return FirstMap;
         case 2:
@@ -29,8 +29,8 @@ std::vector<String> Map::GetDiagramMap() {
 }
 void Map::SetDiagramMap(int i, int j, char texture) {
     switch (number_map) {
-        case 0:
-             ZeroMap[i][j] = texture;
+      //  case 0:
+       //      ZeroMap[i][j] = texture;
         case 1:
              FirstMap[i][j] = texture;
         case 2:
@@ -72,35 +72,35 @@ void Map::InteractionTankWithMap(std::vector<String> Diagram, Player &tank) {
 
             if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
                 if (tank.GetX() > j * 32 - 12 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                 }
             }
             if (Diagram[i][j] == '1' || Diagram[i][j] == '6' ){
                 if (tank.GetY() > i * 32 - 12 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                 }
             }
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7' ){
 
                 if (tank.GetX() < j * 32 + 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
                 }
             }
             if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
                 if (tank.GetY() < i * 32 + 12 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32  + tank.GetW() + 6); }
                 }
             }
 
