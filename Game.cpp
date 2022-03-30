@@ -116,66 +116,6 @@ void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator,
         map.InteractionTankWithMap(map.GetDiagramMap(), friend_t);
     }
 
-    //спауним врагов на поле
-    bool sparkle = false;
-
-    //time_to_go += g_time.GetTime();
-    float sparkle_x = 32;
-    float sparkle_y = 32;
-
-//    if (time_to_go > 2000 and !sparkle) {
-//        sparkle = true;
-//
-//        srand(time(NULL));
-//        int random = 1 + rand() % 9;
-//        switch (random) {
-//            case 1:
-//            case 4:
-//            case 7:
-//                sparkle_x = 32;
-//                break;
-//            case 2:
-//            case 5:
-//            case 8:
-//                sparkle_x = 229;
-//                break;
-//            case 3:
-//            case 6:
-//            case 9:
-//                sparkle_x = 451;
-//                break;
-//        }
-////Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
-////Передачу в enemy этих координат я уже сделала.
-//    }
-//
-//    if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
-//        time_to_go = 0;
-//        sparkle = false;
-//        enemies_number--;
-//        int class_of_enemy = ENEMY_SLOW;
-//        if (enemy_iterator > 3) {
-//            std::uniform_int_distribution<int> dist(1, 4);
-//            switch (dist(engine)) {
-//                case 1:
-//                    class_of_enemy = ENEMY_MEDIUM;
-//                    break;
-//                case 2:
-//                    class_of_enemy = ENEMY_FAST;
-//                    break;
-//                case 4:
-//                    if (enemy_iterator > 5) class_of_enemy = ENEMY_BIG;
-//                    break;
-//            }
-//        }
-//
-//        t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
-//        enemy_bul[enemy_iterator].SetFile("heart.bmp");
-//
-//        Start_Enemy_Function(t[enemy_iterator], 0, 0);
-//        enemy_iterator++;
-//    }
-
     if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
         time_to_go = 0;
         enemies_number--;
@@ -295,12 +235,12 @@ bool OurBullets(Bullet bul[], int &n_bul, int &enemy_iterator, Bullet enemy_bul[
 void Reset(int STATE, Player &tank,Enemy_tank t[]){
     Map map("Background.png");
     map.SetNumberMap(STATE);
-    tank.SetX(164);
-    tank.SetY(420);
     int enemies_number = 9;
     for (int i=0;i<enemies_number;i++){
         Start_Enemy_Function(t[i]);
     }
+    tank.Init(164, 420);
+    tank.SetPlayerLives(3);
 
 }
 

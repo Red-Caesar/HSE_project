@@ -26,7 +26,6 @@ public:
         is_just_lost_life = false;
     }
 
-
     void Init(int x, int y);
 
     void update(float time);
