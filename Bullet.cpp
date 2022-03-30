@@ -14,7 +14,7 @@ Bullet::Bullet() {
     dir = 0;
     speed = 0.1;
     sprite.setTextureRect(IntRect(156, 27, w,h));  //Задаем спрайту один прямоугольник для вывода одного льва, а не кучи львов сразу. IntRect - приведение типов
-
+    is_base_damaged = false;
 
 }
 
@@ -62,10 +62,10 @@ void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
     dir = enemy.GetDir();
     x = enemy.GetX() + 10;
     y = enemy.GetY() + 10;
-    speed = 0.2;
+    speed = 0.1;
     switch (enemy.enemy_class) {
         case ENEMY_MEDIUM:
-            speed = 0.3;
+            speed = 0.15;
             break;
     }
 
@@ -95,6 +95,9 @@ float Bullet::GetSpeedY() const {
     return dy;
 }
 
+void Bullet::SetSpeed(float speed){
+    speed = speed;
+}
 
 void Bullet::SetX(int cur_x) {
     x = cur_x;
@@ -134,4 +137,12 @@ float Bullet::GetW() const {
 
 FloatRect Bullet::GetRect() {
     return FloatRect(x, y, w, h);
+}
+
+void Bullet::SetIsBaseDamaged(bool flag){
+    is_base_damaged = flag;
+}
+
+bool Bullet::GetIsBaseDamaged(){
+    return is_base_damaged;
 }

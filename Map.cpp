@@ -53,6 +53,7 @@ void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160,   64, 32, 32));
     if (Diagram[i][j] == 'G') map_sprite.setTextureRect(IntRect(160,   32, 32, 32));
+    if (Diagram[i][j] == 'H') map_sprite.setTextureRect(IntRect(160,   96, 32, 32));
     map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
 }
@@ -210,8 +211,10 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                 bullet.GetY() > 448) { return false; }
             else {
                 if (Diagram[i][j] == 'G') {
+                    bullet.SetIsBaseDamaged(true);
+                    SetDiagramMap(i, j, 'H');
 //                    game over
-//                    who is the owner of bullet doesnt matter
+//                    who is the owner of bullet doesn't matter
                 }
                     if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 + 16) {
                         if (Diagram[i][j] == '1')

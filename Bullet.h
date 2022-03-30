@@ -8,6 +8,7 @@ using namespace sf;
 class Bullet {
 private:
     float x, y, w, h, dx, dy;
+    bool is_base_damaged;
 public:
     float speed = 0; //координаты игрока х и у, высота ширина, ускорение (по х и по у), сама скорость
     int dir = 0; //направление (direction) движения игрока
@@ -39,6 +40,12 @@ public:
     void SetX(int cur_x);
 
     void SetY(int cur_y);
+
+    void SetSpeed(float speed);
+
+    void SetIsBaseDamaged(bool flag);
+
+    bool GetIsBaseDamaged();
 
     FloatRect GetRect();
 };

@@ -39,6 +39,7 @@ int main() {
     audio.playSpawn();
 
     bool NewBullet = false;
+    bool base_is_damaged = false;
     bool BigFlag = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
@@ -53,7 +54,7 @@ int main() {
     int STATE =1;
 
     float time_to_go = 0;
-    int enemies_number = 9;
+    int enemies_number = 2;
 
     int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
     Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
@@ -76,7 +77,7 @@ int main() {
 
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
-        if (tank.GetIsAlive()){
+        if (tank.GetIsAlive() && (!base_is_damaged)){
             if (Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
             if (Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
             if (Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
@@ -85,7 +86,7 @@ int main() {
         }
         else  if(!end_menu(window)){
         return 0;
-    }
+        }
 
         ///////////////////////////////////////////
 
@@ -171,10 +172,30 @@ int main() {
         }
 
 
+        //пересечение пуль нашего танка
+
         for (int i = 0; i < n_bul; i++) {
+            for (int j = 0; j<enemy_iterator; j++) {
+
+                //if (bul[i].GetRect().intersects(enemy_bul[j].GetRect())){
+               // std::cout << bul[i].GetRect().intersects(enemy_bul[j].GetRect()) << "\n";}
+                if ( bul[i].Is_On_f && bul[i].GetRect().intersects(enemy_bul[j].GetRect()) && enemy_bul[j].Is_On_f){
+                    bul[i].Is_On_f = false;
+                    bul[i].SetSpeed(0);
+                }
+
+                if (bul[i].Is_On_f && bul[i].GetRect().intersects(t[j].GetRect()) && t[j].GetIsAlive()){
+                    bul[i].Is_On_f = false;
+                    bul[i].SetSpeed(0);
+                }
+
+            }
+            if (bul[i].GetIsBaseDamaged()){
+                base_is_damaged = true;
+            }
             if (bul[i].Is_On_f) {
-                bul[i].update(g_time.GetTime());
                 bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),bul[i]);
+                bul[i].update(g_time.GetTime());
                 window.draw(bul[i].sprite);//рисуем спрайт пули
             }
         }
@@ -192,10 +213,18 @@ int main() {
         for (int i = 0;i<enemy_iterator;i++){   //проходимся по врагам
 
             for (int j = 0; j<n_bul; j++){
-                if (t[i].GetRect().intersects(bul[j].GetRect())){
-                    t[i].SetIsOnTheField(false);
+                if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f ){
+                    enemy_bul[i].Is_On_f = false;
+                    enemy_bul[i].SetSpeed(0);
+                }
+            }
+
+            for (int j = 0; j<n_bul; j++){
+                if (t[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && t[i].GetIsAlive()){
+                    //t[i].SetIsOnTheField(false);
                     t[i].SetIsAlive(false);
                     bul[j].Is_On_f = false;
+                    enemy_bul[i].Is_On_f = false;
                 }
             }
             if (t[i].GetIsAlive()){
@@ -219,13 +248,17 @@ int main() {
                         break;
                 }
 
+                if (enemy_bul[i].GetIsBaseDamaged()){
+                    base_is_damaged = true;
+                }
+
 
                 enemy_bul[i].update(g_time.GetTime());   //Обновляем ПУЛЮ по времени
                 enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(), enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
-                if (enemy_bul[i].GetRect().intersects(tank.GetRect())) {
-                    enemy_bul[i].Is_On_f = false;
+                //if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f) {
+                    //enemy_bul[i].Is_On_f = false;
                     //tank.DecreaseLives();
-                }
+                //}
 
                 window.draw(enemy_bul[i].sprite); //Рисуем пулю
                 t[i].EnemyUpdate(g_time.GetTime()); //Обновляем ВРАГА
@@ -240,10 +273,18 @@ int main() {
 
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
 
+
+
         for (int i=0;i<enemy_iterator;i++) {
-            if (enemy_bul[i].GetRect().intersects(tank.GetRect())) {
+            //if  (enemy_bul[i].GetRect().intersects(tank.GetRect()))
+               // std::cout <<  (enemy_bul[i].GetRect().intersects(tank.GetRect())) << " " << enemy_bul[i].Is_On_f << std::endl;                                                                                                               enemy_bul[i].Is_On_f;
+            if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
                 tank.DecreaseLives();
                 tank.Respawn();
+
+            }
+            if (tank.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
+                tank.SetSpeed(0);
             }
         }
 
