@@ -40,6 +40,10 @@ public:
 
     void SetY(int cur_y);
 
+    void BonusSpeed(Player &player);
+
+    void SetSpeed(float S);
+
 };
 
 

@@ -95,6 +95,9 @@ float Bullet::GetSpeedY() const {
     return dy;
 }
 
+void Bullet::SetSpeed(float S) {
+    speed = S;
+}
 
 void Bullet::SetX(int cur_x) {
     x = cur_x;
@@ -111,6 +114,7 @@ float Bullet::GetH() const {
 float Bullet::GetW() const {
     return w;
 }
+
 
 //Bullet::Bullet(Player &player, String F) {
 //    File = F;//имя файла+расширение

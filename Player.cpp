@@ -15,18 +15,44 @@ void Player::Init(int x, int y) {
 void Player:: setRect(float CurrentFrame){
     //m_sprite.setTextureRect(IntRect(3, 5, m_width, m_height));
     if (m_name == "main_tank"){
-        switch (m_dir)
-        {
-            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 35, 26, 26));
-                break;
-            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 99, 26, 26));
-                break;
-            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 65, 26, 26));
-                break;
-            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 5, 26, 26));
+
+        switch(m_level) {
+            case TANK_SLOW:
+                switch (m_dir) {
+                    case DIR_RIGHT:
+                    m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 35, 26, 26));
+                    break;
+                case DIR_LEFT:
+                    m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 99, 26, 26));
+                    break;
+                case DIR_DOWN:
+                    m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 65, 26, 26));
+                    break;
+                case DIR_UP:
+                    m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 5, 26, 26));
+                    break;
+                }
+                    break;
+                case TANK_MEDIUM:
+                    switch (m_dir) {
+                        case DIR_RIGHT:
+                            m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 64, 35, 32, 26));
+                            break;
+                        case DIR_LEFT:
+                            m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 64, 99, 32, 26));
+                            break;
+                        case DIR_DOWN:
+                            m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 67, 64, 26, 32));
+                            break;
+                        case DIR_UP:
+                            m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 67, 0, 26, 32));
+                            break;
+
+                    }
                 break;
         }
     }
+
     if (m_name == "friend_tank"){
         switch (m_dir)
         {
@@ -38,8 +64,6 @@ void Player:: setRect(float CurrentFrame){
     }
 
 }
-
-
 
 void Player::update(float time) //функция "оживления" объекта класса. update - обновление. принимает в себя время SFML , вследствие чего работает бесконечно, давая персонажу движение.
 {
@@ -74,6 +98,19 @@ int Player::GetPlayerLives() const {
 void Player::SetPlayerLives(int lives) {
     m_player_lives = lives;
 }
+
+void Player::SetPlayerLevel(int level) {
+    m_player_lives = level;
+}
+//
+//void Player::PlayerSpeed(){
+//    switch (Player_Speed) {
+//        case 1:
+//            m_speed = 0.1;
+//        case 2:
+//            m_speed = 0.2;
+//
+//}
 
 
 
