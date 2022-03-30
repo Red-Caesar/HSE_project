@@ -98,7 +98,8 @@ int main() {
         if (tank.GetIsAlive() && (!base_is_damaged)){
             tank.Control(CurrentFrame);
             if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
-        }else if(!page.end_menu(window)){
+        }else if(!page.end_menu(window) ){
+            audio.playEnd();
             return 0;
         }
         if (page.TwoPlayers){
@@ -234,6 +235,7 @@ int main() {
         if(bonus_f == 1) window.draw(bonus_icon.icon_sprite);
 
         if((tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
+            audio.playBones();
             bonus_f = 0;
             tank_speed = 0.2;
             tank.m_level = 1;

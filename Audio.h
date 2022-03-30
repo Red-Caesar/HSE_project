@@ -13,7 +13,6 @@ private:
  Sound Bones;
  Sound Spawn;
 
-
  Music game;
  Music menu;
 public:
@@ -23,6 +22,7 @@ public:
     void playMenu();
     void playBones();
     void playSpawn();
+
 };
 
 
