@@ -14,6 +14,7 @@
 using namespace sf;
 
 
+
 int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
