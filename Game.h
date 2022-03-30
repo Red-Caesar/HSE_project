@@ -5,6 +5,6 @@
 #include "Menu.h"
 
 using namespace sf;
-bool Game(RenderWindow &window, MENU page);
+int Game(RenderWindow &window, MENU page, int STATE);
 
 #endif //GAME_GAME_H

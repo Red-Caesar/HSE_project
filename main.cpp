@@ -13,9 +13,28 @@ int main() {
     if(!page.menu(window)){
         return 0;
     }
-    if(!Game(window, page)){
-        return 0;
+    int STATE=1;
+    while (1) {
+        switch (STATE) {
+            case 0:
+                if (!page.end_menu(window)) {
+                    return 0;
+                }
+                STATE = 1;
+                break;
+            case 1:
+            case 2:
+            case 3:
+                STATE = Game(window, page, STATE);
+                break;
+
+        }
     }
-        window.display();
+//    while(Game(window, page,STATE)!=0){
+//       STATE = Game(window, page,STATE);
+//    }
+//    if(!page.end_menu(window)){
+//        return 0;
+//    }
     return 0;
 }

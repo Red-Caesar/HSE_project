@@ -146,7 +146,7 @@ void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator,
         }
     }
 
-bool EnemyUpdateAndDraw(float CurrentFrame, Enemy_tank t[], int &enemy_iterator,Bullet enemy_bul[], std::mt19937 &engine,
+bool EnemyUpdateAndDraw(int &num_alive_enemies, float CurrentFrame, Enemy_tank t[], int &enemy_iterator,Bullet enemy_bul[], std::mt19937 &engine,
                         Map &map, RenderWindow &window,Game_time &g_time, Bullet bul[], int n_bul){
     bool base_is_damaged=false;
     for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
@@ -161,6 +161,7 @@ bool EnemyUpdateAndDraw(float CurrentFrame, Enemy_tank t[], int &enemy_iterator,
                 //t[i].SetIsOnTheField(false);
                 //t[i].SetIsOnTheField(false);
                 t[i].SetIsAlive(false);
+                num_alive_enemies--;
                 bul[j].Is_On_f = false;
                 enemy_bul[i].Is_On_f = false;
             }
@@ -241,7 +242,16 @@ void Reset(int STATE, Player &tank,Enemy_tank t[]){
     }
     tank.Init(164, 420);
     tank.SetPlayerLives(3);
+    tank.SetSpeed(0);
 
+}
+
+void EnemyReset(Map &map, int &enemies_number, Enemy_tank t[], int STATE){
+    //Map map("Background.png");
+    map.SetNumberMap(STATE);
+    for (int i=0;i<enemies_number;i++){
+        Start_Enemy_Function(t[i]);
+    }
 }
 
 void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank,
@@ -271,11 +281,11 @@ void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank,
     }
 }
 
-bool Game(RenderWindow &window, MENU page) {
+int Game(RenderWindow &window, MENU page, int STATE) {
     ///////--------------------------------
 
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(STATE);
 
     ///music
     Audio audio;
@@ -294,13 +304,14 @@ bool Game(RenderWindow &window, MENU page) {
     bool NewBullet = false;
     bool FriendBullet = false;
     bool base_is_damaged1 = false;
-    bool base_is_damaged2 = false ;
+    bool base_is_damaged2 = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
     float time_to_go = 0;
     int enemies_number = 9;
 
     int n_enemies = enemies_number + 2;
+    int num_alive_enemies = 10;
 
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
@@ -316,91 +327,87 @@ bool Game(RenderWindow &window, MENU page) {
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
 
-    int STATE=1;
+    //int STATE = 1;
 
     ///////--------------------------------
 
-    while(1) {
-        switch (STATE) {
-            case 0: {
-                if (!page.end_menu(window)) {
-                    return 0;
-                }
-                STATE = 1;
-                Reset(STATE, tank,t);
-                base_is_damaged1=false;
-                base_is_damaged2=false;
-                break;
+    // while(1) {
+    //   switch (STATE) {
+    //    case 0: {
+//                if (!page.end_menu(window)) {
+//                    return 0;
+//                }
+//                STATE = 1;
+//                Reset(STATE,tank,t);
+//                base_is_damaged1=false;
+//                base_is_damaged2=false;
+//                break;
+//            }
+//            case 1:
+//            case 2:
+//            case 3: {
+    while (window.isOpen()) {
+        std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
+        g_time.Init();
+
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+                return false;
             }
-            case 1:
-            case 2:
-            case 3: {
-                while (window.isOpen()) {
-                    std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
-                    g_time.Init();
+        }
 
-                    Event event;
-                    while (window.pollEvent(event)) {
-                        if (event.type == Event::Closed) {
-                            window.close();
-                            return false;
-                        }
-                    }
+        CurrentFrame += 0.005 *
+                        g_time.GetTime(); //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
+        if (CurrentFrame > 2)
+            CurrentFrame -= 2; //проходимся по кадрам с первого по третий включительно. если пришли к третьему кадру - откидываемся назад.
 
-                    CurrentFrame += 0.005*g_time.GetTime(); //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
-                    if (CurrentFrame > 2) CurrentFrame -= 2; //проходимся по кадрам с первого по третий включительно. если пришли к третьему кадру - откидываемся назад.
+        NewBullet = WorkingWithKeyboardPlayer1(tank, page, CurrentFrame);
+        FriendBullet = WorkingWithKeyboardPlayer2(friend_t, page, CurrentFrame);
 
-                    NewBullet = WorkingWithKeyboardPlayer1(tank, page, CurrentFrame);
-                    FriendBullet=WorkingWithKeyboardPlayer2(friend_t, page, CurrentFrame);
+        if (NewBullet) {
+            if (!bul[0].Is_On_f) {
+                bul[0].Is_On_f = true;
+                audio.playShoot();
+                bul[0].New_Coordinates_and_Dir(tank);
+            }
+        }
 
-                    if (NewBullet) {
-                        if (!bul[0].Is_On_f) {
-                            bul[0].Is_On_f = true;
-                            audio.playShoot();
-                            bul[0].New_Coordinates_and_Dir(tank);
-                        }
-                    }
-
-                    if (page.TwoPlayers){
-                        if (FriendBullet) {
-                            if (!bul[1].Is_On_f) {
-                                bul[1].Is_On_f = true;
-                                audio.playShoot();
-                                bul[1].New_Coordinates_and_Dir(friend_t);
-                            }
-                        }
-                    }
-
-                    time_to_go += g_time.GetTime();
-
-
-
-                    GlobalUpdate(tank, g_time, map, enemy_iterator, t, enemy_bul, time_to_go, enemies_number, n_enemies, engine, page,  friend_t);
-
-                    base_is_damaged1 = OurBullets(bul,n_bul,enemy_iterator, enemy_bul,t,map,g_time,window);
-
-                    IfTankIsKilled(enemy_iterator, enemy_bul, tank, g_time, window, t);
-
-                    GlobalDrawing(window, map, enemies_number, enemy_icon, tank, lives_icon, bul, n_bul, g_time, page, friend_t);
-                    base_is_damaged2 = EnemyUpdateAndDraw(CurrentFrame, t, enemy_iterator, enemy_bul, engine, map, window, g_time,bul,n_bul);
-
-                    window.display();
-                    window.clear();
-
-                    if (!tank.GetIsAlive()||base_is_damaged1||base_is_damaged2) {  //Условия на переход на новый уровень
-                        if (STATE < 3) {
-                            STATE += 1;
-                            enemies_number = 9;
-                            n_enemies = enemies_number + 2;
-                            Reset(STATE,tank,t);
-                        } else {
-                            STATE = 0;
-                        }
-                        break;
-                    }
+        if (page.TwoPlayers) {
+            if (FriendBullet) {
+                if (!bul[1].Is_On_f) {
+                    bul[1].Is_On_f = true;
+                    audio.playShoot();
+                    bul[1].New_Coordinates_and_Dir(friend_t);
                 }
             }
-            break;
+        }
+
+        time_to_go += g_time.GetTime();
+
+        GlobalUpdate(tank, g_time, map, enemy_iterator, t, enemy_bul, time_to_go, enemies_number, n_enemies, engine,
+                     page, friend_t);
+
+        base_is_damaged1 = OurBullets(bul, n_bul, enemy_iterator, enemy_bul, t, map, g_time, window);
+
+        IfTankIsKilled(enemy_iterator, enemy_bul, tank, g_time, window, t);
+
+        GlobalDrawing(window, map, enemies_number, enemy_icon, tank, lives_icon, bul, n_bul, g_time, page, friend_t);
+        base_is_damaged2 = EnemyUpdateAndDraw(num_alive_enemies, CurrentFrame, t, enemy_iterator, enemy_bul, engine,
+                                              map, window, g_time, bul, n_bul);
+
+        window.display();
+        window.clear();
+
+        if (!tank.GetIsAlive() || base_is_damaged1 || base_is_damaged2) {  //Условия на переход на новый уровень
+            return 0;
+        }
+        if (num_alive_enemies == 0) {
+            if(STATE<3){
+                return ++STATE;
+            } else return 0;
+
         }
     }
 }
