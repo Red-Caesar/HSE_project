@@ -13,7 +13,6 @@ private:
  Sound Bones;
  Sound Spawn;
 
-
  Music game;
  Music menu;
 public:

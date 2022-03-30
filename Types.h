@@ -20,6 +20,11 @@ enum ENEMY_TYPE {
     ENEMY_BIG_BONUS = 7
 };
 
+enum TANK_TYPE {
+    TANK_SLOW = 0,
+    TANK_MEDIUM = 1
+};
+
 enum ITEM_TYPE {
     ITEM_STAR = 0,
     ITEM_LIFE = 1,
@@ -49,4 +54,9 @@ enum SOUNDS {
     SOUND_DIE = 6
 };
 
+enum STATE {
+    GAME_OVER = 0,
+    LVL_UP = 1,
+    EXIT = 2
+};
 #endif //GAME_TYPES_H

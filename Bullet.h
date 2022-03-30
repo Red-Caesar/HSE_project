@@ -41,13 +41,16 @@ public:
 
     void SetY(int cur_y);
 
-    void SetSpeed(float speed);
+    void SetSpeed(float s_speed);
 
     void SetIsBaseDamaged(bool flag);
 
     bool GetIsBaseDamaged();
 
     FloatRect GetRect();
+
+    void BonusSpeed(Player &player);
+
 };
 
 

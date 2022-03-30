@@ -62,10 +62,10 @@ void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
     dir = enemy.GetDir();
     x = enemy.GetX() + 10;
     y = enemy.GetY() + 10;
-    speed = 0.1;
+    speed = 0.2;
     switch (enemy.enemy_class) {
         case ENEMY_MEDIUM:
-            speed = 0.15;
+            speed = 0.3;
             break;
     }
 
@@ -95,8 +95,8 @@ float Bullet::GetSpeedY() const {
     return dy;
 }
 
-void Bullet::SetSpeed(float speed){
-    speed = speed;
+void Bullet::SetSpeed(float s_speed){
+    speed = s_speed;
 }
 
 void Bullet::SetX(int cur_x) {

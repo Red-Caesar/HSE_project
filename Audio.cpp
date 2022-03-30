@@ -43,3 +43,4 @@ void Audio::playBones() {
 void Audio::playSpawn() {
     Spawn.play();
 }
+
