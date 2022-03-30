@@ -53,13 +53,35 @@ void Player:: setRect(float CurrentFrame){
         }
     }
     if (m_name == "friend_tank"){
-        switch (m_dir)
-        {
-            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 163, 26, 26)); break;
-            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 227, 26, 26));break;
-            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 193, 26, 26));break;
-            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 133, 26, 26));break;
+        switch(m_level) {
+            case TANK_SLOW:
+                switch (m_dir)
+                {
+                    case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 163, 26, 26)); break;
+                    case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 227, 26, 26));break;
+                    case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 193, 26, 26));break;
+                    case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 133, 26, 26));break;
+                }
+                break;
+            case TANK_MEDIUM:
+                switch (m_dir) {
+                    case DIR_RIGHT:
+                        m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 64, 163, 32, 26));
+                        break;
+                    case DIR_LEFT:
+                        m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 64, 227, 32, 26));
+                        break;
+                    case DIR_DOWN:
+                        m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 67, 192, 26, 32));
+                        break;
+                    case DIR_UP:
+                        m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 67, 128, 26, 32));
+                        break;
+
+                }
+                break;
         }
+
     }
 
 }

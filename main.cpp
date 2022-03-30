@@ -28,7 +28,7 @@ int main() {
     map.SetNumberMap(2);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
-    friend_t.Init(324,420);
+    friend_t.Init(290,420);
     tank.Init(164, 420);
     if (page.TwoPlayers) friend_t.SpawnInit(friend_t.GetX(),friend_t.GetY());
     tank.SpawnInit(tank.GetX(),tank.GetY());

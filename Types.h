@@ -22,9 +22,7 @@ enum ENEMY_TYPE {
 
 enum TANK_TYPE {
     TANK_SLOW = 0,
-    TANK_MEDIUM = 1,
-    TANK_FAST = 2,
-    TANK_BIG = 3,
+    TANK_MEDIUM = 1
 };
 
 enum ITEM_TYPE {
