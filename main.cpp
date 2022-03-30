@@ -25,7 +25,7 @@ int main() {
 //        return 0;
 //    }
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(2);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
@@ -45,6 +45,7 @@ int main() {
     bool FriendBullet = false;
     bool base_is_damaged = false;
     bool BigFlag = false;
+    bool sparkle = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
 
@@ -151,9 +152,32 @@ int main() {
        //спауним врагов на поле
 
         time_to_go += g_time.GetTime();
+        float sparkle_x = 32;
+        float sparkle_y = 32;
+
+        if (time_to_go > 2000 and !sparkle){
+            sparkle = true;
+
+            srand(time(NULL));
+            int random = 1 + rand()%9;
+            switch (random) {
+                case 1: case 4: case 7:
+                    sparkle_x = 32;
+                    break;
+                case 2: case 5: case 8:
+                    sparkle_x = 229;
+                    break;
+                case 3: case 6: case 9:
+                    sparkle_x = 451;
+                    break;
+            }
+//Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
+//Передачу в enemy этих координат я уже сделала.
+        }
 
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
+            sparkle = false;
             enemies_number--;
             int class_of_enemy = ENEMY_SLOW;
             if (enemy_iterator > 3){
@@ -173,6 +197,7 @@ int main() {
 
             t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
+
             Start_Enemy_Function(t[enemy_iterator]);
             enemy_iterator ++;
         }
@@ -363,6 +388,13 @@ int main() {
                 }
             }
         }
+
+        for (int i = 0; i < HEIGHT_MAP; i++)
+            for (int j = 0; j < WIDTH_MAP; j++) {
+                map.CreateMap2(map.GetDiagramMap(), i, j);
+                window.draw(map.GetMapSprite());//рисуем квадратики на экран
+            }
+
         window.display();
     }
     return 0;

@@ -121,6 +121,7 @@ public:
     void SetDiagramMap(int i, int j, char texture);
 
     void CreateMap( std::vector<String> Diagram, int i, int j);
+    void CreateMap2( std::vector<String> Diagram, int i, int j);
 
     static void InteractionTankWithMap(std::vector<String> Diagram, Player &tank);
     static void InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank);
