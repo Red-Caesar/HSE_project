@@ -1,14 +1,11 @@
-//
-// Created by Asya and Nastya on 08.02.2022.
-//
 
 #ifndef GAME_GAME_H
 #define GAME_GAME_H
+#include <SFML/Graphics.hpp>
 //#include "Player.h"
+using namespace sf;
 
-class Game {
-
-};
+bool Game(RenderWindow &window);
 
 
 #endif //GAME_GAME_H  */
