@@ -25,7 +25,7 @@ int main() {
 //        return 0;
 //    }
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(2);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
@@ -197,7 +197,7 @@ int main() {
             t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
 
-            Start_Enemy_Function(t[enemy_iterator], sparkle_x, sparkle_y);
+            Start_Enemy_Function(t[enemy_iterator]);
             enemy_iterator ++;
         }
 
@@ -386,6 +386,13 @@ int main() {
                 }
             }
         }
+
+        for (int i = 0; i < HEIGHT_MAP; i++)
+            for (int j = 0; j < WIDTH_MAP; j++) {
+                map.CreateMap2(map.GetDiagramMap(), i, j);
+                window.draw(map.GetMapSprite());//рисуем квадратики на экран
+            }
+
         window.display();
     }
     return 0;
