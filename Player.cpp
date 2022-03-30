@@ -169,6 +169,22 @@ void Player::SetPlayerLevel(int level) {
     m_player_lives = level;
 }
 
+void Player::Control(float CurrentFrame) {
+    if (m_name == "main_tank"){
+        if (Keyboard::isKeyPressed(Keyboard::A)) { m_dir = DIR_LEFT; m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::D)) {  m_dir = DIR_RIGHT;  m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::W)) {  m_dir = DIR_UP;  m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::S)) {  m_dir = DIR_DOWN;  m_speed = 0.1; setRect(CurrentFrame);}
+    }
+    if (m_name == "friend_tank"){
+        if (Keyboard::isKeyPressed(Keyboard::Left)) { m_dir = DIR_LEFT; m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::Right)) {  m_dir = DIR_RIGHT;  m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::Up)) {  m_dir = DIR_UP;  m_speed = 0.1; setRect(CurrentFrame);}
+        if (Keyboard::isKeyPressed(Keyboard::Down)) {  m_dir = DIR_DOWN;  m_speed = 0.1; setRect(CurrentFrame);}
+    }
+
+}
+
 
 
 

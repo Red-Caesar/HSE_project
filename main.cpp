@@ -96,21 +96,14 @@ int main() {
         if (CurrentFrame > 2) CurrentFrame -= 2; //проходимся по кадрам с первого по третий включительно. если пришли к третьему кадру - откидываемся назад.
 
         if (tank.GetIsAlive() && (!base_is_damaged)){
-
-            if (Keyboard::isKeyPressed(Keyboard::A)) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(0.1);tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
+            tank.Control(CurrentFrame);
             if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
         }else if(!page.end_menu(window)){
             return 0;
         }
         if (page.TwoPlayers){
             if (friend_t.GetIsAlive() && (!base_is_damaged)){
-                if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-                if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect(CurrentFrame);}
-                if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-                if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
+                friend_t.Control(CurrentFrame);
                 if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
             }
         }
@@ -247,6 +240,17 @@ int main() {
             //tank.SetPlayerLevel(1);
             for (int i = 0; i < n_bul; i++) {
                 bul[i].speed = 0.4;
+            }
+        }
+        if (page.TwoPlayers){
+            if((friend_t.GetX() >= randomX-16 ) and (friend_t.GetX() <= randomX+16) and (friend_t.GetY() >= randomY - 16) and (friend_t.GetY() <= randomY+16)){
+                bonus_f = 0;
+                tank_speed = 0.2;
+                friend_t.m_level = 1;
+                //tank.SetPlayerLevel(1);
+                for (int i = 0; i < n_bul; i++) {
+                    bul[i].speed = 0.4;
+                }
             }
         }
 

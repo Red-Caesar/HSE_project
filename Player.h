@@ -55,6 +55,8 @@ public:
 
     bool GetFlagSpawn();
 
+    void Control(float CurrentFrame);
+
 };
 
 #endif
