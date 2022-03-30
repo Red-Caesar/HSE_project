@@ -73,8 +73,14 @@ void Player::DecreaseLives(){
 }
 
 void Player::Respawn(){
-    m_x = 164;
-    m_y = 420;
+    if (m_name == "main_tank"){
+        m_x = 164;
+        m_y = 420;
+    }
+    if (m_name == "friend_tank"){
+        m_x = 324;
+        m_y = 420;
+    }
 }
 
 bool Player::IsJustLostLife(){

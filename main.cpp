@@ -31,6 +31,7 @@ int main() {
     friend_t.Init(324,420);
     tank.Init(164, 420);
     tank.SpawnInit(164, 420);
+    if (page.TwoPlayers) friend_t.SpawnInit(324, 420);
     ///music
 
     Audio audio;
@@ -68,7 +69,7 @@ int main() {
 
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
-
+    Icon friend_lives_icon("sprite.bmp", 33, 273);
 
 
     /////////////////главный цикл открытого окна//////////////////////////////
@@ -92,17 +93,19 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::LShift)) { NewBullet = true;}
-        }
-        else  if(!page.end_menu(window)){
+        }else if(!page.end_menu(window)){
             return 0;
         }
-//        if (page.TwoPlayers){
-//            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-//            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect(CurrentFrame);}
-//            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-//            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
-//            if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
-//        }
+        if (page.TwoPlayers){
+            if (friend_t.GetIsAlive() && (!base_is_damaged)){
+                if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
+                if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect(CurrentFrame);}
+                if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
+                if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect(CurrentFrame);}
+                if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
+            }
+        }
+
 
         ///////////////////////////////////////////
 
@@ -209,6 +212,14 @@ int main() {
             window.draw(lives_icon.icon_sprite);
         }
 
+        if (page.TwoPlayers){
+            for (int i = 0; i < friend_t.GetPlayerLives(); i++){
+                friend_lives_icon.CreateIcon(464 + i * 24, 250);
+                friend_lives_icon.icon_sprite.setColor(sf::Color::Green);
+                window.draw(friend_lives_icon.icon_sprite);
+            }
+        }
+
 
         //пересечение пуль нашего танка
 
@@ -302,10 +313,18 @@ int main() {
             if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
                 tank.DecreaseLives();
                 tank.Respawn();
-
             }
             if (tank.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
                 tank.SetSpeed(0);
+            }
+            if (page.TwoPlayers){
+                if (enemy_bul[i].GetRect().intersects(friend_t.GetRect()) && enemy_bul[i].Is_On_f ) {
+                    friend_t.DecreaseLives();
+                    friend_t.Respawn();
+                }
+                if (friend_t.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
+                    friend_t.SetSpeed(0);
+                }
             }
         }
 
@@ -317,6 +336,10 @@ int main() {
         if(g_time.GetTimeSpawn() < 1000){
             tank.DrawSpawn(g_time);
             window.draw(tank.GetSpriteSpawn());
+            if (page.TwoPlayers){
+                friend_t.DrawSpawn(g_time);
+                window.draw(friend_t.GetSpriteSpawn());
+            }
         }
         window.display();
     }
