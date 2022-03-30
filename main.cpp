@@ -14,6 +14,7 @@
 using namespace sf;
 
 
+
 int main() {
 
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
@@ -70,9 +71,24 @@ int main() {
     Icon enemy_icon("sprite.bmp", 48, 273);
     Icon lives_icon("sprite.bmp", 33, 273);
     Icon friend_lives_icon("sprite.bmp", 33, 273);
-
+    Icon bonus_icon("sprite.bmp", 32, 392, 30);
 
     /////////////////главный цикл открытого окна//////////////////////////////
+//    Icon enemy_icon("sprite.bmp", 48, 273, 16);
+//    Icon lives_icon("sprite.bmp", 33, 273, 16);
+//    Icon friend_lives_icon("sprite.bmp", 33, 273, 16);
+//    Icon bonus_icon("sprite.bmp", 32, 392, 30);
+
+    int randomX = 0;
+    int randomY = 0;
+    int bonus_f = 0;
+
+    float tank_speed = 0.1;
+    int randomX = 0;
+    int randomY = 0;
+    int bonus_f = 0;
+
+    float tank_speed = 0.1;
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
@@ -105,11 +121,7 @@ int main() {
                 if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
             }
         }
-
-
         ///////////////////////////////////////////
-
-        //обработка пуль главного танка
 
         if (NewBullet) {
             if (!bul[0].Is_On_f) {
@@ -140,9 +152,7 @@ int main() {
                 map.CreateMap(map.GetDiagramMap(), i, j);
                 window.draw(map.GetMapSprite());//рисуем квадратики на экран
             }
-
-       //спауним врагов на поле
-
+        // window.draw(map.GetMapSprite());
         time_to_go += g_time.GetTime();
         float sparkle_x = 32;
         float sparkle_y = 32;
@@ -222,6 +232,26 @@ int main() {
 
 
         //пересечение пуль нашего танка
+        if ((enemies_number == 6) and (bonus_f == 0)){
+            randomX = 0;
+            randomY = 0;
+            srand(time(0));//рандом
+            randomX = 32 + rand() % (384);
+            randomY = 32 + rand() % (384);
+            bonus_f = 1;
+            bonus_icon.CreateIcon(randomX, randomY);
+        }
+        if(bonus_f == 1) window.draw(bonus_icon.icon_sprite);
+
+        if((tank.GetX() >= randomX-16 ) and (tank.GetX() <= randomX+16) and (tank.GetY() >= randomY - 16) and (tank.GetY() <= randomY+16)){
+            bonus_f = 0;
+            tank_speed = 0.2;
+            tank.m_level = 1;
+            //tank.SetPlayerLevel(1);
+            for (int i = 0; i < n_bul; i++) {
+                bul[i].speed = 0.4;
+            }
+        }
 
         for (int i = 0; i < n_bul; i++) {
             for (int j = 0; j<enemy_iterator; j++) {
@@ -309,7 +339,7 @@ int main() {
 
         for (int i=0;i<enemy_iterator;i++) {
             //if  (enemy_bul[i].GetRect().intersects(tank.GetRect()))
-               // std::cout <<  (enemy_bul[i].GetRect().intersects(tank.GetRect())) << " " << enemy_bul[i].Is_On_f << std::endl;                                                                                                               enemy_bul[i].Is_On_f;
+            // std::cout <<  (enemy_bul[i].GetRect().intersects(tank.GetRect())) << " " << enemy_bul[i].Is_On_f << std::endl;                                                                                                               enemy_bul[i].Is_On_f;
             if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
                 tank.DecreaseLives();
                 tank.Respawn();
