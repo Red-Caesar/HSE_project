@@ -68,27 +68,21 @@ int main() {
     Bullet enemy_bul[n_enemies];  //Создаем массив вражеских пуль с расчетом 1 пуля на 1 танк
     int enemy_iterator = 0;
 
-    Icon enemy_icon("sprite.bmp", 48, 273);
-    Icon lives_icon("sprite.bmp", 33, 273);
-    Icon friend_lives_icon("sprite.bmp", 33, 273);
+    Icon enemy_icon("sprite.bmp", 48, 273, 16);
+    Icon lives_icon("sprite.bmp", 33, 273, 16);
+    Icon friend_lives_icon("sprite.bmp", 33, 273, 16);
     Icon bonus_icon("sprite.bmp", 32, 392, 30);
 
     /////////////////главный цикл открытого окна//////////////////////////////
-//    Icon enemy_icon("sprite.bmp", 48, 273, 16);
-//    Icon lives_icon("sprite.bmp", 33, 273, 16);
-//    Icon friend_lives_icon("sprite.bmp", 33, 273, 16);
-//    Icon bonus_icon("sprite.bmp", 32, 392, 30);
 
-    int randomX = 0;
-    int randomY = 0;
-    int bonus_f = 0;
+
+
 
     float tank_speed = 0.1;
     int randomX = 0;
     int randomY = 0;
     int bonus_f = 0;
 
-    float tank_speed = 0.1;
 
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
@@ -108,7 +102,7 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(0.1);tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::LShift)) { NewBullet = true;}
+            if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
         }else if(!page.end_menu(window)){
             return 0;
         }

@@ -41,8 +41,6 @@ public:
 
     void Respawn();
 
-    bool IsJustLostLife();
-
     void SpawnInit(int x, int y);
 
     Sprite GetSpriteSpawn();
@@ -52,9 +50,6 @@ public:
     void DrawSpawn(Game_time time);
 
     void SetPlayerLevel(int level);
-
-
-    //void PlayerSpeed ();
 
 };
 

@@ -106,10 +106,6 @@ void Player::Respawn(){
     }
 }
 
-bool Player::IsJustLostLife(){
-    return is_just_lost_life;
-}
-
 void Player::SpawnInit(int x, int y) {
     spawn_image.loadFromFile("..\\images/sprite.bmp");
     spawn_texture.loadFromImage(spawn_image);
