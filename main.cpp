@@ -21,9 +21,6 @@ int main() {
     if(!page.menu(window)){
         return 0;
     }
-//    if(!page.end_menu(window)){
-//        return 0;
-//    }
     Map map("Background.png");
     map.SetNumberMap(2);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
@@ -74,9 +71,6 @@ int main() {
 
     /////////////////главный цикл открытого окна//////////////////////////////
 
-
-
-
     float tank_speed = 0.1;
     int randomX = 0;
     int randomY = 0;
@@ -86,10 +80,7 @@ int main() {
     while (window.isOpen()) {
         std::mt19937 engine(std::chrono::steady_clock::now().time_since_epoch().count()); //для рандома
         g_time.Init();
-
-        // Обрабатываем очередь событий в цикле
         Event event;
-
         while (window.pollEvent(event)) {if (event.type == Event::Closed) window.close();}
 
         CurrentFrame += 0.005*g_time.GetTime(); //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
@@ -135,37 +126,11 @@ int main() {
 
 /////////////////////////////Рисуем карту/////////////////////
 
-        for (int i = 0; i < HEIGHT_MAP; i++)
-            for (int j = 0; j < WIDTH_MAP; j++) {
-                map.CreateMap(map.GetDiagramMap(), i, j);
-                window.draw(map.GetMapSprite());//рисуем квадратики на экран
-            }
+        map.DrawMapBack(window);
 
        //спауним врагов на поле
 
         time_to_go += g_time.GetTime();
-        float sparkle_x = 32;
-        float sparkle_y = 32;
-
-        if (time_to_go > 2000 and !sparkle){
-            sparkle = true;
-
-            srand(time(NULL));
-            int random = 1 + rand()%9;
-            switch (random) {
-                case 1: case 4: case 7:
-                    sparkle_x = 32;
-                    break;
-                case 2: case 5: case 8:
-                    sparkle_x = 229;
-                    break;
-                case 3: case 6: case 9:
-                    sparkle_x = 451;
-                    break;
-            }
-//Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
-//Передачу в enemy этих координат я уже сделала.
-        }
 
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
@@ -245,6 +210,7 @@ int main() {
         }
         if (page.TwoPlayers){
             if((friend_t.GetX() >= randomX-16 ) and (friend_t.GetX() <= randomX+16) and (friend_t.GetY() >= randomY - 16) and (friend_t.GetY() <= randomY+16)){
+                audio.playBones();
                 bonus_f = 0;
                 tank_speed = 0.2;
                 friend_t.m_level = 1;
@@ -258,8 +224,6 @@ int main() {
         for (int i = 0; i < n_bul; i++) {
             for (int j = 0; j<enemy_iterator; j++) {
 
-                //if (bul[i].GetRect().intersects(enemy_bul[j].GetRect())){
-                // std::cout << bul[i].GetRect().intersects(enemy_bul[j].GetRect()) << "\n";}
                 if ( bul[i].Is_On_f && bul[i].GetRect().intersects(enemy_bul[j].GetRect()) && enemy_bul[j].Is_On_f){
                     bul[i].Is_On_f = false;
                     bul[i].SetSpeed(0);
@@ -284,7 +248,6 @@ int main() {
         ///////////////Общий цикл врагов///////////////////////
 
         for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
-            //if(t[i].GetIsAlive() && t[i].GetIsOnTheField()){  // Возможно пригодится для добавления новых танков
             for (int j = 0; j < n_bul; j++) {
                 if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f) {
                     enemy_bul[i].Is_On_f = false;
@@ -294,7 +257,6 @@ int main() {
 
             for (int j = 0; j < n_bul; j++) {
                 if (t[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && t[i].GetIsAlive()) {
-                    //t[i].SetIsOnTheField(false);
                     t[i].SetIsAlive(false);
                     bul[j].Is_On_f = false;
                     enemy_bul[i].Is_On_f = false;
@@ -324,24 +286,20 @@ int main() {
                 }
 
                 enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
-                enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),
-                                                                    enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
-                window.draw(enemy_bul[i].sprite); //Рисуем пулю
+                enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
+                window.draw(enemy_bul[i].sprite);
                 t[i].EnemyUpdate(g_time.GetTime(), CurrentFrame);
-                if (t[i].GetIsOnTheField()) {  //Если пуля на поле, то устанавливаем ей скорость
+                if (t[i].GetIsOnTheField()) {
                     t[i].SetSpeed(t[i].GetSpeed());
                 }
                 window.draw(t[i].GetSprite());
-                // }
             }
         }
 
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         if (page.TwoPlayers) map.InteractionTankWithMap(map.GetDiagramMap(), friend_t);
 
-        for (int i = 0;i < enemy_iterator; i++) {
-            //if  (enemy_bul[i].GetRect().intersects(tank.GetRect()))
-               // std::cout <<  (enemy_bul[i].GetRect().intersects(tank.GetRect())) << " " << enemy_bul[i].Is_On_f << std::endl;                                                                                                               enemy_bul[i].Is_On_f;
+        for (int i = 0;i < enemy_iterator; i++) {                                                                                                            enemy_bul[i].Is_On_f;
             if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
                 tank.DecreaseLives();
                 tank.Respawn();
@@ -392,12 +350,7 @@ int main() {
             }
         }
 
-        for (int i = 0; i < HEIGHT_MAP; i++)
-            for (int j = 0; j < WIDTH_MAP; j++) {
-                map.CreateMap2(map.GetDiagramMap(), i, j);
-                window.draw(map.GetMapSprite());//рисуем квадратики на экран
-            }
-
+        map.DrawMapForward(window);
         window.display();
     }
     return 0;

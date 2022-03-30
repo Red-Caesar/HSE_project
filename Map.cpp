@@ -268,7 +268,21 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
 
 }
 
+void Map::DrawMapBack(RenderWindow &window){
+    for (int i = 0; i < HEIGHT_MAP; i++)
+        for (int j = 0; j < WIDTH_MAP; j++) {
+            CreateMap(GetDiagramMap(), i, j);
+            window.draw(GetMapSprite());//рисуем квадратики на экран
+        }
+}
 
+void Map::DrawMapForward(RenderWindow &window){
+    for (int i = 0; i < HEIGHT_MAP; i++)
+        for (int j = 0; j < WIDTH_MAP; j++) {
+            CreateMap2(GetDiagramMap(), i, j);
+            window.draw(GetMapSprite());//рисуем квадратики на экран
+        }
+}
 
 
 

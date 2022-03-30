@@ -128,6 +128,9 @@ public:
 
     bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);
 
+    void DrawMapBack(RenderWindow &window);
+
+    void DrawMapForward(RenderWindow &window);
 
 };
 
