@@ -77,18 +77,29 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();}
         if (tank.GetIsAlive()){
-            if (Keyboard::isKeyPressed(Keyboard::A)) { tank.SetDir(DIR_LEFT); tank.SetSpeed(0.1); tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT);tank.SetSpeed(0.1);tank.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(); }
-            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect();}
+            CurrentFrame += 0.005*g_time.GetTime(); //служит для прохождения по "кадрам". переменная доходит до трех суммируя произведение времени и скорости. изменив 0.005 можно изменить скорость анимации
+            if (CurrentFrame > 2) CurrentFrame -= 2; //проходимся по кадрам с первого по третий включительно. если пришли к третьему кадру - откидываемся назад.
+            tank.setRect(CurrentFrame);
+            if (Keyboard::isKeyPressed(Keyboard::A)) {
+                tank.SetDir(DIR_LEFT);
+                tank.SetSpeed(0.1);
+                tank.setRect(CurrentFrame);
+
+            }
+            if (Keyboard::isKeyPressed(Keyboard::D)) {
+                tank.SetDir(DIR_RIGHT);
+                tank.SetSpeed(0.1);
+                tank.setRect(CurrentFrame);}
+            if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame); }
+            if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::Z)) { NewBullet = true;}
         }
         if (page.TwoPlayers){
-            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect();}
-            if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
+//            if (Keyboard::isKeyPressed(Keyboard::Left)) {friend_t.SetDir(DIR_LEFT); friend_t.SetSpeed(0.1); friend_t.setRect();}
+//            if (Keyboard::isKeyPressed(Keyboard::Right)) {friend_t.SetDir(DIR_RIGHT);friend_t.SetSpeed(0.1);friend_t.setRect();}
+//            if (Keyboard::isKeyPressed(Keyboard::Up)) {friend_t.SetDir(DIR_UP); friend_t.SetSpeed(0.1); friend_t.setRect();}
+//            if (Keyboard::isKeyPressed(Keyboard::Down)){friend_t.SetDir(DIR_DOWN); friend_t.SetSpeed(0.1); friend_t.setRect();}
+//            if (Keyboard::isKeyPressed(Keyboard::Space)) { FriendBullet = true;}
         }
         ///////////////////////////////////////////
 

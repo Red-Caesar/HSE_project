@@ -33,7 +33,7 @@ public:
 
     void SetPlayerLives(int lives);
 
-    void setRect();
+    void setRect(float CurrentFrame);
 
 };
 
