@@ -122,6 +122,37 @@ bool MENU::end_menu (RenderWindow &window){
     return true;
 }
 
+bool MENU::win (RenderWindow &window){
+    Texture winTexture;
+    Sprite winSprite;
+    Image winImage;
+
+    winImage.loadFromFile("..\\images/Win.png");
+
+    winTexture.loadFromImage(winImage);
+
+    winSprite.setTexture(winTexture);
+    winSprite.setTextureRect(IntRect(0, 0, 544, 480));
+
+    bool IsMenu = true;
+
+    while(IsMenu){
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+                return false;
+            }
+        }
+
+        window.draw(winSprite);
+
+        window.display();
+        window.clear();
+    }
+    return true;
+}
+
 void NewStage(int STATE){
     Image im;
     Texture text;

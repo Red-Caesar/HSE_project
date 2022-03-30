@@ -56,16 +56,16 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     dir = player.GetDir();
     x = player.GetX() + 10;
     y = player.GetY() + 10;
-    speed = 0.2;
+    speed = 0.1;
 }
 void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
     dir = enemy.GetDir();
     x = enemy.GetX() + 10;
     y = enemy.GetY() + 10;
-    speed = 0.2;
+    speed = 0.1;
     switch (enemy.enemy_class) {
         case ENEMY_MEDIUM:
-            speed = 0.3;
+            speed = 0.14;
             break;
     }
 
