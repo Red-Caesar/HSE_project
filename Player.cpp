@@ -64,6 +64,8 @@ void Player:: setRect(float CurrentFrame){
 
 }
 
+
+
 void Player::update(float time) //функция "оживления" объекта класса. update - обновление. принимает в себя время SFML , вследствие чего работает бесконечно, давая персонажу движение.
 {
     switch (m_dir)//реализуем поведение в зависимости от направления. (каждая цифра соответствует направлению)
@@ -157,6 +159,12 @@ void Player::DrawSpawn(Game_time time) {
 
 }
 
+void Player::SetFlagSpawn(bool value){
+    Spawn = value;
+}
+bool Player::GetFlagSpawn(){
+    return Spawn;
+}
 void Player::SetPlayerLevel(int level) {
     m_player_lives = level;
 }

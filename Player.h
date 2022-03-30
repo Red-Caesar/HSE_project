@@ -14,7 +14,7 @@ private:
     Image spawn_image;
     Sprite spawn_sprite;
     Texture spawn_texture;
-    bool Spawn;
+    bool Spawn = true;
     int m_player_lives; //кол-во жизней
     int m_score; //счет игрока
 public:
@@ -50,6 +50,10 @@ public:
     void DrawSpawn(Game_time time);
 
     void SetPlayerLevel(int level);
+
+    void SetFlagSpawn(bool value);
+
+    bool GetFlagSpawn();
 
 };
 
