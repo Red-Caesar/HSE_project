@@ -9,7 +9,7 @@ class Player {
     friend class Bullet;
 
 private:
-    int m_dir = 0;
+    int m_dir = 3;
     int m_width = 32;
     int m_height = 32;
     Image m_image;
