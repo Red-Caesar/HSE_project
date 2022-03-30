@@ -53,6 +53,7 @@ void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == '?') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '@') map_sprite.setTextureRect(IntRect(160,   64, 32, 32));
     if (Diagram[i][j] == 'G') map_sprite.setTextureRect(IntRect(160,   32, 32, 32));
+    if (Diagram[i][j] == 'H') map_sprite.setTextureRect(IntRect(160,   96, 32, 32));
     map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
 }
@@ -143,19 +144,19 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
 
             if (Diagram[i][j] == '0' || Diagram[i][j] == '5' ){
                 if (tank.GetX() > j * 32 - 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 + 16 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                     tank.SetFlag_to_change(true);
                 }
             }
             if (Diagram[i][j] == '1'|| Diagram[i][j] == '6' ){
                 if (tank.GetY() > i * 32 - 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 + 16 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -164,10 +165,10 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
             if (Diagram[i][j] == '2' || Diagram[i][j] == '7'){
 
                 if (tank.GetX() < j * 32 + 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32 - 16 + tank.GetW() + 6); }
                    // if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -175,10 +176,10 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
             }
             if (Diagram[i][j] == '3' || Diagram[i][j] == '8'){
                 if (tank.GetY() < i * 32 + 16 ){
-                    if (tank.GetSpeedY() > 0) { tank.SetY(i * 32 - tank.GetH() - 6);}
-                    if (tank.GetSpeedY() < 0) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
-                    if (tank.GetSpeedX() > 0) { tank.SetX(j * 32 - tank.GetW() - 6);}
-                    if (tank.GetSpeedX() < 0) { tank.SetX(j * 32  + tank.GetW() + 6); }
+                    if (tank.GetSpeedY() > 0.0f) { tank.SetY(i * 32 - tank.GetH() - 6);}
+                    if (tank.GetSpeedY() < 0.0f) { tank.SetY(i * 32 - 16 + tank.GetH() + 6); }
+                    if (tank.GetSpeedX() > 0.0f) { tank.SetX(j * 32 - tank.GetW() - 6);}
+                    if (tank.GetSpeedX() < 0.0f) { tank.SetX(j * 32  + tank.GetW() + 6); }
                   //  if(!tank.GetIsPlayer()){
                         tank.SetFlag_to_change(true);
                    // }
@@ -187,13 +188,13 @@ void Map::InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &t
 
             if (Diagram[i][j] == '4' || Diagram[i][j] == '9' )//если наш квадратик соответствует символу 0 (стена), то проверяем "направление скорости" персонажа:
             {
-                if (tank.GetSpeedY() > 0){//если мы шли вниз,
+                if (tank.GetSpeedY() > 0.0f){//если мы шли вниз,
                     tank.SetY(i * 32 - tank.GetH() - 6);}//то стопорим координату игрек персонажа. сначала получаем координату нашего квадратика на карте(стены) и затем вычитаем из высоты спрайта персонажа.
-                if (tank.GetSpeedY() < 0) {
+                if (tank.GetSpeedY() < 0.0f) {
                     tank.SetY(i * 32 + tank.GetH() + 6);}//аналогично с ходьбой вверх. dy<0, значит мы идем вверх (вспоминаем координаты паинта)
-                if (tank.GetSpeedX() > 0) {
+                if (tank.GetSpeedX() > 0.0f) {
                     tank.SetX(j * 32 - tank.GetW() - 6);}//если идем вправо, то координата Х равна стена (символ 0) минус ширина персонажа
-                if (tank.GetSpeedX() < 0) {
+                if (tank.GetSpeedX() < 0.0f) {
                     tank.SetX(j * 32 + tank.GetW() + 6);}//аналогично идем влево
                // if(!tank.GetIsPlayer()){
                     tank.SetFlag_to_change(true);
@@ -210,8 +211,10 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                 bullet.GetY() > 448) { return false; }
             else {
                 if (Diagram[i][j] == 'G') {
+                    bullet.SetIsBaseDamaged(true);
+                    SetDiagramMap(i, j, 'H');
 //                    game over
-//                    who is the owner of bullet doesnt matter
+//                    who is the owner of bullet doesn't matter
                 }
                     if ((Diagram[i][j] == '1' || Diagram[i][j] == '6') && bullet.GetY() > i * 32 + 16) {
                         if (Diagram[i][j] == '1')
@@ -235,10 +238,10 @@ bool Map::InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet) 
                     }
                     if (Diagram[i][j] == '4' || Diagram[i][j] == '9') {
                         if (Diagram[i][j] == '4') {
-                            if (bullet.GetSpeedY() > 0) { SetDiagramMap(i, j, '1'); }
-                            if (bullet.GetSpeedY() < 0) { SetDiagramMap(i, j, '3'); }
-                            if (bullet.GetSpeedX() > 0) { SetDiagramMap(i, j, '0'); }
-                            if (bullet.GetSpeedX() < 0) { SetDiagramMap(i, j, '2'); }
+                            if (bullet.GetSpeedY() > 0.0f) { SetDiagramMap(i, j, '1'); }
+                            if (bullet.GetSpeedY() < 0.0f) { SetDiagramMap(i, j, '3'); }
+                            if (bullet.GetSpeedX() > 0.0f) { SetDiagramMap(i, j, '0'); }
+                            if (bullet.GetSpeedX() < 0.0f) { SetDiagramMap(i, j, '2'); }
                         }
                         return false;
                     }

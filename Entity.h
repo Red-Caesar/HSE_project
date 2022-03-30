@@ -42,6 +42,12 @@ public:
 
     Sprite GetSprite();
 
+    FloatRect GetRect();
+
+    bool GetIsAlive() const;
+
+    void SetIsAlive(bool flag);
+
 };
 
 

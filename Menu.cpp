@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Audio.h"
 #define TWO_PLAYERS
 
 bool MENU::menu (RenderWindow &window){
@@ -24,6 +25,9 @@ bool MENU::menu (RenderWindow &window){
     menuSprite4.setPosition(230,260);
 
     bool IsMenu = true;
+    Audio audio;
+    audio.Init();
+    audio.playMenu();
 
     while(IsMenu){
 

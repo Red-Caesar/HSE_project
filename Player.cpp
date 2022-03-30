@@ -59,14 +59,6 @@ void Player::update(float time) //функция "оживления" объек
     if (m_player_lives == 0){ is_alive = false;}
 }
 
-bool Player::GetIsAlive() const {
-    return is_alive;
-}
-
-void Player::SetIsAlive(bool alive) {
-    Player:: is_alive = alive;
-}
-
 int Player::GetPlayerLives() const {
     return m_player_lives;
 }
@@ -75,7 +67,75 @@ void Player::SetPlayerLives(int lives) {
     m_player_lives = lives;
 }
 
+void Player::DecreaseLives(){
+    m_player_lives--;
+    //is_just_lost_life = true;
+}
 
+void Player::Respawn(){
+    m_x = 164;
+    m_y = 420;
+}
 
+bool Player::IsJustLostLife(){
+    return is_just_lost_life;
+}
 
+void Player::SpawnInit(int x, int y) {
+    spawn_image.loadFromFile("..\\images/sprite.bmp");
+    spawn_texture.loadFromImage(spawn_image);
+    spawn_sprite.setTexture(spawn_texture);
+    spawn_sprite.setPosition(x,y);
+    Spawn = true;
+}
+
+Sprite Player::GetSpriteSpawn() {
+    return spawn_sprite;
+}
+
+void Player::DrawSpawnStars(Game_time time) {
+    int i = time.GetTimeSpawn() / 100;
+    switch (i) {
+        case 1:
+            spawn_sprite.setTextureRect(IntRect(256,32,32,32));
+            break;
+        case 2:
+            spawn_sprite.setTextureRect(IntRect(290,32,32,32));
+            break;
+        case 3:
+            spawn_sprite.setTextureRect(IntRect(320,32,32,32));
+            break;
+        case 4:
+            spawn_sprite.setTextureRect(IntRect(352,32,32,32));
+            break;
+        case 5:
+            spawn_sprite.setTextureRect(IntRect(386,32,32,32));
+            break;
+        case 6:
+            spawn_sprite.setTextureRect(IntRect(420,32,32,32));
+            break;
+    }
+
+}
+
+void Player::DrawSpawn(Game_time time) {
+    int i = time.GetTimeSpawn() / 100;
+    i = i%2;
+    switch (i) {
+        case 0:
+            spawn_sprite.setTextureRect(IntRect(256,0,32,32));
+            break;
+        case 1:
+            spawn_sprite.setTextureRect(IntRect(288,0,32,32));
+            break;
+    }
+
+}
+
+void Player::SetFlagSpawn(bool value){
+    Spawn = value;
+}
+bool Player::GetFlagSpawn(){
+    return Spawn;
+}
 

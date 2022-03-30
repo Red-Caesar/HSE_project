@@ -10,10 +10,14 @@ using namespace sf;
 class Game_time {
 private:
     Clock clock;
-    float time ;
+    float time;
+    float time_spawn;
 public:
     void Init();
     float GetTime();
+    float GetTimeSpawn();
+    void updateSpawn();
+    void SetTimeSpawn(float time);
 };
 
 
