@@ -1,5 +1,5 @@
 #include "Menu.h"
-//#define TWO_PLAYERS
+#define TWO_PLAYERS
 
 bool MENU::menu (RenderWindow &window){
     Texture menuTexture;

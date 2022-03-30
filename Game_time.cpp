@@ -15,3 +15,15 @@ void Game_time::Init() {
 float Game_time::GetTime() {
     return time;
 }
+
+float Game_time::GetTimeSpawn() {
+    return time_spawn;
+}
+
+void Game_time::updateSpawn() {
+    time_spawn += time;
+}
+
+void Game_time::SetTimeSpawn(float value_time) {
+    time_spawn = value_time;
+}

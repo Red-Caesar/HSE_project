@@ -30,6 +30,7 @@ int main() {
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
     tank.Init(164, 420);
+    tank.SpawnInit(164, 420);
     ///music
 
     Audio audio;
@@ -43,6 +44,7 @@ int main() {
     bool FriendBullet = false;
     bool base_is_damaged = false;
     bool BigFlag = false;
+    bool sparkle = false;
     float CurrentFrame = 0;//хранит текущий кадр
 
 
@@ -89,7 +91,7 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(0.1);tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::Z)) { NewBullet = true;}
+            if (Keyboard::isKeyPressed(Keyboard::LShift)) { NewBullet = true;}
         }
         else  if(!page.end_menu(window)){
             return 0;
@@ -139,8 +141,15 @@ int main() {
        //спауним врагов на поле
 
         time_to_go += g_time.GetTime();
+
+        if (time_to_go > 2000 and !sparkle){
+//            Делаем вспышку
+            sparkle = true;
+        }
+
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
             time_to_go = 0;
+            sparkle = false;
             enemies_number--;
             int class_of_enemy = ENEMY_SLOW;
             if (enemy_iterator > 3){
@@ -287,6 +296,11 @@ int main() {
         if (page.TwoPlayers) friend_t.update(g_time.GetTime());
         window.draw(tank.GetSprite());
         if (page.TwoPlayers) window.draw(friend_t.GetSprite());
+        g_time.updateSpawn();
+        if(g_time.GetTimeSpawn() < 1000){
+            tank.DrawSpawn(g_time);
+            window.draw(tank.GetSpriteSpawn());
+        }
         window.display();
     }
     return 0;

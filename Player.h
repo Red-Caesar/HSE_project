@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "Game_time.h"
 
 using namespace sf;
 
@@ -10,7 +11,10 @@ class Player : public Entity{
     friend class Bullet;
 
 private:
-
+    Image spawn_image;
+    Sprite spawn_sprite;
+    Texture spawn_texture;
+    bool Spawn;
     int m_player_lives; //кол-во жизней
     int m_score; //счет игрока
     bool is_just_lost_life; //только что отняли жизнь
@@ -41,8 +45,13 @@ public:
 
     bool IsJustLostLife();
 
+    void SpawnInit(int x, int y);
 
+    Sprite GetSpriteSpawn();
 
+    void DrawSpawnStars(Game_time time);
+
+    void DrawSpawn(Game_time time);
 
 };
 
