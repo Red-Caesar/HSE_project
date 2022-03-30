@@ -17,32 +17,23 @@ void Player:: setRect(float CurrentFrame){
     if (m_name == "main_tank"){
         switch (m_dir)
         {
-            case DIR_RIGHT:
-//                m_sprite.setTextureRect(IntRect(1, 35, 26, 26));
-                m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 35, 26, 26));
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 35, 26, 26));
                 break;
-            case DIR_LEFT:
-//                m_sprite.setTextureRect(IntRect(5, 99, 26, 26));
-                m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 99, 26, 26)); //проходимся по координатам Х. получается 96,96*2,96*3 и опять 96
-//                herosprite.move(-0.1*time, 0);//п
-            break;
-            case DIR_DOWN:
-//                m_sprite.setTextureRect(IntRect(3, 65, 26, 26));
-                m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 65, 26, 26));
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 99, 26, 26));
                 break;
-            case DIR_UP:
-//                m_sprite.setTextureRect(IntRect(3, 5, 26, 26));
-                m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 5, 26, 26));
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 65, 26, 26));
+                break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 5, 26, 26));
                 break;
         }
     }
     if (m_name == "friend_tank"){
         switch (m_dir)
         {
-            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(1, 163, 26, 26)); break;
-            case DIR_LEFT: m_sprite.setTextureRect(IntRect(5, 227, 26, 26));break;
-            case DIR_DOWN: m_sprite.setTextureRect(IntRect(3, 193, 26, 26));break;
-            case DIR_UP: m_sprite.setTextureRect(IntRect(3, 133, 26, 26));break;
+            case DIR_RIGHT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 1, 163, 26, 26)); break;
+            case DIR_LEFT: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 5, 227, 26, 26));break;
+            case DIR_DOWN: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 193, 26, 26));break;
+            case DIR_UP: m_sprite.setTextureRect(IntRect(32 * int(CurrentFrame) + 3, 133, 26, 26));break;
         }
     }
 

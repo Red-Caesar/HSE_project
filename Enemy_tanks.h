@@ -26,7 +26,7 @@ public:
     }
 
 
-    void EnemyUpdate(float time);
+    void EnemyUpdate(float time, float CurrentFrame);
     void SetEnemyFile(String F, int class_of_enemy);
     //void Update(float time);
     void UpdateDir(std::mt19937 engine);
@@ -41,7 +41,7 @@ public:
     void SetRespawnTime(float time);
     void Start_Enemy_Function(Enemy_tank &t,float r_time);
     void EnemyInit(int x, int y);
-    void SetEnemyRect();
+    void SetEnemyRect(float CurrentFrame);
     //bool SetIsPlayer(bool f);
 
     void SetFlag_to_change(bool f);
