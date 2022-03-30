@@ -13,12 +13,8 @@
 #include "Types.h"
 using namespace sf;
 
-int StartGame(int level){
-    RenderWindow window(VideoMode(544, 480), "Tan4iki!");
-    MENU page;
-    if(!page.menu(window)){
-        return EXIT;
-    }
+int StartGame(int &level, RenderWindow &window, MENU &page){
+
     Map map("Background.png");
     map.SetNumberMap(level);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
@@ -52,10 +48,11 @@ int StartGame(int level){
     }
 
     std::uniform_int_distribution<int> dist(0, 4); // Левая и правая граница рандома
-    int STATE =1;
+
 
     float time_to_go = 0;
     int enemies_number = 9;
+    int  num_alive_enemies = 10;
 
     int n_enemies = enemies_number + 2; // Количество танков, позже должно увеличиться до 10(?)
     Enemy_tank t[n_enemies];  //Создаем массив вражеских танков
@@ -280,6 +277,7 @@ int StartGame(int level){
             for (int j = 0; j < n_bul; j++) {
                 if (t[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && t[i].GetIsAlive()) {
                     t[i].SetIsAlive(false);
+                    num_alive_enemies--;
                     bul[j].Is_On_f = false;
                     enemy_bul[i].Is_On_f = false;
                 }
@@ -374,22 +372,44 @@ int StartGame(int level){
 
         map.DrawMapForward(window);
         window.display();
+        if (!tank.GetIsAlive() || base_is_damaged ) {  //Условия на переход на новый уровень или game over
+            return 0;
+        }
+        if (num_alive_enemies == 0) {
+            if(level<3){
+                return ++level;
+            } else return 4;
+
+        }
     }
 }
 
 int main() {
-    int level = 1;
-    int state_of_game;
-    while(true){
-    state_of_game = StartGame(level);
-        switch (state_of_game){
-            case GAME_OVER: StartGame(1); break;
-            case LVL_UP:
-                if (level < 3)
-                    StartGame(++level);
-                else
-//                    панелька с победой
-            case EXIT: return 0;
+    RenderWindow window(VideoMode(544, 480), "Tan4iki!");
+    MENU page;
+    if(!page.menu(window)){
+        return 0;
+    }
+    int STATE=1;
+    while (1) {
+        switch (STATE) {
+            case 0:
+                if (!page.end_menu(window)) {
+                    return 0;
+                }
+                STATE = 1;
+                break;
+            case 1:
+            case 2:
+            case 3:
+                STATE = StartGame(STATE, window, page);
+                break;
+            case 4:
+                if (!page.win(window)) {
+                    return 0;
+                }
+                break;
+
         }
     }
 

@@ -8,6 +8,7 @@ public:
     bool TwoPlayers = false;
     bool menu (RenderWindow &window);
     bool end_menu (RenderWindow &window);
+    bool win (RenderWindow &window);
 };
 
 
