@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include <windows.h>
 #include <chrono>
 #include <random>
@@ -25,7 +25,7 @@ int main() {
 //        return 0;
 //    }
     Map map("Background.png");
-    map.SetNumberMap(1);
+    map.SetNumberMap(2);
     Player tank("sprite.bmp", 3, 5, 26, 26, "main_tank");
     Player friend_t("sprite.bmp", 3, 133, 26, 26, "friend_tank");
     friend_t.Init(324,420);
@@ -101,8 +101,9 @@ int main() {
             if (Keyboard::isKeyPressed(Keyboard::D)) { tank.SetDir(DIR_RIGHT); tank.SetSpeed(0.1);tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::W)) { tank.SetDir(DIR_UP); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
             if (Keyboard::isKeyPressed(Keyboard::S)) { tank.SetDir(DIR_DOWN); tank.SetSpeed(0.1); tank.setRect(CurrentFrame);}
-            if (Keyboard::isKeyPressed(Keyboard::LControl)) { NewBullet = true;}
-        }else if(!page.end_menu(window)){
+            if (Keyboard::isKeyPressed(Keyboard::LShift)) { NewBullet = true;}
+        }
+        else  if(!page.end_menu(window)){
             return 0;
         }
         if (page.TwoPlayers){
@@ -155,6 +156,7 @@ int main() {
         float sparkle_y = 32;
 
         if (time_to_go > 2000 and !sparkle){
+//            Делаем вспышку
             sparkle = true;
 
             srand(time(NULL));
@@ -386,6 +388,16 @@ int main() {
                 }
             }
         }
+
+        for (int i = 0; i < HEIGHT_MAP; i++)
+            for (int j = 0; j < WIDTH_MAP; j++) {
+                map.CreateMap2(map.GetDiagramMap(), i, j);
+                window.draw(map.GetMapSprite());//рисуем квадратики на экран
+            }
+
+
+
+
         window.display();
     }
     return 0;

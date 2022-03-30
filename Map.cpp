@@ -46,7 +46,8 @@ void Map::SetDiagramMap(int i, int j, char texture) {
 
 void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == ' ') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
-    if (Diagram[i][j] == 'B') map_sprite.setTextureRect(IntRect( 32,   0, 32, 32));
+    if (Diagram[i][j] == 'B') map_sprite.setTextureRect(IntRect( 110,   51, 32, 32));
+   // if (Diagram[i][j] == 'B') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == 'F') map_sprite.setTextureRect(IntRect(160,   0, 32, 32));
     if (Diagram[i][j] == '0') map_sprite.setTextureRect(IntRect(  0,  64, 32, 32));
     if (Diagram[i][j] == '1') map_sprite.setTextureRect(IntRect(  0, 128, 32, 32));
@@ -63,6 +64,12 @@ void Map::CreateMap(std:: vector<String> Diagram, int i, int j) {
     if (Diagram[i][j] == 'H') map_sprite.setTextureRect(IntRect(160,   96, 32, 32));
     map_sprite.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
 
+}
+
+void Map::CreateMap2(std:: vector<String> Diagram, int i, int j){
+    if (Diagram[i][j] == 'B') map_sprite.setTextureRect(IntRect( 32,   0, 32, 32));
+    else map_sprite.setTextureRect(IntRect( 110,   51, 32, 32));
+    map_sprite.setPosition(j * 32, i * 32);
 }
 
 Sprite Map::GetMapSprite() {
