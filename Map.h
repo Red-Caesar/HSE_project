@@ -64,7 +64,7 @@ private:
             "@BFF4FF9FF4B49@@@",
             "@BBFFF4FF9FBFF@@@",
             "@F444BBB9FFB4F@@@",
-            "@FFF9s4F4F4F4F@@@",
+            "@FFF9B4F4F4F4F@@@",
             "@94F9F4F4FFF4F@@@",
             "@F4F4F444F494F@@@",
             "@F4F4F444FFFFF@@@",
