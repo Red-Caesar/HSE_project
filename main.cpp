@@ -141,10 +141,27 @@ int main() {
        //спауним врагов на поле
 
         time_to_go += g_time.GetTime();
+        float sparkle_x = 32;
+        float sparkle_y = 32;
 
         if (time_to_go > 2000 and !sparkle){
-//            Делаем вспышку
             sparkle = true;
+
+            srand(time(NULL));
+            int random = 1 + rand()%9;
+            switch (random) {
+                case 1: case 4: case 7:
+                    sparkle_x = 32;
+                    break;
+                case 2: case 5: case 8:
+                    sparkle_x = 229;
+                    break;
+                case 3: case 6: case 9:
+                    sparkle_x = 451;
+                    break;
+            }
+//Вот тут надо прописать, чтобы вспышка появлялась в точке (sparkle_x, sparkle_y)
+//Передачу в enemy этих координат я уже сделала.
         }
 
         if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
@@ -170,7 +187,7 @@ int main() {
             t[enemy_iterator].SetEnemyFile("sprite.bmp", class_of_enemy);
             enemy_bul[enemy_iterator].SetFile("heart.bmp");
 
-            Start_Enemy_Function(t[enemy_iterator], g_time.GetTime());
+            Start_Enemy_Function(t[enemy_iterator], sparkle_x, sparkle_y);
             enemy_iterator ++;
         }
 

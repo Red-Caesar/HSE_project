@@ -5,7 +5,7 @@
 #include "Game_time.h"
 
 class Enemy_tank : public Entity{
-    friend void Start_Enemy_Function(Enemy_tank &t,float r_time);
+    friend void Start_Enemy_Function(Enemy_tank &t, float start_x, float start_y);
     friend class Bullet;
 private:
     int enemy_class;
@@ -39,7 +39,7 @@ public:
     void SetIsOnTheField(bool flag);
     void SetStartCoordinates(float x, float y);
     void SetRespawnTime(float time);
-    void Start_Enemy_Function(Enemy_tank &t,float r_time);
+    void Start_Enemy_Function(Enemy_tank &t, float start_x, float start_y);
     void EnemyInit(int x, int y);
     void SetEnemyRect(float CurrentFrame);
     //bool SetIsPlayer(bool f);
