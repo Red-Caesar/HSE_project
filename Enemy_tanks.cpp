@@ -90,9 +90,20 @@ void Enemy_tank::EnemyUpdate(float time, float CurrentFrame) //функция "�
     m_sprite.setPosition(m_x,m_y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
     SetEnemyRect(CurrentFrame);
 }
-void Start_Enemy_Function(Enemy_tank &t, float start_x, float start_y){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
-
-    t.SetStartCoordinates(start_x, start_y);
+void Start_Enemy_Function(Enemy_tank &t){   //Расставляем первые 3 танка, возможно надо сделать подобную, но поменьше для каждого нового танка
+    srand(time(NULL));
+    int random = 1 + rand()%9;
+    switch (random) {
+        case 1: case 4: case 7:
+            t.SetStartCoordinates(32,32);
+            break;
+        case 2: case 5: case 8:
+            t.SetStartCoordinates(229,32);
+            break;
+        case 3: case 6: case 9:
+            t.SetStartCoordinates(451,32);
+            break;
+    }
     t.SetIsOnTheField(true);
     t.EnemyInit(t.GetStartX(), t.GetStartY());
     t.SetX(t.GetStartX());
