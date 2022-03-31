@@ -21,22 +21,7 @@ private:
     Image map_image;
     Sprite map_sprite;
     Texture map_texture;
-    //
     String File;
-//    std::vector<String> ZeroMap = {
-//            "0000000000",
-//            "0         0",
-//            "0   s     0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "0         0",
-//            "00000000000",
-//    };
     std::vector<String> FirstMap = {
             "@@@@@@@@@@@@@@@@@",
             "@FFFFFFFFFFFFF@@@",

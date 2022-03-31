@@ -26,11 +26,7 @@ bool WorkingWithKeyboardPlayer2(Player &friend_t, MENU page, float CurrentFrame,
 }
 
 void GlobalDrawing(RenderWindow &window, Map &map, int &enemies_number, Icon &enemy_icon, Player &tank, Icon &lives_icon,
-                   Bullet bul[],int n_bul, Game_time &g_time, MENU page, Player &friend_t)
-                   //int &enemy_iterator,Enemy_tank t[])
-                   {
-
-//    map.DrawMapBack(window);
+                   Bullet bul[],int n_bul, Game_time &g_time, MENU page, Player &friend_t){
 
     int icons_counter = enemies_number;
     for (int i = 0; i < 3; i++) {
@@ -57,12 +53,10 @@ void GlobalDrawing(RenderWindow &window, Map &map, int &enemies_number, Icon &en
             window.draw(bul[i].sprite);//рисуем спрайт пули
         }
     }
-
 }
 
 void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator, Enemy_tank t[], Bullet enemy_bul[],
                   float &time_to_go, int &enemies_number, int &n_enemies, std::mt19937 &engine, MENU page, Player &friend_t) {
-
 
     if (time_to_go > 3000 and enemy_iterator < n_enemies - 1) {
         time_to_go = 0;
@@ -90,10 +84,10 @@ void GlobalUpdate(Player &tank, Game_time &g_time,Map &map, int &enemy_iterator,
         enemy_iterator ++;
     }
 
-
         for (int i = 0; i < enemy_iterator; i++) {
             map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
         }
+
     }
 
 void DrawIcons(RenderWindow &window, MENU &page, Player &tank, Player &friend_t,
@@ -148,7 +142,6 @@ void Bonus(RenderWindow &window, MENU &page, Player &tank, Player &friend_t, Aud
         if(cur_tank_lives == tank.GetPlayerLives()){
             tank_speed = 0.2;
             tank.m_level = 1;
-            //tank.SetPlayerLevel(1);
             for (int i = 0; i < n_bul; i++){
                 bul[i].speed = 0.4;}
         }
@@ -216,7 +209,7 @@ bool EnemyUpdateAndDraw(int &num_alive_enemies, float CurrentFrame, Enemy_tank t
                 enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
                 enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
             }
-//
+
             std::uniform_int_distribution<int> dist(1, 1024);
             switch (dist(engine)) {
                 case 512:
@@ -286,7 +279,6 @@ void Reset(int STATE, Player &tank,Enemy_tank t[]){
 }
 
 void EnemyReset(Map &map, int &enemies_number, Enemy_tank t[], int STATE){
-    //Map map("Background.png");
     map.SetNumberMap(STATE);
     for (int i=0;i<enemies_number;i++){
         Start_Enemy_Function(t[i]);
@@ -296,24 +288,28 @@ void EnemyReset(Map &map, int &enemies_number, Enemy_tank t[], int STATE){
 void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank, Player &friend_t,
                     Game_time g_time, RenderWindow &window, Enemy_tank t[], MENU &page){
 
-    for (int i = 0;i < enemy_iterator; i++) {                                                                                                            enemy_bul[i].Is_On_f;
+    for (int i = 0;i < enemy_iterator; i++) {
         if (enemy_bul[i].GetRect().intersects(tank.GetRect()) && enemy_bul[i].Is_On_f ) {
             tank.DecreaseLives();
             tank.Respawn();
             tank.SetFlagSpawn(true);
-
         }
+
         if (tank.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
             tank.SetSpeed(0);
         }
+
         if (page.TwoPlayers){
+
             if (enemy_bul[i].GetRect().intersects(friend_t.GetRect()) && enemy_bul[i].Is_On_f ) {
                 friend_t.DecreaseLives();
                 friend_t.Respawn();
             }
+
             if (friend_t.GetRect().intersects(t[i].GetRect()) && t[i].GetIsAlive()){
                 friend_t.SetSpeed(0);
             }
+
         }
     }
     tank.update(g_time.GetTime()); //обновление главного танка
@@ -325,7 +321,6 @@ void IfTankIsKilled(int enemy_iterator, Bullet enemy_bul[], Player &tank, Player
 }
 
 int Game(RenderWindow &window, MENU page, int STATE) {
-    ///////--------------------------------
 
     Map map("Background.png");
     map.SetNumberMap(STATE);
@@ -422,9 +417,6 @@ int Game(RenderWindow &window, MENU page, int STATE) {
             }
         }
 
-//        NewBullet = false;
-//        FriendBullet = false;
-
         time_to_go += g_time.GetTime();
         map.DrawMapBack(window);
         GlobalUpdate(tank, g_time, map, enemy_iterator, t, enemy_bul, time_to_go, enemies_number, n_enemies, engine,
@@ -432,7 +424,6 @@ int Game(RenderWindow &window, MENU page, int STATE) {
 
         DrawIcons(window, page, tank, friend_t, lives_icon, enemy_icon, friend_lives_icon, enemies_number);
         Bonus(window, page, tank, friend_t, audio, bul, n_bul, enemies_number, bonus_f, randomX, randomY, bonus_icon, cur_tank_lives, tank_speed, cur_friend_tank_lives);
-//        base_is_damaged1 = OurBullets(bul, n_bul, enemy_iterator, enemy_bul, t, map, g_time, window);
 
         for (int i = 0; i < n_bul; i++) {
             for (int j = 0; j < enemy_iterator; j++) {
@@ -460,7 +451,6 @@ int Game(RenderWindow &window, MENU page, int STATE) {
             }
         }
 
-//        base_is_damaged2 = EnemyUpdateAndDraw(num_alive_enemies, CurrentFrame, t, enemy_iterator, enemy_bul, engine,map, window, g_time, bul, n_bul);
         for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
             for (int j = 0; j < n_bul; j++) {
                 if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f) {
@@ -552,7 +542,6 @@ int Game(RenderWindow &window, MENU page, int STATE) {
             if(STATE<3){
                 return ++STATE;
             } else return 4;
-
         }
     }
 }

@@ -1,7 +1,3 @@
-//
-// Created by NP on 28.03.2022.
-//
-
 #include "Game_time.h"
 
 void Game_time::Init() {

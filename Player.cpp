@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "Types.h"
-#include <iostream>
 using namespace sf;
 
 

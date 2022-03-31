@@ -1,7 +1,3 @@
-//
-// Created by 79101 on 28.03.2022.
-//
-
 #ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 

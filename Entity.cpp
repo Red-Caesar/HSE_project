@@ -1,7 +1,3 @@
-//
-// Created by 79101 on 28.03.2022.
-//
-
 #include "Entity.h"
 #include <SFML/Graphics.hpp>
 Entity::Entity(const String &F, float X, float Y, int W, int H, const String name){
@@ -12,16 +8,13 @@ Entity::Entity(const String &F, float X, float Y, int W, int H, const String nam
     m_width = W;
     m_height = H;
     m_name = name;
-   // m_lives = 3;
     is_alive = true;
 
 
-    m_image.loadFromFile("..\\images/" + m_file);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
-    //m_image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
+    m_image.loadFromFile("..\\images/" + m_file);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта.
     m_texture.loadFromImage(m_image);//закидываем наше изображение в текстуру
     m_sprite.setTexture(m_texture);//заливаем спрайт текстурой
     m_sprite.setTextureRect(IntRect(X, Y, m_width, m_height));
-    //m_sprite.setPosition(m_x,m_y);
 }
 
 

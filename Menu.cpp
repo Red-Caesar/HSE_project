@@ -153,7 +153,7 @@ bool MENU::win (RenderWindow &window){
     return true;
 }
 
-void NewStage(int STATE){
+void MENU::NewStage(int STATE, RenderWindow &window){
     Image im;
     Texture text;
     Sprite sprite;
@@ -169,4 +169,19 @@ void NewStage(int STATE){
     text.loadFromImage(im);
     sprite.setTexture(text);
     sprite.setPosition(0,0);
+    bool IsStage=true;
+    while(IsStage){
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+                IsStage=false;
+            }
+        }
+
+
+        window.draw(sprite);
+        window.display();
+        window.clear();
+    }
 }
