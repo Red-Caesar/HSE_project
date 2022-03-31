@@ -181,6 +181,39 @@ bool EnemyUpdateAndDraw(int &num_alive_enemies, float CurrentFrame, Enemy_tank t
                         Map &map, RenderWindow &window,Game_time &g_time, Bullet bul[], int n_bul){
     bool base_is_damaged = false;
 
+
+//        if (t[i].GetIsAlive()) {
+//            map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
+//
+//            if (t[i].GetFlag_to_change()) {      //Если флаг сигнализирует о том, что надо поменять направление
+//                t[i].UpdateDir(engine);    // меняем направление
+//                t[i].SetFlag_to_change(false);  //Опускаем флаг
+//            }
+//            if (!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
+//                enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
+//                enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
+//            }
+//
+//            std::uniform_int_distribution<int> dist(1, 1024);
+//            switch (dist(engine)) {
+//                case 512:
+//                    t[i].UpdateDir(engine);
+//                    break;
+//            }
+//            if (enemy_bul[i].GetIsBaseDamaged()) {
+//                base_is_damaged = true;
+//            }
+//
+//            enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
+//            enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
+//            window.draw(enemy_bul[i].sprite);
+//            t[i].EnemyUpdate(g_time.GetTime(), CurrentFrame);
+//            if (t[i].GetIsOnTheField()) {
+//                t[i].SetSpeed(t[i].GetSpeed());
+//            }
+//            window.draw(t[i].GetSprite());
+//        }
+ //   }
     for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
         for (int j = 0; j < n_bul; j++) {
             if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f) {
@@ -209,7 +242,7 @@ bool EnemyUpdateAndDraw(int &num_alive_enemies, float CurrentFrame, Enemy_tank t
                 enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
                 enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
             }
-
+//
             std::uniform_int_distribution<int> dist(1, 1024);
             switch (dist(engine)) {
                 case 512:
@@ -451,55 +484,7 @@ int Game(RenderWindow &window, MENU page, int STATE) {
             }
         }
 
-        for (int i = 0;i<enemy_iterator;i++) {   //Общий цикл врагов
-            for (int j = 0; j < n_bul; j++) {
-                if (enemy_bul[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && bul[i].Is_On_f) {
-                    enemy_bul[i].Is_On_f = false;
-                    enemy_bul[i].SetSpeed(0);
-                }
-            }
 
-            for (int j = 0; j < n_bul; j++) {
-                if (t[i].GetRect().intersects(bul[j].GetRect()) && bul[j].Is_On_f && t[i].GetIsAlive()) {
-                    t[i].SetIsAlive(false);
-                    num_alive_enemies--;
-                    bul[j].Is_On_f = false;
-                    enemy_bul[i].Is_On_f = false;
-                }
-            }
-
-            if (t[i].GetIsAlive()) {
-                map.InteractionEnemyTankWithMap(map.GetDiagramMap(), t[i]);
-
-                if (t[i].GetFlag_to_change()) {      //Если флаг сигнализирует о том, что надо поменять направление
-                    t[i].UpdateDir(engine);    // меняем направление
-                    t[i].SetFlag_to_change(false);  //Опускаем флаг
-                }
-                if (!enemy_bul[i].Is_On_f) {     //Если пуля врага была не на поле
-                    enemy_bul[i].Is_On_f = true;   // Сделать ее на поле
-                    enemy_bul[i].New_Coordinates_and_Dir_Enemy(t[i]); // Установить ей координаты и направление
-                }
-//
-                std::uniform_int_distribution<int> dist(1, 1024);
-                switch (dist(engine)) {
-                    case 512:
-                        t[i].UpdateDir(engine);
-                        break;
-                }
-                if (enemy_bul[i].GetIsBaseDamaged()) {
-                    base_is_damaged2 = true;
-                }
-
-                enemy_bul[i].update(g_time.GetTime());   //Обновляем по времени
-                enemy_bul[i].Is_On_f = map.InteractionBulletWithMap(map.GetDiagramMap(),enemy_bul[i]); //Проверяем не попала ли куда-нибудь пуля
-                window.draw(enemy_bul[i].sprite);
-                t[i].EnemyUpdate(g_time.GetTime(), CurrentFrame);
-                if (t[i].GetIsOnTheField()) {
-                    t[i].SetSpeed(t[i].GetSpeed());
-                }
-                window.draw(t[i].GetSprite());
-            }
-        }
 
         map.InteractionTankWithMap(map.GetDiagramMap(), tank);
         if (page.TwoPlayers) map.InteractionTankWithMap(map.GetDiagramMap(), friend_t);
@@ -530,7 +515,7 @@ int Game(RenderWindow &window, MENU page, int STATE) {
             }
         }
         GlobalDrawing(window, map, enemies_number, enemy_icon, tank, lives_icon, bul, n_bul, g_time, page, friend_t);
-
+        base_is_damaged2=EnemyUpdateAndDraw(num_alive_enemies, CurrentFrame, t, enemy_iterator,  enemy_bul, engine, map, window, g_time,  bul, n_bul);
         map.DrawMapForward(window);
         window.display();
         window.clear();
