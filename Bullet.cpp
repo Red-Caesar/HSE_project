@@ -2,44 +2,37 @@
 #include "Types.h"
 
 Bullet::Bullet() {
-    //File = F;//имя файла+расширение
     w = 7.0;
-    h = 7.0;//высота и ширина
-    //image.loadFromFile("..\\images/" + File);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
-    //image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
-    //texture.loadFromImage(image);//закидываем наше изображение в текстуру
-    //sprite.setTexture(texture);//заливаем спрайт текстурой
+    h = 7.0;
     x = 0;
-    y = 0;//координата появления спрайта
+    y = 0;
     dir = 0;
     speed = 0.1;
-    sprite.setTextureRect(IntRect(156, 27, w,h));  //Задаем спрайту один прямоугольник для вывода одного льва, а не кучи львов сразу. IntRect - приведение типов
+    sprite.setTextureRect(IntRect(156, 27, w,h));
     is_base_damaged = false;
-
 }
 
 void Bullet::update(float time) {
-    switch (dir)//реализуем поведение в зависимости от направления. (каждая цифра соответствует направлению)
-    {
+    switch (dir) {
         case 0:
             dx = speed;
             dy = 0;
-            break;//по иксу задаем положительную скорость, по игреку зануляем. получаем, что персонаж идет только вправо
+            break;
         case 1:
             dx = -speed;
             dy = 0;
-            break;//по иксу задаем отрицательную скорость, по игреку зануляем. получается, что персонаж идет только влево
+            break;
         case 2:
             dx = 0;
             dy = speed;
-            break;//по иксу задаем нулевое значение, по игреку положительное. получается, что персонаж идет только вниз
+            break;
         case 3:
             dx = 0;
             dy = -speed;
-            break;//по иксу задаем нулевое значение, по игреку отрицательное. получается, что персонаж идет только вверх
+            break;
     }
-    x += dx * time;//то движение из прошлого урока. наше ускорение на время получаем смещение координат и как следствие движение
-    y += dy * time;//аналогично по игреку
+    x += dx * time;
+    y += dy * time;
 
     if (x >= 32 * 17 || y >= 32 * 15 || x <= 32 || y <= 32) {
         speed = 0;
@@ -47,9 +40,6 @@ void Bullet::update(float time) {
     } else {
         sprite.setPosition(x, y);
     }
-    //speed = 0;//зануляем скорость, чтобы персонаж остановился.
-    //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
-
 }
 
 void Bullet::New_Coordinates_and_Dir(Player &player) {
@@ -58,6 +48,7 @@ void Bullet::New_Coordinates_and_Dir(Player &player) {
     y = player.GetY() + 10;
     speed = 0.2;
 }
+
 void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
     dir = enemy.GetDir();
     x = enemy.GetX() + 10;
@@ -68,7 +59,6 @@ void Bullet::New_Coordinates_and_Dir_Enemy(Enemy_tank &enemy) {
             speed = 0.3;
             break;
     }
-
 }
 
 void Bullet::SetFile(String F) {
@@ -76,7 +66,6 @@ void Bullet::SetFile(String F) {
     image.loadFromFile("..\\images/" + File);
     texture.loadFromImage(image);
     sprite.setTexture(texture);
-
 }
 
 float Bullet::GetX() const {
@@ -95,7 +84,7 @@ float Bullet::GetSpeedY() const {
     return dy;
 }
 
-void Bullet::SetSpeed(float s_speed){
+void Bullet::SetSpeed(float s_speed) {
     speed = s_speed;
 }
 
@@ -115,34 +104,15 @@ float Bullet::GetW() const {
     return w;
 }
 
-//Bullet::Bullet(Player &player, String F) {
-//    File = F;//имя файла+расширение
-//    //SetWidth(7.0);
-//    w = 7.0;
-//    h = 7.0;//высота и ширина
-//    image.loadFromFile("..\\images/" +
-//                       File);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
-//    //image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
-//    texture.loadFromImage(image);//закидываем наше изображение в текстуру
-//    sprite.setTexture(texture);//заливаем спрайт текстурой
-//    x = player.GetX();
-//    y = player.GetY();//координата появления спрайта
-//    dir = player.GetDir();
-//    speed = 0.1;
-//    sprite.setTextureRect(IntRect(156, 27, w,
-//                                  h));
-//
-//}
-
 
 FloatRect Bullet::GetRect() {
     return FloatRect(x, y, w, h);
 }
 
-void Bullet::SetIsBaseDamaged(bool flag){
+void Bullet::SetIsBaseDamaged(bool flag) {
     is_base_damaged = flag;
 }
 
-bool Bullet::GetIsBaseDamaged(){
+bool Bullet::GetIsBaseDamaged() {
     return is_base_damaged;
 }

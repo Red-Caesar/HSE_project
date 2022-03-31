@@ -10,12 +10,13 @@
 
 
 using namespace sf;
-const int HEIGHT_MAP = 15;//размер карты высота
-const int WIDTH_MAP = 17;//размер карты ширина
+const int HEIGHT_MAP = 15;
+const int WIDTH_MAP = 17;
 
 
 class Map {
     friend class Player;
+
 private:
     int number_map{};
     Image map_image;
@@ -120,10 +121,12 @@ public:
 
     void SetDiagramMap(int i, int j, char texture);
 
-    void CreateMap( std::vector<String> Diagram, int i, int j);
-    void CreateMap2( std::vector<String> Diagram, int i, int j);
+    void CreateMap(std::vector<String> Diagram, int i, int j);
+
+    void CreateMap2(std::vector<String> Diagram, int i, int j);
 
     static void InteractionTankWithMap(std::vector<String> Diagram, Player &tank);
+
     static void InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank);
 
     bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);

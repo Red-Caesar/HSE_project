@@ -24,10 +24,6 @@ public:
         File = F;
         x = X;
         y = Y;
-        // x = 48/33;
-        //y = 273;
-        //w = 16;
-        //h = 16;
         w = S;
         h = S;
         image.loadFromFile("..\\images/" + File);
@@ -36,8 +32,6 @@ public:
         icon_sprite.setTextureRect(IntRect(x, y, w,h));
     }
     void CreateIcon(int x, int y) {
-        // x = 464;
-        // y = 64/200;
         icon_sprite.setPosition(x, y);
     }
 

@@ -1,33 +1,27 @@
-//
-// Created by 79101 on 28.03.2022.
-//
-
 #include "Entity.h"
 #include <SFML/Graphics.hpp>
-Entity::Entity(const String &F, float X, float Y, int W, int H, const String name){
+
+Entity::Entity(const String &F, float X, float Y, int W, int H, const String name) {
     m_file = F;
-    m_vx= 0;
+    m_vx = 0;
     m_vy = 0;
-    m_x = 0;m_y = 0; m_speed = 0;
+    m_x = 0;
+    m_y = 0;
+    m_speed = 0;
     m_width = W;
     m_height = H;
     m_name = name;
-   // m_lives = 3;
     is_alive = true;
 
 
-    m_image.loadFromFile("..\\images/" + m_file);//запихиваем в image наше изображение вместо File мы передадим то, что пропишем при создании объекта. В нашем случае "hero.png" и получится запись идентичная 	image.loadFromFile("images/hero/png");
-    //m_image.createMaskFromColor(Color(41, 33, 59));//убираем ненужный темно-синий цвет, эта тень мне показалась не красивой.
-    m_texture.loadFromImage(m_image);//закидываем наше изображение в текстуру
-    m_sprite.setTexture(m_texture);//заливаем спрайт текстурой
+    m_image.loadFromFile("..\\images/" + m_file);
+    m_texture.loadFromImage(m_image);
+    m_sprite.setTexture(m_texture);
     m_sprite.setTextureRect(IntRect(X, Y, m_width, m_height));
-    //m_sprite.setPosition(m_x,m_y);
 }
 
 
-
-float Entity::GetX()
-{
+float Entity::GetX() {
     return m_x;
 }
 
@@ -35,7 +29,7 @@ void Entity::SetX(float x) {
     m_x = x;
 }
 
-float Entity::GetY(){
+float Entity::GetY() {
     return m_y;
 }
 
@@ -67,19 +61,19 @@ void Entity::SetSpeed(float speed) {
     m_speed = speed;
 }
 
-int Entity::GetH(){
+int Entity::GetH() {
     return m_height;
 }
 
-void Entity::SetH(int height){
+void Entity::SetH(int height) {
     m_height = height;
 }
 
-int Entity:: GetW(){
+int Entity::GetW() {
     return m_width;
 }
 
-void Entity:: SetW(int width){
+void Entity::SetW(int width) {
     m_width = width;
 }
 
@@ -91,7 +85,7 @@ int Entity::GetDir() {
     return m_dir;
 }
 
-void Entity::SetDir(int dir){
+void Entity::SetDir(int dir) {
     m_dir = dir;
 }
 
@@ -107,6 +101,6 @@ bool Entity::GetIsAlive() const {
     return is_alive;
 }
 
-void Entity::SetIsAlive(bool flag){
+void Entity::SetIsAlive(bool flag) {
     is_alive = flag;
 }

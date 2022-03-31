@@ -7,7 +7,7 @@
 
 using namespace sf;
 
-class Player : public Entity{
+class Player : public Entity {
     friend class Bullet;
 
 private:
@@ -15,13 +15,12 @@ private:
     Sprite spawn_sprite;
     Texture spawn_texture;
     bool Spawn = true;
-    int m_player_lives; //кол-во жизней
-    int m_score; //счет игрока
+    int m_player_lives;
 public:
     int m_level = 0;
-    Player(const String& F, float X, float Y,int W,int H, const String name) : Entity(F,X,Y,W,H,name){
+
+    Player(const String &F, float X, float Y, int W, int H, const String name) : Entity(F, X, Y, W, H, name) {
         m_player_lives = 3;
-        m_score = 0;
     }
 
 

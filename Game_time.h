@@ -4,7 +4,9 @@
 
 #ifndef GAME_GAME_TIME_H
 #define GAME_GAME_TIME_H
+
 #include <SFML/Graphics.hpp>
+
 using namespace sf;
 
 class Game_time {
@@ -14,9 +16,13 @@ private:
     float time_spawn;
 public:
     void Init();
+
     float GetTime();
+
     float GetTimeSpawn();
+
     void updateSpawn();
+
     void SetTimeSpawn(float time);
 };
 

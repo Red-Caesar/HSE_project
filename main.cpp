@@ -1,21 +1,20 @@
 #include <iostream>
 #include <windows.h>
-#include <chrono>
-#include <random>
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 #include "Menu.h"
 #include "Types.h"
+
 using namespace sf;
 
 
 int main() {
     RenderWindow window(VideoMode(544, 480), "Tan4iki!");
     MENU page;
-    if(!page.menu(window)){
+    if (!page.menu(window)) {
         return 0;
     }
-    int STATE=1;
+    int STATE = 1;
     while (1) {
         switch (STATE) {
             case 0:
