@@ -260,6 +260,7 @@ void Map::DrawMapBack(RenderWindow &window){
         for (int j = 0; j < WIDTH_MAP; j++) {
             CreateMap(GetDiagramMap(), i, j);
             window.draw(GetMapSprite());
+        }
 }
 
 void Map::DrawMapForward(RenderWindow &window){
