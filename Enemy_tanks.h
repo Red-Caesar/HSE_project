@@ -1,42 +1,53 @@
-
 #ifndef GAME_ENEMY_TANKS_H
 #define GAME_ENEMY_TANKS_H
-#include <random>
-#include "Player.h"
 
-class Enemy_tank : public Player{
+#include <random>
+#include "Entity.h"
+#include "Game_time.h"
+
+class Enemy_tank : public Entity {
+    friend void Start_Enemy_Function(Enemy_tank &t);
+
+    friend class Bullet;
+
 private:
+    int enemy_class;
     float start_x;
     float start_y;
-    bool IsAlive=true;
-    bool IsOnTheField=false;
-   // bool IsPlayer=false;
-    bool Flag_to_change=true; //Флаг показывающий, что пора сменить направление
-
+    bool IsOnTheField;
+    bool Flag_to_change;
 public:
-    //Enemy_tank(const String &F, float X, float Y, int W, int H) : Player(F,X, Y, W, H){}
-    //Enemy_tank() : Player(){}
-    Enemy_tank();
-    //void Update(float time);
-    void UpdateDir(float time,std::mt19937 engine);
+    Enemy_tank() {}
+
+    void EnemyUpdate(float time, float CurrentFrame);
+
+    void SetEnemyFile(String F, int class_of_enemy);
+
+    void UpdateDir(std::mt19937 engine);
+
     void SetStartX(float x);
+
     void SetStartY(float y);
+
     float GetStartX() const;
+
     float GetStartY() const;
-    bool GetIsAlive() const;
+
     bool GetIsOnTheField() const;
+
+    void SetIsOnTheField(bool flag);
+
     void SetStartCoordinates(float x, float y);
-    void Start_Enemy_Function(Enemy_tank &t1, Enemy_tank &t2, Enemy_tank &t3);
 
-    //bool SetIsPlayer(bool f);
+    void Start_Enemy_Function(Enemy_tank &t);
 
-    bool SetFlag_to_change(bool f);
+    void EnemyInit(int x, int y);
 
-   //bool GetIsPlayer() const;
+    void SetEnemyRect(float CurrentFrame);
+
+    void SetFlag_to_change(bool f);
 
     bool GetFlag_to_change() const;
-
-    bool SetIsAlive(bool f);
 };
 
 #endif //GAME_ENEMY_TANKS_H

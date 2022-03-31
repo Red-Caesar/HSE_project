@@ -2,84 +2,60 @@
 #define GAME_PLAYER_H
 
 #include <SFML/Graphics.hpp>
+#include "Entity.h"
+#include "Game_time.h"
 
 using namespace sf;
 
-class Player {
+class Player : public Entity {
     friend class Bullet;
 
 private:
-    int m_dir = 0;
-    int m_width = 32;
-    int m_height = 32;
-    Image m_image;
-    Sprite m_sprite;
-    Texture m_texture;
-    //
-    String File;
-    String Name;
-    float m_speed;         //базовая скорость
-    float m_x, m_y;        //позиция игрока
-    float m_vx, m_vy;      //скорость игрока (ускорение по x и y)
-
-    int m_player_lives; //кол-во жизней
-    bool m_alive; //живой или нет
-    bool IsPlayer = true;
-
+    Image spawn_image;
+    Sprite spawn_sprite;
+    Texture spawn_texture;
+    bool Spawn = true;
+    int m_player_lives;
 public:
-    Player(const String &F, float X, float Y, int W, int H);
+    int m_level = 0;
 
-    Player();
+    Player(const String &F, float X, float Y, int W, int H, const String name) : Entity(F, X, Y, W, H, name) {
+        m_player_lives = 3;
+    }
+
 
     void Init(int x, int y);
 
     void update(float time);
 
-    double GetSpeed();
-
-    bool GetAlive() const;
-
-    void SetAlive(bool alive);
+    void SetIsAlive(bool alive);
 
     int GetPlayerLives() const;
 
     void SetPlayerLives(int lives);
 
-    float GetX();
+    void setRect(float CurrentFrame);
 
-    float GetY();
+    void DecreaseLives();
 
-    float GetSpeedX();
+    void Respawn();
 
-    float GetSpeedY();
+    void SpawnInit(int x, int y);
 
-    float GetH();
+    Sprite GetSpriteSpawn();
 
-    float GetW();
+    void DrawSpawnStars(Game_time time);
 
-    void SetSpeed(float speed);
+    void DrawSpawn(Game_time time);
 
-    void SetX(int x);
+    void SetPlayerLevel(int level);
 
-    void SetY(int y);
+    void SetFlagSpawn(bool value);
 
-    void SetFile(String F);
+    bool GetFlagSpawn();
 
-    void SetSpeedX(int vx);
+    void Control(float CurrentFrame);
 
-    void SetSpeedY(int vy);
-
-    int GetDir();
-
-    void SetDir(int dir);
-
-    Sprite GetSprite();
-
-    void setRect();
-
-    void SetW();
-
-    void SetH();
 };
 
 #endif

@@ -10,12 +10,13 @@
 
 
 using namespace sf;
-const int HEIGHT_MAP = 15;//размер карты высота
-const int WIDTH_MAP = 17;//размер карты ширина
+const int HEIGHT_MAP = 15;
+const int WIDTH_MAP = 17;
 
 
 class Map {
     friend class Player;
+
 private:
     int number_map{};
     Image map_image;
@@ -61,15 +62,34 @@ private:
             "@F4F9FFF4F4F4F@@@",
             "@F4FFFF44F494F@@@",
             "@FFF4FFFFF9FFF@@@",
-            "@sFF4FF9FF4s49@@@",
-            "@ssFFF4FF9FsFF@@@",
-            "@F444sss9FFs4F@@@",
-            "@FFF9s4F4F4F4F@@@",
+            "@BFF4FF9FF4B49@@@",
+            "@BBFFF4FF9FBFF@@@",
+            "@F444BBB9FFB4F@@@",
+            "@FFF9B4F4F4F4F@@@",
             "@94F9F4F4FFF4F@@@",
             "@F4F4F444F494F@@@",
             "@F4F4F444FFFFF@@@",
             "@F4FFF?1?F4F4F@@@",
             "@F4F4F0G2F444F@@@",
+            "@@@@@@@@@@@@@@@@@",
+    };
+
+    //ThirdMap
+    std::vector<String> ThirdMap = {
+            "@@@@@@@@@@@@@@@@@",
+            "@FFFF4FFF4FFFF@@@",
+            "@FBBB4FFFFF666@@@",
+            "@4BBBFFFFFFFFF@@@",
+            "@BBBBFFF4F444F@@@",
+            "@BBBB4443F4F2F@@@",
+            "@BBBBFF4FFFF2F@@@",
+            "@FBFFFF999FFBF@@@",
+            "@F1F1FFFFFBBBB@@@",
+            "@420420333BBBB@@@",
+            "@FFFFF4F11BBBB@@@",
+            "@4FF7FFF33BBBF@@@",
+            "@44F7F?1?FBBBF@@@",
+            "@944FF0G2F4FFF@@@",
             "@@@@@@@@@@@@@@@@@",
     };
 
@@ -101,15 +121,20 @@ public:
 
     void SetDiagramMap(int i, int j, char texture);
 
-    void CreateMap( std::vector<String> Diagram, int i, int j);
+    void CreateMap(std::vector<String> Diagram, int i, int j);
+
+    void CreateMap2(std::vector<String> Diagram, int i, int j);
 
     static void InteractionTankWithMap(std::vector<String> Diagram, Player &tank);
+
     static void InteractionEnemyTankWithMap(std::vector<String> Diagram, Enemy_tank &tank);
 
     bool InteractionBulletWithMap(std::vector<String> Diagram, Bullet &bullet);
 
+    void DrawMapBack(RenderWindow &window);
+
+    void DrawMapForward(RenderWindow &window);
 
 };
-
 
 #endif //GAME_MAP_H
