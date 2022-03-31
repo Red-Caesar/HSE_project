@@ -29,7 +29,8 @@ int main() {
                     return 0;
                 }
                 break;
-
+            case 5:
+                return 0;
         }
     }
 }

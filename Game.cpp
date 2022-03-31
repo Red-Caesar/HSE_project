@@ -387,7 +387,7 @@ int Game(RenderWindow &window, MENU page, int STATE) {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
-                return false;
+                return 5;
             }
         }
 
